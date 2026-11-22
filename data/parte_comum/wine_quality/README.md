@@ -1,4 +1,4 @@
-# Dados — Parte Comum (Wine Quality)
+# Dados — Parte Comum: Wine Quality
 
 - **Fonte:** UCI Machine Learning Repository, [Wine Quality (id 186)](https://archive.ics.uci.edu/dataset/186).
 - **Citação pedida pelos autores (`winequality.names`):** P. Cortez, A. Cerdeira, F. Almeida, T. Matos e J. Reis. *Modeling wine preferences by data mining from physicochemical properties*. Decision Support Systems, Elsevier, 47(4):547-553, 2009.
