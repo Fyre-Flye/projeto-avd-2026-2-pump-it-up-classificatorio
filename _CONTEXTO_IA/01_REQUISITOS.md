@@ -1,6 +1,6 @@
 # 01 — Requisitos do enunciado (resumo fiel)
 
-Fonte: *Projeto Final: Agrupamento, EDA e Dashboard Interativo*, AVD 2026.2 (para estudantes não matriculados em Teoria dos Grafos). Este resumo segue o PDF. Em caso de dúvida, vale o PDF, que o Gustavo tem localmente.
+Fonte: *Projeto Final: Agrupamento, EDA e Dashboard Interativo*, AVD 2026.2 (para estudantes não matriculados em Teoria dos Grafos). Este resumo segue o PDF. Em caso de dúvida, vale o PDF: `Requisitos/Projeto_Final_AVD_2026_2_SEM_MARCADOR.pdf`. A versão `COM_MARCADOR` mostra a divisão do grupo: **azul = Parte Comum (Sacramento)**, **verde = Parte Específica (Gustavo)**.
 
 ## Grupo 6
 | Integrante | Situação | Parte |

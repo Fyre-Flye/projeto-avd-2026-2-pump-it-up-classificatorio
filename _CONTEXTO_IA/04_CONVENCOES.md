@@ -11,7 +11,9 @@ notebooks/parte_comum/eda.ipynb, kmeans_metricas.ipynb
 src/parte_comum/                  # vazio de propósito (o grupo usa notebooks)
 src/parte_especifica/eda.ipynb, dashboard.py
 ```
-Pastas locais **fora do Git** (estão no `.gitignore`): `Requisitos/`, `DatasetParteComum/`, `DatasetParteEspecifica/`. Não as adicione.
+`Requisitos/` tem o enunciado (PDFs com e sem marcação) e o print do checkpoint. O resto dessa pasta (ex.: a planilha da turma, com dados pessoais de outros alunos) fica **fora do Git**.
+
+Pastas locais **fora do Git** (estão no `.gitignore`): `DatasetParteComum/`, `DatasetParteEspecifica/`. Não as adicione.
 
 ## Caminhos
 - Notebooks e scripts rodam **a partir da raiz do repo**. Os esqueletos têm uma célula que sobe até a raiz e define `ROOT`, `DATA_DIR` e `OUT_DIR`.

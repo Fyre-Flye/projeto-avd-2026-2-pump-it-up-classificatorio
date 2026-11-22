@@ -75,6 +75,7 @@ Execute os comandos **a partir da raiz do repositório**. As figuras geradas vã
 │  ├─ parte_comum/            # (optamos por notebooks; ver README da pasta)
 │  └─ parte_especifica/       # eda.ipynb, dashboard.py
 ├─ _CONTEXTO_IA/              # contexto do projeto para assistentes de IA (ver Uso de IA)
+├─ Requisitos/                # enunciado (PDF com e sem marcação de quem faz cada parte) e print do checkpoint
 └─ relatorio.pdf              # relatório técnico (entregue ao final)
 ```
 
