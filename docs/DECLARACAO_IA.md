@@ -20,7 +20,8 @@ Claude Code (Anthropic).
 ### Tipos de pedido feitos
 - **Organização do projeto:** criação da estrutura de pastas exigida pelo enunciado, README, `requirements.txt`, `.gitignore`, esqueletos dos notebooks e do dashboard, e da pasta `_CONTEXTO_IA/` com as regras do projeto.
 - **Consulta ao material de aula:** leitura dos slides e do enunciado para manter o projeto dentro do escopo da disciplina.
-- *(a preencher ao longo do projeto: geração de código para a EDA, apoio com Streamlit, revisão de texto etc.)*
+- **Geração de código para a EDA da Parte Específica** (`src/parte_especifica/eda.ipynb`): código que calcula e plota os 4 pilares (estrutura, qualidade dos dados e indicadores de ausência, distribuições, relações com `status_group` e outliers pelo IQR). As células estão marcadas com `# [IA]`. As células de interpretação, o mecanismo de ausência e as decisões de tratamento ficaram em branco para o grupo preencher.
+- *(a preencher ao longo do projeto: apoio com Streamlit, revisão de texto etc.)*
 
 ### O que foi aceito, modificado ou rejeitado e por quê
 - *(a preencher)*
