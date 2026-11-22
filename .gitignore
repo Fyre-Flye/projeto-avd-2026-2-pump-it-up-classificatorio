@@ -19,10 +19,15 @@ __pycache__/
 Thumbs.db
 desktop.ini
 
+# Requisitos/: so sobem o enunciado (PDFs) e o print do checkpoint.
+# A planilha da turma (contem dados pessoais de outros alunos) e o resto ficam fora.
+Requisitos/*
+!Requisitos/Projeto_Final_AVD_2026_2_COM_MARCADOR.pdf
+!Requisitos/Projeto_Final_AVD_2026_2_SEM_MARCADOR.pdf
+!Requisitos/checkpoint1.png
+
 # Pastas locais de trabalho (NAO versionar)
-# - Requisitos/: enunciado + planilha da turma (contem dados pessoais de outros alunos)
 # - DatasetParte*/: copias originais e zips; os CSVs usados ficam em data/
-Requisitos/
 DatasetParteComum/
 DatasetParteEspecifica/
 *.zip
