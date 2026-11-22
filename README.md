@@ -54,7 +54,7 @@ Execute os comandos **a partir da raiz do repositório**. As figuras geradas vã
 
 ## Dados
 
-- `data/parte_comum/`: os dois datasets permitidos pelo enunciado, e o grupo usa um. São eles `wine_quality/` (`winequality-red.csv` e `winequality-white.csv`, separador `;`) e `obesity/` (`ObesityDataSet_raw_and_data_sinthetic.csv`). Comparação em [data/parte_comum/README.md](data/parte_comum/README.md).
+- `data/parte_comum/`: os dois datasets permitidos pelo enunciado, e o grupo usa um. São eles `wine_quality/` (`winequality-red.csv`, `winequality-white.csv` e `winequality-combined.csv` com os dois juntos, separador `;`) e `obesity/` (`ObesityDataSet_raw_and_data_sinthetic.csv`). Comparação em [data/parte_comum/README.md](data/parte_comum/README.md).
 - `data/parte_especifica/raw/pump_it_up_train.csv`: dataset bruto (59.400 linhas × 41 colunas, valores e rótulos unificados). Como baixar do DrivenData (exige cadastro): [data/parte_especifica/README.md](data/parte_especifica/README.md).
 - `data/parte_especifica/clean/`: dataset tratado, exportado ao final da EDA. O dashboard lê **só** desta pasta.
 

@@ -6,12 +6,12 @@ O enunciado deixa o grupo escolher **um** dos dois datasets. Os dois estão no r
 | | Wine Quality (UCI 186) | Obesity (UCI 544) |
 | --- | --- | --- |
 | Pasta | `data/parte_comum/wine_quality/` | `data/parte_comum/obesity/` |
-| Arquivo(s) | `winequality-red.csv` (1.599 × 12) e `winequality-white.csv` (4.898 × 12), separador **`;`** | `ObesityDataSet_raw_and_data_sinthetic.csv` (2.111 × 17), separador `,` |
+| Arquivo(s) | `winequality-red.csv` (1.599 × 12), `winequality-white.csv` (4.898 × 12) e `winequality-combined.csv` (os dois juntos, 6.497 × 13, com a coluna `wine_type`), separador **`;`** | `ObesityDataSet_raw_and_data_sinthetic.csv` (2.111 × 17), separador `,` |
 | Classe | `quality` (nota inteira) | `NObeyesdad` (7 níveis de peso/obesidade) |
 | Nº de classes (= k da Passada 2) | tinto 6 (notas 3–8); branco 7 (notas 3–9); juntos 7 | 7 |
 | Variáveis de entrada | 11 físico-químicas, todas numéricas | 8 numéricas (`Age`, `Height`, `Weight`, `FCVC`, `NCP`, `CH2O`, `FAF`, `TUE`) e 8 qualitativas (`Gender`, `family_history_with_overweight`, `FAVC`, `CAEC`, `SMOKE`, `SCC`, `CALC`, `MTRANS`) |
 | Fatos verificados no arquivo | sem nulos | sem nulos; 24 linhas duplicadas; 77% dos dados são sintéticos (SMOTE), segundo a UCI; `FCVC`, `NCP`, `CH2O`, `FAF` e `TUE` têm valores fracionários |
-| Decisões extras | tinto, só branco ou os dois juntos? | o que fazer com as 8 qualitativas no K-Means (o enunciado fala em padronizar as **numéricas**; encoding foi visto na Aula 26) |
+| Decisões extras | tinto, só branco ou os dois juntos (`winequality-combined.csv`)? No combinado, `wine_type` é qualitativa: decidir se entra no K-Means | o que fazer com as 8 qualitativas no K-Means (o enunciado fala em padronizar as **numéricas**; encoding foi visto na Aula 26) |
 
 Detalhes de cada dataset estão nos READMEs das pastas em `data/parte_comum/`.
 
