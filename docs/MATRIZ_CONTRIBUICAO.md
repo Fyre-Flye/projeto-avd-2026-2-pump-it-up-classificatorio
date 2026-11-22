@@ -6,7 +6,7 @@
 
 | Integrante | Situação |
 | --- | --- |
-| Gustavo Henrique Oliveira | Ativo |
+| Gustavo Henrique Cruz de Oliveira | Ativo |
 | João Vitor do Sacramento Bezerra da Cunha | Ativo |
 | Arthur Borges | Sem contribuição registrada até o momento |
 | Luiz Felipe Cruz Braz | Reprovado por falta na disciplina (fora do projeto) |

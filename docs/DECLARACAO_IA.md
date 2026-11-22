@@ -2,7 +2,7 @@
 
 > **Rascunho em construção.** Cada integrante atualiza a sua seção ao longo do projeto. No final, a versão completa é exportada para `docs/DECLARACAO_IA.pdf` e **assinada por todos os integrantes**, como o enunciado exige.
 
-**Integrantes:** Gustavo Henrique Oliveira; João Vitor do Sacramento Bezerra da Cunha
+**Integrantes:** Gustavo Henrique Cruz de Oliveira; João Vitor do Sacramento Bezerra da Cunha
 **Período do trabalho:** 22/11/2026 a 26/11/2026
 
 ## Regras seguidas (enunciado)
@@ -12,7 +12,7 @@
 
 ---
 
-## Gustavo Henrique Oliveira (Parte Específica e organização do repositório)
+## Gustavo Henrique Cruz de Oliveira (Parte Específica e organização do repositório)
 
 ### Ferramenta
 Claude Code (Anthropic).
@@ -45,5 +45,5 @@ Claude Code (Anthropic).
 
 | Integrante | Assinatura | Data |
 | --- | --- | --- |
-| Gustavo Henrique Oliveira | | |
+| Gustavo Henrique Cruz de Oliveira | | |
 | João Vitor do Sacramento Bezerra da Cunha | | |

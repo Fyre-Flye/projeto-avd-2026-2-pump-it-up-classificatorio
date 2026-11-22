@@ -5,7 +5,7 @@ Fonte: *Projeto Final: Agrupamento, EDA e Dashboard Interativo*, AVD 2026.2 (par
 ## Grupo 6
 | Integrante | Situação | Parte |
 | --- | --- | --- |
-| Gustavo Henrique Oliveira | ativo | Parte Específica (Pump it Up) |
+| Gustavo Henrique Cruz de Oliveira | ativo | Parte Específica (Pump it Up) |
 | João Vitor do Sacramento Bezerra da Cunha | ativo | Parte Comum (Wine Quality) |
 | Arthur Borges | sem contribuição até o momento | — |
 | Luiz Felipe Cruz Braz | reprovado por falta | — |

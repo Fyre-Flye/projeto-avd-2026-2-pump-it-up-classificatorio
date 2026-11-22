@@ -6,7 +6,7 @@ Título do enunciado: *Projeto Final: Agrupamento, EDA e Dashboard Interativo*.
 | Parte | Dataset | Conteúdo | Responsável |
 | --- | --- | --- | --- |
 | **Comum** | [Wine Quality (UCI 186)](https://archive.ics.uci.edu/dataset/186) | EDA (4 pilares), padronização, K-Means em duas passadas, matriz de confusão e métricas, discussão crítica | João Vitor do Sacramento |
-| **Específica** | [Pump it Up: Data Mining the Water Table (DrivenData)](https://www.drivendata.org/competitions/7/pump-it-up-data-mining-the-water-table/) | Pergunta de pesquisa, EDA, storytelling, 6 visualizações, dashboard Streamlit, notas analíticas | Gustavo Henrique |
+| **Específica** | [Pump it Up: Data Mining the Water Table (DrivenData)](https://www.drivendata.org/competitions/7/pump-it-up-data-mining-the-water-table/) | Pergunta de pesquisa, EDA, storytelling, 6 visualizações, dashboard Streamlit, notas analíticas | Gustavo Henrique Cruz de Oliveira |
 
 A matriz de contribuição está em [docs/MATRIZ_CONTRIBUICAO.md](docs/MATRIZ_CONTRIBUICAO.md).
 
