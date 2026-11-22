@@ -1,0 +1,12 @@
+# Bibliotecas permitidas pelo enunciado (Projeto Final AVD 2026.2)
+pandas>=2.2
+numpy>=2.0
+matplotlib>=3.9
+seaborn>=0.13
+plotly>=6.0
+scikit-learn>=1.5
+streamlit>=1.50
+
+# Ferramentas apenas para abrir/executar os notebooks (nao sao bibliotecas de analise)
+jupyter>=1.0
+ipykernel>=6.29

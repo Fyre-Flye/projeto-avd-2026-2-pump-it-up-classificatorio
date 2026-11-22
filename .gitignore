@@ -1,0 +1,31 @@
+# Ambientes virtuais Python
+.venv/
+venv/
+env/
+
+# Cache e bytecode Python
+__pycache__/
+*.pyc
+
+# Checkpoints do Jupyter
+.ipynb_checkpoints/
+
+# Configuracao de editor
+.vscode/
+.idea/
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Pastas locais de trabalho (NAO versionar)
+# - Requisitos/: enunciado + planilha da turma (contem dados pessoais de outros alunos)
+# - DatasetParte*/: copias originais e zips; os CSVs usados ficam em data/
+Requisitos/
+DatasetParteComum/
+DatasetParteEspecifica/
+*.zip
+
+# Segredos do Streamlit
+.streamlit/secrets.toml
