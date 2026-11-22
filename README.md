@@ -5,7 +5,7 @@ Título do enunciado: *Projeto Final: Agrupamento, EDA e Dashboard Interativo*.
 
 | Parte | Dataset | Conteúdo | Responsável |
 | --- | --- | --- | --- |
-| **Comum** | [Wine Quality (UCI 186)](https://archive.ics.uci.edu/dataset/186) | EDA (4 pilares), padronização, K-Means em duas passadas, matriz de confusão e métricas, discussão crítica | João Vitor do Sacramento |
+| **Comum** | [Wine Quality (UCI 186)](https://archive.ics.uci.edu/dataset/186) **ou** [Obesity (UCI 544)](https://archive.ics.uci.edu/dataset/544) (escolha do Sacramento) | EDA (4 pilares), padronização, K-Means em duas passadas, matriz de confusão e métricas, discussão crítica | João Vitor do Sacramento |
 | **Específica** | [Pump it Up: Data Mining the Water Table (DrivenData)](https://www.drivendata.org/competitions/7/pump-it-up-data-mining-the-water-table/) | Pergunta de pesquisa, EDA, storytelling, 6 visualizações, dashboard Streamlit, notas analíticas | Gustavo Henrique Cruz de Oliveira |
 
 A matriz de contribuição está em [docs/MATRIZ_CONTRIBUICAO.md](docs/MATRIZ_CONTRIBUICAO.md).
@@ -54,7 +54,7 @@ Execute os comandos **a partir da raiz do repositório**. As figuras geradas vã
 
 ## Dados
 
-- `data/parte_comum/`: `winequality-red.csv` e `winequality-white.csv` (separador `;`) e `winequality.names`. Detalhes em [data/parte_comum/README.md](data/parte_comum/README.md).
+- `data/parte_comum/`: os dois datasets permitidos pelo enunciado, e o grupo usa um. São eles `wine_quality/` (`winequality-red.csv` e `winequality-white.csv`, separador `;`) e `obesity/` (`ObesityDataSet_raw_and_data_sinthetic.csv`). Comparação em [data/parte_comum/README.md](data/parte_comum/README.md).
 - `data/parte_especifica/raw/pump_it_up_train.csv`: dataset bruto (59.400 linhas × 41 colunas, valores e rótulos unificados). Como baixar do DrivenData (exige cadastro): [data/parte_especifica/README.md](data/parte_especifica/README.md).
 - `data/parte_especifica/clean/`: dataset tratado, exportado ao final da EDA. O dashboard lê **só** desta pasta.
 
@@ -65,7 +65,7 @@ Execute os comandos **a partir da raiz do repositório**. As figuras geradas vã
 ├─ requirements.txt
 ├─ docs/                      # Declaração de Uso de IA, matriz de contribuição
 ├─ data/
-│  ├─ parte_comum/            # Wine Quality
+│  ├─ parte_comum/            # Wine Quality e Obesity (o grupo usa um)
 │  └─ parte_especifica/       # Pump it Up (raw/ e clean/)
 ├─ out/
 │  ├─ parte_comum/            # figuras e tabelas da Parte Comum
@@ -88,7 +88,7 @@ A pasta `_CONTEXTO_IA/` reúne as regras do projeto num formato que um assistent
 ## Status
 
 - [x] Estrutura inicial do repositório
-- [ ] Parte Comum: EDA Wine Quality
+- [ ] Parte Comum: escolha do dataset (Wine Quality ou Obesity) + EDA
 - [ ] Parte Comum: padronização + K-Means (duas passadas) + métricas
 - [ ] Parte Comum: discussão crítica
 - [x] Parte Específica: código da EDA (4 pilares)

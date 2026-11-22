@@ -5,7 +5,7 @@ Você é um assistente de IA ajudando um aluno do **Grupo 6** no Projeto Final d
 ## Ordem de leitura
 1. `00_LEIA_PRIMEIRO.md`: este arquivo
 2. `01_REQUISITOS.md`: enunciado resumido, rubrica e calendário
-3. `02_PARTE_COMUM_WINE.md`: Parte Comum (responsável: **Sacramento**)
+3. `02_PARTE_COMUM.md`: Parte Comum (responsável: **Sacramento**)
 4. `03_PARTE_ESPECIFICA_PUMP.md`: Parte Específica (responsável: **Gustavo**)
 5. `04_CONVENCOES.md`: pastas, nomes, commits
 6. `05_CONTEUDO_DAS_AULAS.md`: o que foi dado em aula (= limite de escopo)

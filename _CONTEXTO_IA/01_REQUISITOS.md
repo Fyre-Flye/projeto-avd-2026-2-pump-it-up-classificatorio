@@ -6,7 +6,7 @@ Fonte: *Projeto Final: Agrupamento, EDA e Dashboard Interativo*, AVD 2026.2 (par
 | Integrante | Situação | Parte |
 | --- | --- | --- |
 | Gustavo Henrique Cruz de Oliveira | ativo | Parte Específica (Pump it Up) |
-| João Vitor do Sacramento Bezerra da Cunha | ativo | Parte Comum (Wine Quality) |
+| João Vitor do Sacramento Bezerra da Cunha | ativo | Parte Comum (Wine Quality ou Obesity, a escolher) |
 | Arthur Borges | sem contribuição até o momento | — |
 | Luiz Felipe Cruz Braz | reprovado por falta | — |
 
@@ -35,7 +35,7 @@ O repositório deve conter:
 | **Entrega** (todos postam no Classroom) | **26/11/2026** |
 | **Apresentação** | **03/12/2026** |
 
-## Parte Comum: EDA e Agrupamento (Wine Quality)
+## Parte Comum: EDA e Agrupamento (Wine Quality ou Obesity)
 1. **EDA, 4 pilares:** estrutural (tipos, dimensões), distribucional (cada variável), relacional (todas as variáveis, incluindo a classe), outliers (identificar, discutir, tratar ou justificar não tratar).
 2. **Padronização:** padronizar/normalizar as numéricas antes do agrupamento e explicar no relatório por que isso é necessário para o K-Means.
 3. **K-Means em duas passadas:**

@@ -17,7 +17,7 @@
 | --- | :---: | :---: | :---: |
 | Escolha do dataset e checkpoint (27/10) | R | | |
 | Estrutura do repositório, README, requirements | R | | — |
-| **Parte Comum**: EDA Wine Quality (4 pilares) | | R | — |
+| **Parte Comum**: EDA do dataset escolhido (4 pilares) | | R | — |
 | **Parte Comum**: padronização + K-Means (duas passadas) | | R | — |
 | **Parte Comum**: mapeamento, matriz de confusão e métricas | | R | — |
 | **Parte Comum**: discussão crítica | | R | — |

@@ -4,7 +4,7 @@
 ```
 README.md, requirements.txt, relatorio.pdf
 docs/DECLARACAO_IA.pdf            # assinada por todos (rascunho em docs/DECLARACAO_IA.md)
-data/parte_comum/                 # Wine Quality
+data/parte_comum/wine_quality|obesity/  # os dois datasets da Parte Comum (o grupo usa um)
 data/parte_especifica/raw|clean/  # Pump it Up
 out/parte_comum/  out/parte_especifica/
 notebooks/parte_comum/eda.ipynb, kmeans_metricas.ipynb
