@@ -5,8 +5,20 @@
 - **Arquivos:**
   - `winequality-red.csv`: 1.599 vinhos tintos × 12 colunas
   - `winequality-white.csv`: 4.898 vinhos brancos × 12 colunas
+  - `winequality-combined.csv`: **tinto e branco juntos**, com 6.497 vinhos × 13 colunas (as 12 originais + `wine_type`, com `red` ou `white`). Não é um arquivo da UCI: foi gerado a partir dos dois anteriores, sem nenhuma outra alteração (código abaixo).
   - `winequality.names`: descrição original das variáveis
 - **Separador:** `;` → `pd.read_csv(caminho, sep=";")`
 - **Colunas:** 11 variáveis físico-químicas de entrada + `quality` (nota de 0 a 10; nos arquivos aparecem de 3 a 8 no tinto e de 3 a 9 no branco).
+
+## Como o arquivo combinado foi gerado
+
+```python
+import pandas as pd
+
+red = pd.read_csv("winequality-red.csv", sep=";")
+white = pd.read_csv("winequality-white.csv", sep=";")
+df = pd.concat([red.assign(wine_type="red"), white.assign(wine_type="white")], ignore_index=True)
+df.to_csv("winequality-combined.csv", sep=";", index=False)
+```
 
 Download manual, se precisar: na página da UCI, clique em *Download* e extraia `winequality-red.csv` e `winequality-white.csv` nesta pasta.
