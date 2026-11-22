@@ -16,8 +16,8 @@ O CSV unificado foi montado juntando, pela coluna `id`, os dois arquivos oficiai
 ## Como baixar de novo (o DrivenData exige cadastro)
 1. Crie uma conta gratuita em <https://www.drivendata.org/> e faça login.
 2. Abra a competição: <https://www.drivendata.org/competitions/7/pump-it-up-data-mining-the-water-table/>.
-3. Clique em **Join the competition** e aceite as regras.
-4. Na aba **Data download**, baixe **Training set values** e **Training set labels** (CSV).
+3. Entre na competição pelo botão da página e aceite as regras.
+4. Na área de download de dados, baixe **Training set values** e **Training set labels** (CSV).
 5. Junte os dois arquivos pela coluna `id` e salve como `raw/pump_it_up_train.csv`:
 
 ```python

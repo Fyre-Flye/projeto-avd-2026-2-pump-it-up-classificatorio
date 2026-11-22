@@ -1,6 +1,7 @@
 # Dados — Parte Comum (Wine Quality)
 
-- **Fonte:** UCI Machine Learning Repository, [Wine Quality (id 186)](https://archive.ics.uci.edu/dataset/186). Cortez et al., 2009. Licença CC BY 4.0.
+- **Fonte:** UCI Machine Learning Repository, [Wine Quality (id 186)](https://archive.ics.uci.edu/dataset/186).
+- **Citação pedida pelos autores (`winequality.names`):** P. Cortez, A. Cerdeira, F. Almeida, T. Matos e J. Reis. *Modeling wine preferences by data mining from physicochemical properties*. Decision Support Systems, Elsevier, 47(4):547-553, 2009.
 - **Arquivos:**
   - `winequality-red.csv`: 1.599 vinhos tintos × 12 colunas
   - `winequality-white.csv`: 4.898 vinhos brancos × 12 colunas
