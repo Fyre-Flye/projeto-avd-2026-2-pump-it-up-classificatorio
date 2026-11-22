@@ -26,6 +26,7 @@ Pastas locais **fora do Git** (estão no `.gitignore`): `Requisitos/`, `DatasetP
 
 ## Git
 - Branch principal: `master`. Antes de começar: `git pull`. Cada um mexe nos arquivos da sua parte, para evitar conflito em notebook.
+- **Um commit por feature/etapa, nunca tudo de uma vez.** A professora não gosta de commits que juntam tudo. Ex.: um commit para a EDA estrutural, outro para a distribucional, outro para a padronização, e assim por diante.
 - Mensagens no padrão `PREFIXO: descrição curta em português`, com prefixos `ADD:` (novo), `UPD:` (atualização), `FIX:` (correção). Ex.: `ADD: EDA estrutural Wine Quality`.
 - **Sem trailers de co-autoria de IA** nos commits.
 - Antes de commitar notebook, rode tudo de cima a baixo (Kernel → Restart & Run All) para as saídas ficarem consistentes.
