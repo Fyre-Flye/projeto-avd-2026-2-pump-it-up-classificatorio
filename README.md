@@ -63,7 +63,7 @@ Execute os comandos **a partir da raiz do repositório**. As figuras geradas vã
 ```
 ├─ README.md
 ├─ requirements.txt
-├─ docs/                      # Declaração de Uso de IA, matriz de contribuição
+├─ docs/                      # Declaração de Uso de IA, matriz de contribuição, glossário
 ├─ data/
 │  ├─ parte_comum/            # Wine Quality e Obesity (o grupo usa um)
 │  └─ parte_especifica/       # Pump it Up (raw/ e clean/)

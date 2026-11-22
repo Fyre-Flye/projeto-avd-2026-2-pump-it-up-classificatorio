@@ -21,6 +21,7 @@ Claude Code (Anthropic).
 - **Organização do projeto:** criação da estrutura de pastas exigida pelo enunciado, README, `requirements.txt`, `.gitignore`, esqueletos dos notebooks e do dashboard, e da pasta `_CONTEXTO_IA/` com as regras do projeto.
 - **Consulta ao material de aula:** leitura dos slides e do enunciado para manter o projeto dentro do escopo da disciplina.
 - **Geração de código para a EDA da Parte Específica** (`src/parte_especifica/eda.ipynb`): código que calcula e plota os 4 pilares (estrutura, qualidade dos dados e indicadores de ausência, distribuições, relações com `status_group` e outliers pelo IQR). As células estão marcadas com `# [IA]`. As células de interpretação, o mecanismo de ausência e as decisões de tratamento ficaram em branco para o grupo preencher.
+- **Glossário** (`docs/GLOSSARIO.md`): tradução e definição dos termos técnicos do dataset e da EDA, a partir da página do DrivenData, dos slides das aulas e de pesquisa na web. Os termos sem fonte foram marcados como "a confirmar". Não há interpretação de dados nesse arquivo.
 - *(a preencher ao longo do projeto: apoio com Streamlit, revisão de texto etc.)*
 
 ### O que foi aceito, modificado ou rejeitado e por quê
