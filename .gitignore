@@ -34,3 +34,6 @@ DatasetParteEspecifica/
 
 # Segredos do Streamlit
 .streamlit/secrets.toml
+
+# Pagina HTML de leitura do notebook (gerada com nbconvert, nao versionar)
+*_leitura.html
