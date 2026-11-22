@@ -90,7 +90,8 @@ A pasta `_CONTEXTO_IA/` reúne as regras do projeto num formato que um assistent
 - [ ] Parte Comum: EDA Wine Quality
 - [ ] Parte Comum: padronização + K-Means (duas passadas) + métricas
 - [ ] Parte Comum: discussão crítica
-- [ ] Parte Específica: pergunta de pesquisa + EDA
+- [x] Parte Específica: código da EDA (4 pilares)
+- [ ] Parte Específica: interpretações da EDA, tratamento dos dados e pergunta de pesquisa final
 - [ ] Parte Específica: storytelling + 6 visualizações + notas analíticas
 - [ ] Parte Específica: dashboard Streamlit
 - [ ] Relatório PDF, Declaração de IA assinada, matriz de contribuição final
