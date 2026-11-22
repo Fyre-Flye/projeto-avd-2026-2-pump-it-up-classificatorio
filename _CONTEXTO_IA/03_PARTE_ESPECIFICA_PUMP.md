@@ -23,7 +23,7 @@
 
 ## Pergunta de pesquisa e público-alvo (decisão do Gustavo, em construção)
 - Pergunta de partida: *"Can you predict which water pumps are faulty?"*. A formulação final sai depois da EDA.
-- Ainda **não decidido**: treinar um classificador (Aulas 25 e 26) ou responder só pela EDA. Não assuma nenhum dos dois.
+- **Decidido: EDA + classificador simples** (Aulas 25 e 26: árvore de decisão / random forest, divisão estratificada, encoding, matriz de confusão e métricas). Ordem: primeiro a EDA e o tratamento dos dados (decisões do Gustavo), depois o classificador em `src/parte_especifica/classificador.ipynb`, usando `data/parte_especifica/clean/`.
 - **Público-alvo:** gestor público (ex.: Ministério da Água da Tanzânia) interessado em priorizar manutenção e identificar bombas quebradas ou que precisam de reparo.
 
 ## Arquivos
