@@ -26,10 +26,26 @@
 - **Decidido: EDA + classificador simples** (Aulas 25 e 26: árvore de decisão / random forest, divisão estratificada, encoding, matriz de confusão e métricas). Ordem: primeiro a EDA e o tratamento dos dados (decisões do Gustavo), depois o classificador em `src/parte_especifica/classificador.ipynb`, usando `data/parte_especifica/clean/`.
 - **Público-alvo:** gestor público (ex.: Ministério da Água da Tanzânia) interessado em priorizar manutenção e identificar bombas quebradas ou que precisam de reparo.
 
+## Estado atual (atualizado em 23/11/2026)
+- **Feito:** o **código** da EDA (seções 1 a 5: estrutural, qualidade e ausência, distribucional, relacional, outliers), mais uma célula com os valores distintos das colunas-chave. O notebook tem 39 células de código e roda inteiro sem erro. Também estão prontos o glossário (`docs/GLOSSARIO.md`) e os recursos de leitura descritos abaixo.
+- **Pendente, e é do Gustavo (a IA não faz):** as células "Interpretação autoral", as decisões de tratamento da seção 6 (a única célula com `# TODO`), a exportação para `data/parte_especifica/clean/`, a síntese (seção 7) e a pergunta de pesquisa final.
+- **Não começado:** o classificador (`classificador.ipynb`), as 6 visualizações finais com as notas analíticas, o dashboard Streamlit (hoje só um stub), o relatório PDF e a Declaração de IA assinada.
+
+### Como o notebook foi montado para ser fácil de ler
+- Índice clicável no topo e legenda do notebook.
+- Um `> **Como ler:**` antes de cada gráfico ou tabela. Ele só ensina a ler o resultado e **não interpreta**. Ao criar gráficos ou tabelas novos, siga o mesmo padrão e **não escreva** o que o resultado mostra.
+- Figuras grandes divididas em figuras de até 6 painéis, salvas como `NN_nome_1.png`, `NN_nome_2.png` etc. Tabelas com cor e formatação (`DataFrame.style`).
+- `TEMA_ESCURO` na célula de configuração (deixar `False` ao gerar as figuras do relatório). Um gráfico interativo em Plotly, com menu, na seção 4 (precisa de internet e não aparece no GitHub).
+- Página só de resultados, sem código: `jupyter nbconvert --to html --no-input src/parte_especifica/eda.ipynb --output-dir out/parte_especifica --output eda_leitura`. O HTML fica fora do Git.
+
+### Glossário
+`docs/GLOSSARIO.md` traduz e define as colunas, as categorias e os termos de estatística da EDA, sempre com a **fonte** de cada definição. A página do DrivenData não explica as categorias, então alguns itens estão marcados como "a confirmar" (unidades de `amount_tsh` e `gps_height`, `num_private`, siglas como `SWC`, entre outros). **Não invente o significado dessas pendências.**
+
 ## Arquivos
 | Onde | O quê |
 | --- | --- |
 | `src/parte_especifica/eda.ipynb` | EDA do Pump it Up |
+| `docs/GLOSSARIO.md` | glossário de colunas, categorias e termos, com fontes |
 | `src/parte_especifica/dashboard.py` | app Streamlit (`streamlit run src/parte_especifica/dashboard.py`) |
 | `data/parte_especifica/clean/` | CSV tratado exportado pela EDA; o dashboard lê só daqui |
 | `out/parte_especifica/` | figuras e tabelas |

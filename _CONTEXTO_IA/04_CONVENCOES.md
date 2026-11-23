@@ -4,6 +4,7 @@
 ```
 README.md, requirements.txt, relatorio.pdf
 docs/DECLARACAO_IA.pdf            # assinada por todos (rascunho em docs/DECLARACAO_IA.md)
+docs/GLOSSARIO.md, MATRIZ_CONTRIBUICAO.md
 data/parte_comum/wine_quality|obesity/  # os dois datasets da Parte Comum (o grupo usa um)
 data/parte_especifica/raw|clean/  # Pump it Up
 out/parte_comum/  out/parte_especifica/
@@ -25,6 +26,9 @@ Pastas locais **fora do Git** (estão no `.gitignore`): `DatasetParteComum/`, `D
 - `random_state=42` em tudo que for aleatório (KMeans, train_test_split), para reprodutibilidade.
 - Marcar trechos feitos com IA: `# [IA] <ferramenta> – <finalidade>`.
 - Células de interpretação ficam com `> **[Interpretação autoral — preencher]**` até o aluno escrever.
+- Antes de cada gráfico ou tabela vai um `> **Como ler:**` curto, que explica só como se lê o resultado, **sem interpretá-lo**.
+- Figuras com muitos painéis são divididas em figuras de até 6 painéis (`NN_nome_1.png`, `NN_nome_2.png`).
+- Arquivos gerados que não vão para o Git: `*_leitura.html` (página de leitura do notebook).
 
 ## Git
 - Branch principal: `master`. Antes de começar: `git pull`. Cada um mexe nos arquivos da sua parte, para evitar conflito em notebook.
@@ -33,3 +37,4 @@ Pastas locais **fora do Git** (estão no `.gitignore`): `DatasetParteComum/`, `D
 - **Sem trailers de co-autoria de IA** nos commits.
 - Antes de commitar notebook, rode tudo de cima a baixo (Kernel → Restart & Run All) para as saídas ficarem consistentes.
 - Todos os integrantes precisam ter commits (exigência do enunciado).
+- **Atualize `_CONTEXTO_IA/` a cada commit que muda algo relevante** (estado do trabalho, novos arquivos, novas convenções), para a IA do outro integrante sempre encontrar a situação real do projeto.
