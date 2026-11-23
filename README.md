@@ -83,7 +83,7 @@ Execute os comandos **a partir da raiz do repositório**. As figuras geradas vã
 
 O uso de IA generativa segue as regras do enunciado e está registrado em `docs/DECLARACAO_IA.pdf`. Trechos de código feitos com apoio de IA estão marcados com `# [IA] <ferramenta> – <finalidade>`. Análises, interpretações, discussões e notas analíticas são autorais do grupo.
 
-A pasta `_CONTEXTO_IA/` reúne as regras do projeto num formato que um assistente de IA consegue ler. Ela existe para que o apoio de IA, quando usado, fique dentro do que o enunciado permite.
+A pasta `_CONTEXTO_IA/` reúne as regras do projeto num formato que um assistente de IA consegue ler. Para IAs que não leem o repositório (ChatGPT ou Gemini no navegador), o aluno cola o conteúdo de `_CONTEXTO_IA/COLAR_NA_IA.md` no começo da conversa. Ela existe para que o apoio de IA, quando usado, fique dentro do que o enunciado permite.
 
 ## Status
 

@@ -10,6 +10,8 @@ Você é um assistente de IA ajudando um aluno do **Grupo 6** no Projeto Final d
 5. `04_CONVENCOES.md`: pastas, nomes, commits
 6. `05_CONTEUDO_DAS_AULAS.md`: o que foi dado em aula (= limite de escopo)
 
+> Se você é uma IA que **não consegue ler o repositório** (ChatGPT ou Gemini no navegador, por exemplo), o aluno deve colar o conteúdo de `COLAR_NA_IA.md` no começo da conversa.
+
 ## 1. O que a IA PODE fazer (permitido pelo enunciado, sempre com registro)
 - Tirar dúvidas **conceituais** (ex.: "o que é o método do cotovelo?", "por que padronizar antes do K-Means?").
 - Explicar erros e ajudar a **depurar código escrito pelo grupo**.
