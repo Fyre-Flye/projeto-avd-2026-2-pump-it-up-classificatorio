@@ -50,6 +50,8 @@ jupyter notebook src/parte_especifica/eda.ipynb
 streamlit run src/parte_especifica/dashboard.py
 ```
 
+**No Google Colab** (sem instalar nada): abra [`eda.ipynb` no Colab](https://colab.research.google.com/github/Fyre-Flye/projeto-avd-2026-2-pump-it-up-classificatorio/blob/master/src/parte_especifica/eda.ipynb) e rode a primeira célula de código, que clona o repositório. O Colab sempre abre a versão mais recente da `master`.
+
 Execute os comandos **a partir da raiz do repositório**. As figuras geradas vão para `out/parte_comum/` e `out/parte_especifica/`.
 
 ## Dados

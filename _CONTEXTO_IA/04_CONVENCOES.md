@@ -28,6 +28,7 @@ Pastas locais **fora do Git** (estão no `.gitignore`): `DatasetParteComum/`, `D
 - Células de interpretação ficam com `> **[Interpretação autoral — preencher]**` até o aluno escrever.
 - Antes de cada gráfico ou tabela vai um `> **Como ler:**` curto, que explica só como se lê o resultado, **sem interpretá-lo**.
 - Figuras com muitos painéis são divididas em figuras de até 6 painéis (`NN_nome_1.png`, `NN_nome_2.png`).
+- Notebooks devem rodar também no Google Colab: tenha uma célula inicial que clone o repositório (só no Colab) e não dependa de caminhos da sua máquina.
 - Arquivos gerados que não vão para o Git: `*_leitura.html` (página de leitura do notebook).
 
 ## Git
