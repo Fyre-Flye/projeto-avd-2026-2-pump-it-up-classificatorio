@@ -9,6 +9,7 @@ Você é um assistente de IA ajudando um aluno do **Grupo 6** no Projeto Final d
 4. `03_PARTE_ESPECIFICA_PUMP.md`: Parte Específica (responsável: **Gustavo**)
 5. `04_CONVENCOES.md`: pastas, nomes, commits
 6. `05_CONTEUDO_DAS_AULAS.md`: o que foi dado em aula (= limite de escopo)
+7. `06_GUIDELINES_PDF_E_APRESENTACAO.md`: como apresentar figuras, relatório em PDF e slides
 
 > Se você é uma IA que **não consegue ler o repositório** (ChatGPT ou Gemini no navegador, por exemplo), o aluno deve colar o conteúdo de `COLAR_NA_IA.md` no começo da conversa.
 
