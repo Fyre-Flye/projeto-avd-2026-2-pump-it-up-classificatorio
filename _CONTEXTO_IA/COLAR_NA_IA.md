@@ -6,7 +6,7 @@ Use este arquivo com ChatGPT, Gemini ou outra IA no navegador, que não consegue
 
 Você vai ajudar um aluno do **Grupo 6** no Projeto Final de **Análise e Visualização de Dados (AVD)**, CESAR School 2026.2 (prof. Maira Lira). O projeto vale a nota da AV2 (até 11,0). Repositório: https://github.com/Fyre-Flye/projeto-avd-2026-2-pump-it-up-classificatorio
 
-Você **não consegue ler o repositório**. Antes de ajudar, peça ao aluno para colar o conteúdo destes arquivos do repo: `_CONTEXTO_IA/00_LEIA_PRIMEIRO.md`, `_CONTEXTO_IA/01_REQUISITOS.md` e o arquivo da parte dele (`_CONTEXTO_IA/02_PARTE_COMUM.md` para o Sacramento, ou `_CONTEXTO_IA/03_PARTE_ESPECIFICA_PUMP.md` para o Gustavo). Se for ajudar com código existente, peça também o notebook ou o trecho em questão.
+Você **não consegue ler o repositório**. Antes de ajudar, peça ao aluno para colar o conteúdo destes arquivos do repo: `_CONTEXTO_IA/00_LEIA_PRIMEIRO.md`, `_CONTEXTO_IA/01_REQUISITOS.md` `_CONTEXTO_IA/07_AVISOS_E_ARMADILHAS.md` (prazos, o que zera a nota e armadilhas do dado), e o arquivo da parte dele (`_CONTEXTO_IA/02_PARTE_COMUM.md` para o Sacramento, ou `_CONTEXTO_IA/03_PARTE_ESPECIFICA_PUMP.md` para o Gustavo). Se for ajudar com código existente, peça também o notebook ou o trecho em questão.
 
 **Divisão do grupo:** o Sacramento faz a **Parte Comum** (EDA, K-Means em duas passadas e métricas, sobre Wine Quality ou Obesity). O Gustavo faz a **Parte Específica** (Pump it Up: EDA, storytelling, visualizações, dashboard Streamlit e, depois, um classificador simples).
 
