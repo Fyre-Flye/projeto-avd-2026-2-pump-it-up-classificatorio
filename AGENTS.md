@@ -4,4 +4,4 @@
 
 Este é um projeto acadêmico avaliado com regras rígidas de uso de IA. Se houver violação, a nota do projeto é ZERO. Na dúvida, não gere análise nem interpretação: pergunte ao aluno.
 
-Commits: um commit por feature/etapa (nunca tudo de uma vez) e sem co-autoria nem trailers de IA (`Co-Authored-By` etc.). Os commits são só dos alunos.
+Commits: um commit por feature/etapa (nunca tudo de uma vez) e sem co-autoria nem trailers de IA (`Co-Authored-By` etc.). Os commits são só dos alunos (autoria do Gustavo; veja `_CONTEXTO_IA/04_CONVENCOES.md`, seção Git, e `_CONTEXTO_IA/07_AVISOS_E_ARMADILHAS.md`).

@@ -36,6 +36,11 @@ Pastas locais **fora do Git** (estão no `.gitignore`): `DatasetParteComum/`, `D
 - **Um commit por feature/etapa, nunca tudo de uma vez.** A professora não gosta de commits que juntam tudo. Ex.: um commit para a EDA estrutural, outro para a distribucional, outro para a padronização, e assim por diante.
 - Mensagens no padrão `PREFIXO: descrição curta em português`, com prefixos `ADD:` (novo), `UPD:` (atualização), `FIX:` (correção). Ex.: `ADD: EDA estrutural Wine Quality`.
 - **Sem trailers de co-autoria de IA** nos commits.
+- **Autoria:** os commits são só do Gustavo (nome e e-mail já configurados no git desta máquina). Não use `--author`, não altere o `git config`, não escreva `Co-Authored-By` nem cite a ferramenta de IA na mensagem. Se o git não tiver identidade configurada, avise em vez de configurar uma.
+- **Um commit por vez:** agrupe por feature e faça `git add` só dos arquivos daquela feature (nunca `git add .` no fim do dia), com mensagem própria. Nunca junte etapas diferentes num commit só.
+- **Push:** só com a autorização do Gustavo, sempre depois de `git pull`, e sem acumular: envie logo depois de commitar cada etapa aprovada, em vez de subir tudo de uma vez. Nunca use `push --force` sem ele pedir.
+- **Divisão de ferramentas (desde 25/11/2026):** o Antigravity (Gemini) mexe no código e nas análises. O Claude Code cuida do Git, dos PDFs e das apresentações. Não edite um arquivo que a outra ferramenta pode estar editando (principalmente notebooks): rode `git status` antes de começar e avise o Gustavo se houver alteração que não é sua.
+- O repositório é **público**: nada de dado pessoal de colegas, e-mail de terceiros, token, chave ou conversa privada, nem em código, nem em documento, nem em mensagem de commit.
 - Antes de commitar notebook, rode tudo de cima a baixo (Kernel → Restart & Run All) para as saídas ficarem consistentes.
 - Todos os integrantes precisam ter commits (exigência do enunciado).
 - **Atualize `_CONTEXTO_IA/` a cada commit que muda algo relevante** (estado do trabalho, novos arquivos, novas convenções), para a IA do outro integrante sempre encontrar a situação real do projeto.
