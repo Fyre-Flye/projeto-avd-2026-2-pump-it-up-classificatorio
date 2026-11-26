@@ -34,13 +34,20 @@ Claude Code (Anthropic) e Gemini via Antigravity (Google).
 ## 2. João Vitor do Sacramento Bezerra da Cunha (Parte Comum — início da EDA)
 
 ### Ferramentas utilizadas
-*(a preencher pelo integrante antes da assinatura final)*
+ChatGPT (OpenAI) conforme marcações `# [IA] ChatGPT – ...` em `notebooks/parte_comum/eda.ipynb`
 
 ### Tipos de pedido feitos
-*(a preencher pelo integrante antes da assinatura final)*
+Esclarecimento de dúvidas conceituais sobre a Análise Exploratória de Dados (EDA) e a organização dos
+quatro pilares: análise estrutural, distribucional, relacional e de outliers.
+• Apoio à implementação, em etapas, de código para inspeção da estrutura dos dados, tipos de variáveis,
+valores ausentes, duplicatas, distribuições, relações entre variáveis e identificação de possíveis outliers no
+dataset Wine Quality.
+• Explicação de trechos de código e auxílio na correção de erros durante a execução do notebook, com
+orientação passo a passo para acompanhar e validar cada etapa.
 
 ### O que foi aceito, modificado ou rejeitado e por quê
-*(a preencher pelo integrante antes da assinatura final)*
+apoio de código para as etapas exploratórias, tabelas e visualizações, após verificar sua
+execução e adequação ao notebook e ao dataset adotado pelo grupo.
 
 ---
 
@@ -62,5 +69,5 @@ ChatGPT (OpenAI), conforme marcações `# [IA] ChatGPT – ...` em `notebooks/pa
 | Integrante | Assinatura / Confirmação | Data |
 | --- | --- | --- |
 | Gustavo Henrique Cruz de Oliveira | Gustavo Henrique Cruz de Oliveira *(confirmado pelo integrante)* | 26/11/2026 |
-| João Vitor do Sacramento Bezerra da Cunha | *(pendente assinatura)* | 26/11/2026 |
+| João Vitor do Sacramento Bezerra da Cunha | *(confirmado pelo integrante)* | 26/11/2026 |
 | Arthur Borges | *(pendente assinatura)* | 26/11/2026 |
