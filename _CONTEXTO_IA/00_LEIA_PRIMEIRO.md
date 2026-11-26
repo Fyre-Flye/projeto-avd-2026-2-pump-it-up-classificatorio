@@ -1,14 +1,14 @@
 # 00 — LEIA PRIMEIRO (regras inegociáveis)
 
-> **HANDOFF URGENTE (26/11/2026, prazo 12h30):** Se você está ajudando o **Arthur Borges** a concluir a Parte Comum (*Obesity*, UCI 544), plugar os resultados em `docs/gerar_relatorio.py` (`relatorio.pdf`) e `docs/gerar_apresentacao.py` (`docs/APRESENTACAO_AVD_G6.pdf`), finalizar `docs/DECLARACAO_IA.pdf` e preencher `docs/MATRIZ_CONTRIBUICAO.md`, **leia imediatamente [`PARA_BORGES.md`](PARA_BORGES.md)** logo após este arquivo — a Parte Específica, o Dashboard com Bônus UX/UI, a base do relatório, os 14 slides, o roteiro em 3 e o guia de arguição já estão prontos!
+> **ESTADO ATUAL (26/11/2026, entrega até 23h59):** Parte Específica (*Pump it Up*, Gustavo), Parte Comum (*Wine Quality combinado*, UCI 186, `6.497 × 13`, `k = 3` vs. `k = 7`, Arthur Borges e Sacramento), Dashboard Streamlit (5 abas com Bônus UX/UI e K-Means animado), `relatorio.pdf`, `docs/APRESENTACAO_AVD_G6.pdf`, `docs/ROTEIRO_APRESENTACAO.md/.pdf`, `docs/GUIA_ARGUICAO_E_VARIAVEIS.md/.pdf` e `docs/MATRIZ_CONTRIBUICAO.md` estão concluídos e integrados. Pendência única antes de 23h59: assinatura final de João Vitor do Sacramento em `docs/DECLARACAO_IA.pdf` (Gustavo e Arthur Borges já assinaram).
 
 Você é um assistente de IA ajudando um aluno do **Grupo 6** no Projeto Final de **Análise e Visualização de Dados (AVD)**, CESAR School 2026.2 (prof. Maira Lira). O projeto vale a nota da AV2 (até 11,0). Uso indevido de IA dá **nota ZERO para o grupo inteiro**. Leia este arquivo inteiro antes de agir.
 
 ## Ordem de leitura
 1. `00_LEIA_PRIMEIRO.md`: este arquivo
 2. `01_REQUISITOS.md`: enunciado resumido, rubrica e calendário
-3. `02_PARTE_COMUM.md`: Parte Comum (dataset escolhido: **Obesity**, responsáveis: **Sacramento e Arthur Borges**)
-4. `03_PARTE_ESPECIFICA_PUMP.md`: Parte Específica (responsável: **Gustavo** — 100% concluída)
+3. `02_PARTE_COMUM.md`: Parte Comum (dataset escolhido: **Wine Quality combinado, UCI 186**, responsáveis: **Arthur Borges e Sacramento** — concluída)
+4. `03_PARTE_ESPECIFICA_PUMP.md`: Parte Específica (responsável: **Gustavo** — concluída)
 5. `04_CONVENCOES.md`: pastas, nomes, commits
 6. `05_CONTEUDO_DAS_AULAS.md`: o que foi dado em aula (= limite de escopo)
 7. `06_GUIDELINES_PDF_E_APRESENTACAO.md`: identidade visual oficial (Seção 2.1), relatório em PDF e slides

@@ -5,12 +5,12 @@ Fonte: *Projeto Final: Agrupamento, EDA e Dashboard Interativo*, AVD 2026.2 (par
 ## Grupo 6
 | Integrante | Situação | Parte |
 | --- | --- | --- |
-| Gustavo Henrique Cruz de Oliveira | ativo | Parte Específica (Pump it Up) |
-| João Vitor do Sacramento Bezerra da Cunha | ativo | Parte Comum (Wine Quality ou Obesity, a escolher) |
-| Arthur Borges | sem contribuição até o momento | — |
+| Gustavo Henrique Cruz de Oliveira | ativo | Parte Específica (Pump it Up), Dashboard, Relatório e Slides |
+| Arthur de Assis Borges | ativo | Parte Comum (Wine Quality combinado, UCI 186) |
+| João Vitor do Sacramento Bezerra da Cunha | ativo | Parte Comum (exploração inicial) e Defesa Oral (Bloco 3) |
 | Luiz Felipe Cruz Braz | reprovado por falta | — |
 
-O enunciado pede grupos de 4, mas o grupo segue com 2 integrantes ativos.
+O grupo segue com 3 integrantes ativos (todos com commits no repositório).
 
 ## Requisitos técnicos
 - Python 3.11+; libs permitidas: pandas, numpy, matplotlib, seaborn, plotly, scikit-learn (incluindo KMeans), streamlit.
