@@ -9,6 +9,6 @@
 > - `docs/ROTEIRO_APRESENTACAO.md` / `.pdf` (dividido nos 3, com Arthur nos Slides 10 a 12).
 > - `docs/GUIA_ARGUICAO_E_VARIAVEIS.md` / `.pdf` (colinha das 31 variáveis Pump it Up + 13 variáveis Wine Quality + 20 perguntas incluindo Silhouette e Davies-Bouldin).
 > - `docs/MATRIZ_CONTRIBUICAO.md` (atualizada com a participação real de Gustavo, Arthur Borges e Sacramento).
-> - `docs/DECLARACAO_IA.md` e `docs/DECLARACAO_IA.pdf` (assinaturas de **Gustavo Henrique Cruz de Oliveira** e **Arthur de Assis Borges** registradas).
+> - `docs/DECLARACAO_IA.md` e `docs/DECLARACAO_IA.pdf` (assinaturas dos **3 integrantes ativos**: Gustavo Henrique Cruz de Oliveira, João Vitor do Sacramento Bezerra da Cunha e Arthur de Assis Borges).
 >
-> **PENDÊNCIA ÚNICA ANTES DE 23h59:** confirmação e assinatura de **João Vitor do Sacramento Bezerra da Cunha** em `docs/DECLARACAO_IA.pdf` e postagem do link do repositório no Classroom pelos 3 integrantes ativos.
+> **STATUS FINAL (26/11/2026):** **100% CONCLUÍDO, ZERO PENDÊNCIAS NO REPOSITÓRIO!** Basta os 3 integrantes confirmarem a postagem do link do repositório no Classroom até 23h59 e ensaiarem para a defesa de 03/12/2026.

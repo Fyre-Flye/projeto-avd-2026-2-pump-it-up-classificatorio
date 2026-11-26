@@ -1,6 +1,6 @@
 # 00 — LEIA PRIMEIRO (regras inegociáveis)
 
-> **ESTADO ATUAL (26/11/2026, entrega até 23h59):** Parte Específica (*Pump it Up*, Gustavo), Parte Comum (*Wine Quality combinado*, UCI 186, `6.497 × 13`, `k = 3` vs. `k = 7`, Arthur Borges e Sacramento), Dashboard Streamlit (5 abas com Bônus UX/UI e K-Means animado), `relatorio.pdf`, `docs/APRESENTACAO_AVD_G6.pdf`, `docs/ROTEIRO_APRESENTACAO.md/.pdf`, `docs/GUIA_ARGUICAO_E_VARIAVEIS.md/.pdf` e `docs/MATRIZ_CONTRIBUICAO.md` estão concluídos e integrados. Pendência única antes de 23h59: assinatura final de João Vitor do Sacramento em `docs/DECLARACAO_IA.pdf` (Gustavo e Arthur Borges já assinaram).
+> **ESTADO ATUAL (26/11/2026, entrega até 23h59 — 100% CONCLUÍDO):** Parte Específica (*Pump it Up*, Gustavo), Parte Comum (*Wine Quality combinado*, UCI 186, `6.497 × 13`, `k = 3` vs. `k = 7`, Arthur Borges e Sacramento), Dashboard Streamlit (5 abas com Bônus UX/UI e K-Means animado), `relatorio.pdf`, `docs/APRESENTACAO_AVD_G6.pdf`, `docs/ROTEIRO_APRESENTACAO.md/.pdf`, `docs/GUIA_ARGUICAO_E_VARIAVEIS.md/.pdf`, `docs/MATRIZ_CONTRIBUICAO.md` e `docs/DECLARACAO_IA.pdf` (assinada pelos 3 integrantes ativos) estão concluídos e integrados, sem pendências.
 
 Você é um assistente de IA ajudando um aluno do **Grupo 6** no Projeto Final de **Análise e Visualização de Dados (AVD)**, CESAR School 2026.2 (prof. Maira Lira). O projeto vale a nota da AV2 (até 11,0). Uso indevido de IA dá **nota ZERO para o grupo inteiro**. Leia este arquivo inteiro antes de agir.
 
