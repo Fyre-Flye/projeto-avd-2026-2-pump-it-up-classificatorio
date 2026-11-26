@@ -10,12 +10,14 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.cluster import KMeans
 from sklearn.compose import ColumnTransformer
+from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, precision_recall_fscore_support
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder, TargetEncoder
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, TargetEncoder
 from sklearn.tree import DecisionTreeClassifier
 
 
@@ -31,6 +33,7 @@ def obter_raiz_projeto():
 
 ROOT = obter_raiz_projeto()
 CLEAN_PATH = ROOT / "data" / "parte_especifica" / "clean" / "pump_it_up_clean.csv"
+OBESITY_PATH = ROOT / "data" / "parte_comum" / "obesity" / "ObesityDataSet_raw_and_data_sinthetic.csv"
 OUT_DIR = ROOT / "out" / "parte_especifica"
 METRICAS_PATH = OUT_DIR / "06_metricas_classificadores.csv"
 IMPORTANCIA_PATH = OUT_DIR / "06_importancia_features.csv"
@@ -38,7 +41,17 @@ IMPORTANCIA_PATH = OUT_DIR / "06_importancia_features.csv"
 COL_ALVO = "status_group"
 RANDOM_STATE = 42
 
-# Paleta fixa Okabe-Ito (acessivel a daltonismo, padrao 06_GUIDELINES)
+# Tokens de marca oficiais (Secao 2.1 de 06_GUIDELINES, RecifeView adaptado ao AVD)
+COR_MARCA_PRINCIPAL = "#0F62FE"
+COR_MARCA_CLARO = "#EAF2FF"
+COR_MARCA_MARINHO = "#062A5F"
+COR_MARCA_ESCURO = "#0043CE"
+COR_TEXTO_SECUNDARIO = "#525252"
+COR_FONTE_NOTA = "#6F6F6F"
+COR_BORDA = "#E0E0E0"
+COR_ZEBRA = "#F4F4F4"
+
+# Paleta fixa Okabe-Ito para status_group (prioridade absoluta sobre cor de marca)
 STATUS_ORDEM = ["functional", "functional needs repair", "non functional"]
 STATUS_ROTULO = {
     "functional": "Funcional",
@@ -56,8 +69,8 @@ STATUS_CORES = {
     "non functional": "#D55E00",
 }
 COR_CINZA = "#C6C6C6"
-COR_CINZA_ESCURO = "#6B7280"
-COR_TEXTO = "#111827"
+COR_CINZA_ESCURO = "#525252"
+COR_TEXTO = "#000000"
 COR_AZUL = "#0072B2"
 COR_LARANJA_ALERTA = "#D55E00"
 COR_AMARELO = "#E69F00"
@@ -373,3 +386,113 @@ def gerar_resumo_markdown(df_filtrado, df_total, filtros_ativos):
             )
 
     return "\n".join(linhas) + "\n"
+
+
+@st.cache_data(show_spinner="Preparando agrupamento K-Means da Parte Comum (Obesity)...")
+def executar_kmeans_parte_comum(k_livre=4):
+    """Carrega Obesity (UCI 544), padroniza as 8 numericas e roda K-Means em 2 passadas + PCA 2D.
+
+    # [IA] Gemini – calculo do Cotovelo (k=2..10), Passada 1 (k livre), Passada 2 (k=7 fixo), PCA 2D e metricas por passada (Aulas 14, 25 e 26)
+    """
+    if not OBESITY_PATH.exists():
+        return None
+
+    df_ob = pd.read_csv(OBESITY_PATH)
+    cols_num_ob = ["Age", "Height", "Weight", "FCVC", "NCP", "CH2O", "FAF", "TUE"]
+    col_cls = "NObeyesdad"
+
+    X_num = df_ob[cols_num_ob].copy()
+    y_real = df_ob[col_cls].copy()
+    classes_ord = sorted(y_real.unique().tolist())
+
+    scaler = StandardScaler()
+    X_std = scaler.fit_transform(X_num)
+
+    # Curva do Cotovelo (k = 2..10)
+    inercia_rows = []
+    for k in range(2, 11):
+        km_k = KMeans(n_clusters=k, random_state=RANDOM_STATE, n_init=10)
+        km_k.fit(X_std)
+        inercia_rows.append({"k": k, "inercia": float(km_k.inertia_)})
+    df_cotovelo = pd.DataFrame(inercia_rows)
+
+    # PCA 2D apenas para visualizacao dos grupos (Aula 25)
+    pca = PCA(n_components=2, random_state=RANDOM_STATE)
+    coords_2d = pca.fit_transform(X_std)
+    var_exp = pca.explained_variance_ratio_ * 100.0
+
+    def rodar_passada(k_val):
+        km = KMeans(n_clusters=k_val, random_state=RANDOM_STATE, n_init=10)
+        clusters = km.fit_predict(X_std)
+        ct = pd.crosstab(clusters, y_real)
+        mapa = ct.idxmax(axis=1).to_dict()
+        y_map = pd.Series(clusters).map(mapa)
+
+        cm_df = pd.crosstab(
+            pd.Series(clusters, name="Cluster"),
+            y_real.rename("Classe real"),
+        ).reindex(columns=classes_ord, fill_value=0)
+        cm_df.index = [f"Cluster {c} ({mapa[c]})" for c in cm_df.index]
+
+        acc = accuracy_score(y_real, y_map) * 100.0
+        prec, rec, f1, sup = precision_recall_fscore_support(
+            y_real, y_map, labels=classes_ord, zero_division=0
+        )
+        df_met = pd.DataFrame({
+            "Classe": classes_ord,
+            "Precisão (%)": np.round(prec * 100, 1),
+            "Recall (%)": np.round(rec * 100, 1),
+            "F1 (%)": np.round(f1 * 100, 1),
+            "Suporte (n)": sup,
+        })
+        return {
+            "k": k_val,
+            "clusters": clusters,
+            "mapa": mapa,
+            "y_map": y_map,
+            "cm_df": cm_df,
+            "acc": acc,
+            "df_met": df_met,
+            "inercia": float(km.inertia_),
+        }
+
+    p1 = rodar_passada(int(k_livre))
+    p2 = rodar_passada(len(classes_ord))
+
+    # DataFrame longo para animacao Plotly de transicao Passada 1 -> Passada 2
+    df_anim_1 = pd.DataFrame({
+        "id_ponto": np.arange(len(df_ob)),
+        "PC1": coords_2d[:, 0],
+        "PC2": coords_2d[:, 1],
+        "Passada": f"Passada 1: k livre (k = {p1['k']})",
+        "Cluster": [f"Cluster {c}" for c in p1["clusters"]],
+        "Classe mapeada": p1["y_map"].values,
+        "Classe real": y_real.values,
+        "Peso (kg)": df_ob["Weight"].values,
+        "Altura (m)": df_ob["Height"].values,
+    })
+    df_anim_2 = pd.DataFrame({
+        "id_ponto": np.arange(len(df_ob)),
+        "PC1": coords_2d[:, 0],
+        "PC2": coords_2d[:, 1],
+        "Passada": f"Passada 2: k fixo (k = {p2['k']})",
+        "Cluster": [f"Cluster {c}" for c in p2["clusters"]],
+        "Classe mapeada": p2["y_map"].values,
+        "Classe real": y_real.values,
+        "Peso (kg)": df_ob["Weight"].values,
+        "Altura (m)": df_ob["Height"].values,
+    })
+    df_anim = pd.concat([df_anim_1, df_anim_2], ignore_index=True)
+
+    return {
+        "n_linhas": len(df_ob),
+        "n_colunas": df_ob.shape[1],
+        "n_classes": len(classes_ord),
+        "cols_num": cols_num_ob,
+        "var_exp": var_exp,
+        "df_cotovelo": df_cotovelo,
+        "passada_1": p1,
+        "passada_2": p2,
+        "df_anim": df_anim,
+    }
+

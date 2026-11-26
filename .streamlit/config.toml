@@ -1,12 +1,12 @@
-# [IA] Gemini – identidade visual limpa e acessivel (Aula 22, pag. 11; 06_GUIDELINES)
-# Fundo branco, texto escuro e cor primaria alinhada ao azul Okabe-Ito (#0072B2)
+# [IA] Gemini – identidade visual oficial do projeto (Secao 2.1 de 06_GUIDELINES, RecifeView adaptado ao AVD)
+# Fundo branco, barra lateral em azul-claro (#EAF2FF), azul-principal (#0F62FE) e texto preto
 
 [theme]
 base = "light"
-primaryColor = "#0072B2"
+primaryColor = "#0F62FE"
 backgroundColor = "#FFFFFF"
-secondaryBackgroundColor = "#F5F7FA"
-textColor = "#111827"
+secondaryBackgroundColor = "#EAF2FF"
+textColor = "#000000"
 font = "sans serif"
 
 [client]

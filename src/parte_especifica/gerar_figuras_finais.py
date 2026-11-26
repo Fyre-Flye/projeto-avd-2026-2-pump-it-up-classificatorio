@@ -587,10 +587,11 @@ def gerar_explan_02b_classificador_metricas():
     ax1.set_title("Random Forest por classe (acurácia global: 80,6%)", loc="left", fontsize=11, fontweight="bold", pad=10)
     ax1.legend(loc="upper center", ncol=2, bbox_to_anchor=(0.5, 1.02), frameon=False, fontsize=9)
 
-    # Painel direito: Top 10 variaveis mais importantes (inclui extraction_type_class)
+    # Painel direito: Top 10 variaveis mais importantes (usa azul-principal de marca #0F62FE, Secao 2.1)
     top10 = df_imp.head(10).iloc[::-1]
     destaque_vars = {"ward", "quantity", "extraction_type_class"}
-    cores_imp = [STATUS_CORES["functional"] if c in destaque_vars else COR_CINZA for c in top10["coluna"]]
+    COR_MARCA = "#0F62FE"
+    cores_imp = [COR_MARCA if c in destaque_vars else COR_CINZA for c in top10["coluna"]]
     y2 = np.arange(len(top10))
 
     barras2 = ax2.barh(y2, top10["importancia_pct"].values, height=0.64, color=cores_imp, zorder=3)
@@ -605,7 +606,7 @@ def gerar_explan_02b_classificador_metricas():
             ha="left",
             fontsize=9.0,
             fontweight="bold" if em_foco else "normal",
-            color=STATUS_CORES["functional"] if em_foco else COR_TEXTO,
+            color=COR_MARCA if em_foco else COR_TEXTO,
         )
 
     ax2.set_yticks(y2)
