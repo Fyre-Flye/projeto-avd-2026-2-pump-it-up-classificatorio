@@ -1,0 +1,9 @@
+modelo,classe,acuracia_global,precisao,recall,f1,suporte
+Arvore de Decisao,functional,75.33,76.04,85.28,80.39,6445
+Arvore de Decisao,functional needs repair,75.33,47.35,26.88,34.29,863
+Arvore de Decisao,non functional,75.33,77.42,70.45,73.77,4559
+Arvore de Decisao,MEDIA MACRO (3 classes),75.33,66.93,60.87,62.82,11867
+Random Forest,functional,80.58,79.15,91.02,84.67,6445
+Random Forest,functional needs repair,80.58,65.82,27.0,38.29,863
+Random Forest,non functional,80.58,84.42,75.96,79.97,4559
+Random Forest,MEDIA MACRO (3 classes),80.58,76.46,64.66,67.64,11867

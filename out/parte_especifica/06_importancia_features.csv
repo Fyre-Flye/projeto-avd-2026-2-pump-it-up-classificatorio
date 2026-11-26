@@ -1,0 +1,29 @@
+coluna,importancia,importancia_pct,glossario
+ward,0.16730816111004074,16.73,Subdistrito / ward
+quantity,0.11747604461875105,11.75,Quantidade de água
+funder,0.10108549009637183,10.11,Financiador do poço
+installer,0.09635063662532818,9.64,Instalador do poço
+lga,0.08311293325783584,8.31,Autoridade local / município
+waterpoint_type_group,0.050752397872796895,5.08,Tipo de ponto d'água (geral)
+longitude,0.04644568089190144,4.64,Longitude GPS
+latitude,0.04626515489374363,4.63,Latitude GPS
+extraction_type_class,0.04577806395231515,4.58,Tipo de extração (geral)
+gps_height,0.029011522194353715,2.9,Altitude do poço
+idade_no_registro,0.02574716379385218,2.57,Idade do poço no registro
+population,0.02411608455653713,2.41,População ao redor do poço
+payment_type,0.023907929392587214,2.39,Forma de pagamento
+construction_year,0.023888294931745813,2.39,Ano de construção
+region,0.019849907036653673,1.98,Região geográfica
+amount_tsh,0.015878007059594256,1.59,Água disponível (total static head)
+basin,0.01469830598327621,1.47,Bacia hidrográfica
+scheme_management,0.013618010483752866,1.36,Operador do esquema
+quality_group,0.011507102934846036,1.15,Qualidade da água (geral)
+source_class,0.00889324087576056,0.89,Fonte da água (geral)
+public_meeting,0.008452524105000346,0.85,Reunião pública (bool)
+permit,0.007875404249699685,0.79,Possui licença/permissão
+management_group,0.00619609206502188,0.62,Gestão do poço (geral)
+ano_registro,0.004073607717568307,0.41,Ano do registro
+ausente_construction_year,0.002261572111865142,0.23,Flag: construction_year era 0
+ausente_gps_height,0.0022179996043776083,0.22,Flag: gps_height era 0
+ausente_population,0.0021294624601855858,0.21,Flag: population era 0
+ausente_coords,0.0011032051242370292,0.11,Flag: coordenadas eram 0
