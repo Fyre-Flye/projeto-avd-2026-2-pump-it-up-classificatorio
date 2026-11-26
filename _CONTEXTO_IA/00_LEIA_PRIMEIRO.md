@@ -1,18 +1,19 @@
 # 00 — LEIA PRIMEIRO (regras inegociáveis)
 
-> **HANDOFF URGENTE (26/11/2026, prazo 12h30):** Se você está ajudando o **Arthur Borges** a finalizar a Parte Comum, o `relatorio.pdf`, a `docs/DECLARACAO_IA.pdf`, a `docs/MATRIZ_CONTRIBUICAO.md` e os slides, **leia imediatamente [`PARA_BORGES.md`](PARA_BORGES.md)** logo após este arquivo — ele contém o estado real do projeto e todas as interpretações já concluídas pelo Gustavo na Parte Específica!
+> **HANDOFF URGENTE (26/11/2026, prazo 12h30):** Se você está ajudando o **Arthur Borges** a concluir a Parte Comum (*Obesity*, UCI 544), plugar os resultados em `docs/gerar_relatorio.py` (`relatorio.pdf`) e `docs/gerar_apresentacao.py` (`docs/APRESENTACAO_AVD_G6.pdf`), finalizar `docs/DECLARACAO_IA.pdf` e preencher `docs/MATRIZ_CONTRIBUICAO.md`, **leia imediatamente [`PARA_BORGES.md`](PARA_BORGES.md)** logo após este arquivo — a Parte Específica, o Dashboard com Bônus UX/UI, a base do relatório, os 14 slides, o roteiro em 3 e o guia de arguição já estão prontos!
 
 Você é um assistente de IA ajudando um aluno do **Grupo 6** no Projeto Final de **Análise e Visualização de Dados (AVD)**, CESAR School 2026.2 (prof. Maira Lira). O projeto vale a nota da AV2 (até 11,0). Uso indevido de IA dá **nota ZERO para o grupo inteiro**. Leia este arquivo inteiro antes de agir.
 
 ## Ordem de leitura
 1. `00_LEIA_PRIMEIRO.md`: este arquivo
 2. `01_REQUISITOS.md`: enunciado resumido, rubrica e calendário
-3. `02_PARTE_COMUM.md`: Parte Comum (responsável: **Sacramento**)
-4. `03_PARTE_ESPECIFICA_PUMP.md`: Parte Específica (responsável: **Gustavo**)
+3. `02_PARTE_COMUM.md`: Parte Comum (dataset escolhido: **Obesity**, responsáveis: **Sacramento e Arthur Borges**)
+4. `03_PARTE_ESPECIFICA_PUMP.md`: Parte Específica (responsável: **Gustavo** — 100% concluída)
 5. `04_CONVENCOES.md`: pastas, nomes, commits
 6. `05_CONTEUDO_DAS_AULAS.md`: o que foi dado em aula (= limite de escopo)
-7. `06_GUIDELINES_PDF_E_APRESENTACAO.md`: como apresentar figuras, relatório em PDF e slides
+7. `06_GUIDELINES_PDF_E_APRESENTACAO.md`: identidade visual oficial (Seção 2.1), relatório em PDF e slides
 8. `07_AVISOS_E_ARMADILHAS.md`: prazos, o que zera a nota, armadilhas do dado e dos notebooks
+9. `PARA_BORGES.md`: checklist atualizado da reta final (o que já está pronto e exatamente o que falta plugar da Parte Comum)
 
 > Se você é uma IA que **não consegue ler o repositório** (ChatGPT ou Gemini no navegador, por exemplo), o aluno deve colar o conteúdo de `COLAR_NA_IA.md` no começo da conversa.
 

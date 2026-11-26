@@ -3,9 +3,9 @@
 Coisas que não estão claras nos outros arquivos e que já causaram, ou podem causar, erro, retrabalho ou nota zero.
 
 ## 1. Prazos
-- **Entrega: quinta, 26/11/2026**, pelo Classroom (todos os integrantes postam o link do repositório). **Apresentação: quinta, 03/12/2026.**
-- A semana tem outras provas dos integrantes (AA em 30/11 e 02/12, Segurança da Informação em 01/12). Não conte com o Gustavo disponível o tempo todo: deixe o trabalho em estado commitável a qualquer momento.
-- O que o enunciado exige no repositório e ainda **não existe** (atualizado em 25/11/2026): `relatorio.pdf`, `docs/DECLARACAO_IA.pdf` assinada por todos e a matriz de contribuição final. Tratamento dos dados, classificador, dashboard e visualizações finais também estão pendentes.
+- **Entrega: quinta, 26/11/2026 às 12h30**, pelo Classroom (todos os integrantes ativos postam o link do repositório). **Apresentação e defesa: quinta, 03/12/2026.**
+- A semana tem outras provas dos integrantes (AA em 30/11 e 02/12, Segurança da Informação em 01/12). Deixe o trabalho em estado commitável a qualquer momento.
+- **Status real em 26/11/2026 (11h50):** Parte Específica (EDA, CSV limpo, classificador sem *data leakage*, 7 figuras finais, storytelling/notas, dashboard Streamlit com Bônus UX/UI e Aba 4 K-Means animada), base do `relatorio.pdf`, apresentação 16:9 (`docs/APRESENTACAO_AVD_G6.pdf`), roteiro em 3 (`docs/ROTEIRO_APRESENTACAO.md`) e guia de arguição (`docs/GUIA_ARGUICAO_E_VARIAVEIS.md`) estão **prontos e no GitHub**. Ainda **pendentes** (com Arthur Borges e assinaturas do grupo): conclusão da Parte Comum (`notebooks/parte_comum/eda.ipynb` e `kmeans_metricas.ipynb`), inserção das Seções `6.2` a `6.5` em `docs/gerar_relatorio.py` e Slides 11 a 13 em `docs/gerar_apresentacao.py`, assinaturas de Arthur Borges e Sacramento em `docs/DECLARACAO_IA.pdf` e preenchimento de `docs/MATRIZ_CONTRIBUICAO.md` (ver `PARA_BORGES.md`).
 
 ## 2. Uso de IA: o que zera a nota
 - Todo uso de IA precisa estar **declarado**, e **toda ferramenta** entra: Claude Code, Gemini/Antigravity e qualquer outra. A marcação no código é `# [IA] <ferramenta> – <finalidade>`, com o nome verdadeiro da ferramenta. Quando duas ferramentas mexem na mesma célula, as duas entram.
@@ -27,7 +27,7 @@ Coisas que não estão claras nos outros arquivos e que já causaram, ou podem c
 - Devem rodar **no Jupyter local e no Google Colab**. Mantenha a célula que clona o repositório no Colab e use `ROOT`, `DATA_DIR` e `OUT_DIR`; nunca caminhos absolutos da máquina.
 - Antes de commitar um notebook: *Restart & Run All*, sem erro, execuções em ordem. Saídas e figuras novas entram **no mesmo commit** da mudança que as gerou.
 - Quando uma figura é dividida ou renomeada, **remova a antiga** (`git rm`) para não ficar PNG órfão em `out/`.
-- Ninguém edita o notebook de outro integrante: o Sacramento cuida de `notebooks/parte_comum/` e o Gustavo, de `src/parte_especifica/`.
+- Ninguém edita o notebook de outro integrante sem alinhamento: Arthur Borges e Sacramento cuidam de `notebooks/parte_comum/` e Gustavo, de `src/parte_especifica/`.
 - Uma EDA = **código + `> **Como ler:**`**. Nunca escreva no notebook o que um gráfico "mostra".
 
 ## 5. O que não vai para o Git

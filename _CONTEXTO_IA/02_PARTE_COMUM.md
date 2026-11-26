@@ -1,6 +1,8 @@
-# 02 — Parte Comum: Wine Quality **ou** Obesity (responsável: Sacramento)
+# 02 — Parte Comum: Obesity (UCI 544) (responsáveis: Sacramento e Arthur Borges)
 
-## Primeira decisão: qual dataset (é do Sacramento)
+> **Estado real em 26/11/2026 (11h50):** dataset escolhido pelo Sacramento é **Obesity (UCI 544)** (`data/parte_comum/obesity/ObesityDataSet_raw_and_data_sinthetic.csv`, `2.111 × 17`, 7 classes de `NObeyesdad`). `notebooks/parte_comum/eda.ipynb` tem apenas **6/22 células rodadas** (falta relacional, outliers, decisão das 24 duplicadas e textos autorais) e `notebooks/parte_comum/kmeans_metricas.ipynb` tem **0/18 células rodadas**. Arthur Borges assumiu a conclusão desta parte e a integração nas Seções `6.2` a `6.5` de `docs/gerar_relatorio.py` e nos Slides 11 a 13 de `docs/gerar_apresentacao.py` (ver `PARA_BORGES.md`).
+
+## Dataset escolhido: Obesity (UCI 544)
 O enunciado deixa o grupo escolher **um** dos dois datasets. Os dois estão no repositório. A IA não deve escolher pelo aluno, mas pode explicar as consequências de cada opção.
 
 | | Wine Quality (UCI 186) | Obesity (UCI 544) |
@@ -50,5 +52,5 @@ Rode os notebooks com o diretório de trabalho na **raiz do repo** (o esqueleto 
 - Granularidade das classes: o enunciado dá como exemplo "Obesidade Grau I" × "Sobrepeso" e as notas 5 e 6 do vinho. As classes vizinhas são distinguíveis pelos dados?
 - **A IA não escreve isso.** Ela pode revisar o texto do aluno.
 
-## Bônus que conecta com o dashboard (opcional, combinar com o Gustavo)
-O enunciado dá bônus por uma **página da Parte Comum no dashboard** e por **animação entre as passadas do K-Means**. Se o Sacramento salvar os resultados (labels de cada passada, inércias, matrizes) em `out/parte_comum/*.csv`, o dashboard consegue ler esses arquivos.
+## Bônus já conectado ao dashboard (`src/parte_especifica/dashboard.py`)
+A **Aba 4 ("Parte Comum: K-Means Obesity")** do dashboard Streamlit já implementa a curva do Cotovelo, a **animação interativa em PCA 2D entre Passada 1 e Passada 2**, o mapeamento cluster -> classe, as matrizes de confusão e as métricas por classe usando `data_loader.py` (`executar_kmeans_parte_comum`). Ao concluir `notebooks/parte_comum/kmeans_metricas.ipynb`, basta confirmar se o `k` livre escolhido e o tratamento das colunas estão alinhados para que os números do notebook, do relatório, dos slides e do dashboard sejam idênticos.
