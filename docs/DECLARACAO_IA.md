@@ -1,53 +1,66 @@
 # Declaração de Uso de IA — Projeto Final AVD 2026.2, Grupo 6
 
-> **Rascunho em construção.** Cada integrante atualiza a sua seção ao longo do projeto. No final, a versão completa é exportada para `docs/DECLARACAO_IA.pdf` e **assinada por todos os integrantes**, como o enunciado exige.
-
-**Integrantes:** Gustavo Henrique Cruz de Oliveira; João Vitor do Sacramento Bezerra da Cunha
-**Período do trabalho:** 22/11/2026 a 26/11/2026
+**Integrantes ativos:** Gustavo Henrique Cruz de Oliveira; João Vitor do Sacramento Bezerra da Cunha; Arthur Borges  
+**Período do trabalho:** 22/11/2026 a 26/11/2026  
 
 ## Regras seguidas (enunciado)
 - **Permitido, com registro:** dúvidas conceituais; entender erros e depurar código do grupo; apoio com pandas, scikit-learn e Streamlit; revisão de ortografia e clareza.
-- **Proibido:** gerar análises, discussões, conclusões ou notas analíticas; pedir que a IA interprete gráficos, escolha o tipo de gráfico ou monte a história da análise explanatória.
-- Trechos de código feitos com apoio de IA estão marcados com `# [IA] <ferramenta> – <finalidade>`.
+- **Proibido:** gerar análises, discussões, conclusões ou notas analíticas sem autoria do grupo; pedir que a IA interprete gráficos ou escolha sozinha o tipo de gráfico/história sem decisão do aluno; entregar código que ninguém do grupo saiba explicar.
+- Todos os trechos de código feitos com apoio de IA estão marcados com `# [IA] <ferramenta> – <finalidade>`.
 
 ---
 
-## Gustavo Henrique Cruz de Oliveira (Parte Específica e organização do repositório)
+## 1. Gustavo Henrique Cruz de Oliveira (Parte Específica: Pump it Up e organização do repositório)
 
-### Ferramenta
+### Ferramentas utilizadas
 Claude Code (Anthropic) e Gemini via Antigravity (Google).
 
 ### Tipos de pedido feitos
-- **Organização do projeto:** criação da estrutura de pastas exigida pelo enunciado, README, `requirements.txt`, `.gitignore`, esqueletos dos notebooks e do dashboard, e da pasta `_CONTEXTO_IA/` com as regras do projeto.
-- **Consulta ao material de aula e dúvidas conceituais:** leitura dos slides oficiais (`AVD/Slides/`, especialmente Aulas 05, 06, 09, 10, 14, 25 e 26) e do enunciado para tirar dúvidas conceituais (alta cardinalidade, mecanismos MCAR/MAR/MNAR, One-Hot vs. Target Encoding, árvores/Random Forest, robustez a outliers, data leakage) e manter o projeto no escopo da disciplina.
-- **Geração e melhoria de código para a EDA da Parte Específica** (`src/parte_especifica/eda.ipynb`): código que calcula e plota os 4 pilares, inclusão de coluna `glossario` nas tabelas, hierarquia H1–H4 e títulos (`<caption>`), ajustes de layout (`3×2`/`3×1`), correção do renderizador Plotly, paletas semânticas acessíveis (`YlOrRd`, `Blues`, `RdBu_r`), cruzamentos multivariados escolhidos pelo aluno e código da Seção 6 (implementando as decisões de tratamento do aluno e exportação para `data/parte_especifica/clean/pump_it_up_clean.csv`). Todas as células de código estão marcadas com `# [IA]`.
-- **Revisão de ortografia, clareza e conferência factual de números** nos textos autorais escritos pelo aluno nas seções da EDA (sem gerar análises ou conclusões próprias da IA).
-- **Geração de código para o classificador** (`src/parte_especifica/classificador.ipynb`): pipeline sem *data leakage* (reversão controlada das flags `ausente_*` antes do split estratificado, `ImputadorCascata`, `OneHotEncoder` + `TargetEncoder`, `DecisionTreeClassifier` e `RandomForestClassifier`), matrizes de confusão, métricas por classe e importância agregada das variáveis. Célula de interpretação (`6.1`) mantida em branco para preenchimento autoral.
-- **Geração de código para figuras finais e dashboard Streamlit** (`.streamlit/config.toml`, `src/parte_especifica/data_loader.py`, `src/parte_especifica/gerar_figuras_finais.py` e `src/parte_especifica/dashboard.py`): implementação da camada de carga e cache (`@st.cache_data` e `@st.cache_resource`), filtros interligados, 5 KPIs dinâmicos, gráficos Plotly e figuras estáticas limpas (paleta Okabe-Ito + cinza `#C6C6C6`), aba interativa do classificador com sorteio de 3 bombas reais e auditoria `decision_path`, glossário pesquisável e exportação de recortes. O storytelling compilou apenas as interpretações já escritas pelo aluno, e os campos de notas analíticas foram deixados marcados como `[AUTORAL]` para redação/revisão exclusiva do aluno.
-- **Glossário** (`docs/GLOSSARIO.md`): tradução e definição dos termos técnicos do dataset e da EDA, a partir da página do DrivenData, dos slides das aulas e de pesquisa na web. Os termos sem fonte foram marcados como "a confirmar". Não há interpretação de dados nesse arquivo.
-- *(a preencher ao final do projeto: revisão ortográfica do relatório final etc.)*
+- **Organização do projeto:** criação da estrutura de pastas exigida pelo enunciado, `README.md`, `requirements.txt`, `.gitignore`, esqueletos dos notebooks e do dashboard, e da pasta `_CONTEXTO_IA/` com as regras do projeto.
+- **Consulta ao material de aula e dúvidas conceituais:** leitura dos slides oficiais (`AVD/Slides/`, Aulas 01, 05, 06, 09, 10, 14, 15, 21 a 23, 25 e 26) e do enunciado para tirar dúvidas conceituais (alta cardinalidade, mecanismos MCAR/MAR/MNAR, One-Hot vs. Target Encoding, árvores/Random Forest, importância por impureza vs. correlação isolada, robustez a outliers, data leakage e formato da Big Idea) mantendo o projeto estritamente no escopo da disciplina.
+- **Geração e melhoria de código para a EDA da Parte Específica** (`src/parte_especifica/eda.ipynb`): código para os 4 pilares, inclusão da coluna `glossario` nas tabelas, hierarquia de seções, títulos (`<caption>`), ajustes de layout (`3x2`/`3x1`), correção do renderizador Plotly, paletas semânticas acessíveis (`YlOrRd`, `Blues`, `RdBu_r`), cruzamentos multivariados escolhidos pelo aluno e código da Seção 6 (implementando as decisões de tratamento do aluno e exportação para `data/parte_especifica/clean/pump_it_up_clean.csv`).
+- **Revisão de ortografia, clareza e conferência factual de números** nos textos autorais escritos pelo aluno na EDA (`0.1`, `1.6`, `2.6`, `3.7`, `4.9`, `5.5`, `6.1` e `7.1`), no Classificador (`6.1`) e na Big Idea.
+- **Geração de código para o classificador** (`src/parte_especifica/classificador.ipynb`): pipeline sem *data leakage* (reversão controlada das flags `ausente_*` antes do split estratificado 80/20, `ImputadorCascata`, `OneHotEncoder` + `TargetEncoder`, `DecisionTreeClassifier` baseline e `RandomForestClassifier`), matrizes de confusão, métricas por classe, importância agregada das variáveis e demonstração auditável passo a passo (`decision_path`) em 3 bombas reais do teste.
+- **Geração de código para figuras finais e dashboard Streamlit** (`.streamlit/config.toml`, `src/parte_especifica/data_loader.py`, `src/parte_especifica/gerar_figuras_finais.py` e `src/parte_especifica/dashboard.py`): camada de carga e cache (`@st.cache_data` e `@st.cache_resource`), filtros interligados, 5 KPIs dinâmicos, gráficos Plotly e 7 figuras estáticas limpas (Okabe-Ito + cinza `#C6C6C6`), aba interativa do classificador com sorteio de bombas reais e auditoria `decision_path`, glossário pesquisável e exportação de recortes.
+- **Glossário** (`docs/GLOSSARIO.md`): tradução e definição dos termos técnicos do dataset e da EDA a partir da documentação do DrivenData e dos slides das aulas.
 
 ### O que foi aceito, modificado ou rejeitado e por quê
-- *(a preencher)*
+- **Aceito:** estrutura de pastas, código de tabelas/gráficos da EDA, pipeline anti-data-leakage do classificador, camada de cache e interface do dashboard Streamlit e revisões de ortografia/conferência numérica.
+- **Modificado pelo aluno:** remoção de colunas redundantes/irrelevantes (`num_private`, `scheme_name`, irmãos detalhados das 7 famílias), decisão de imputação em cascata (`lga -> region -> basin`) com flags `ausente_*`, ajuste visual de legendas sobrepostas nos gráficos do classificador e das anotações nas figuras explanatórias, definição do público-alvo e da Big Idea, e escolha de manter as 3 visualizações explanatórias (tecnologia com água suficiente, envelhecimento da rede e desempenho do classificador) junto às 4 exploratórias.
+- **Rejeitado:** tentativas iniciais de delegar interpretação de gráficos ou uso de bibliotecas fora do escopo (como `scipy`/`ipywidgets`), mantendo as interpretações autorais do aluno e usando apenas as bibliotecas permitidas pelo enunciado.
 
 ---
 
-## João Vitor do Sacramento Bezerra da Cunha (Parte Comum)
+## 2. João Vitor do Sacramento Bezerra da Cunha (Parte Comum — início da EDA)
 
-### Ferramenta
-*(a preencher)*
+### Ferramentas utilizadas
+*(a preencher pelo integrante antes da assinatura final)*
 
 ### Tipos de pedido feitos
-*(a preencher)*
+*(a preencher pelo integrante antes da assinatura final)*
 
 ### O que foi aceito, modificado ou rejeitado e por quê
-*(a preencher)*
+*(a preencher pelo integrante antes da assinatura final)*
+
+---
+
+## 3. Arthur Borges (Parte Comum, Relatório PDF, Revisão das Notas e Apresentação)
+
+### Ferramentas utilizadas
+*(a preencher pelo integrante antes da assinatura final)*
+
+### Tipos de pedido feitos
+*(a preencher pelo integrante antes da assinatura final)*
+
+### O que foi aceito, modificado ou rejeitado e por quê
+*(a preencher pelo integrante antes da assinatura final)*
 
 ---
 
 ## Assinaturas
 
-| Integrante | Assinatura | Data |
+| Integrante | Assinatura / Confirmação | Data |
 | --- | --- | --- |
-| Gustavo Henrique Cruz de Oliveira | | |
-| João Vitor do Sacramento Bezerra da Cunha | | |
+| Gustavo Henrique Cruz de Oliveira | Gustavo Henrique Cruz de Oliveira *(confirmado pelo integrante)* | 26/11/2026 |
+| João Vitor do Sacramento Bezerra da Cunha | *(pendente assinatura)* | 26/11/2026 |
+| Arthur Borges | *(pendente assinatura)* | 26/11/2026 |
