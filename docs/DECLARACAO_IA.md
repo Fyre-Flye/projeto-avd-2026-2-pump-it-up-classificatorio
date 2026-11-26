@@ -31,7 +31,24 @@ Claude Code (Anthropic) e Gemini via Antigravity (Google).
 
 ---
 
-## 2. Arthur de Assis Borges (Parte Comum: Wine Quality, EDA e K-Means)
+## 2. João Vitor do Sacramento Bezerra da Cunha (Parte Comum: início da EDA)
+
+### Ferramentas utilizadas
+ChatGPT (OpenAI), conforme marcações `# [IA] ChatGPT – ...` em `notebooks/parte_comum/eda.ipynb`.
+
+### Tipos de pedido feitos
+- Esclarecimento de dúvidas conceituais sobre a Análise Exploratória de Dados (EDA) e a organização dos quatro pilares: análise estrutural, distribucional, relacional e de outliers.
+- Apoio à implementação, em etapas, de código para inspeção da estrutura dos dados, tipos de variáveis, valores ausentes, duplicatas, distribuições, relações entre variáveis e identificação de possíveis outliers no dataset *Wine Quality*.
+- Explicação de trechos de código e auxílio na correção de erros durante a execução do notebook, com orientação passo a passo para acompanhar e validar cada etapa.
+
+### O que foi aceito, modificado ou rejeitado e por quê
+- **Aceito:** apoio de código para as etapas exploratórias, tabelas e visualizações, após verificar sua execução e adequação ao notebook e ao dataset adotado pelo grupo.
+- **Modificado:** exemplos e trechos de código foram ajustados ao contexto do notebook e à versão final do projeto, que passou a utilizar *Wine Quality* em vez de *Obesity*.
+- **Não delegado à IA:** interpretação dos resultados, justificativas das escolhas, decisões sobre tratamento dos dados e conclusões do trabalho, que permaneceram sob responsabilidade dos integrantes.
+
+---
+
+## 3. Arthur de Assis Borges (Parte Comum: Wine Quality, EDA e K-Means)
 
 ### Ferramentas utilizadas
 ChatGPT (OpenAI), conforme marcações `# [IA] ChatGPT – ...` em `notebooks/parte_comum/eda.ipynb` e `notebooks/parte_comum/kmeans_metricas.ipynb` (com posterior padronização visual dos gráficos via Gemini na integração final).
@@ -44,23 +61,10 @@ ChatGPT (OpenAI), conforme marcações `# [IA] ChatGPT – ...` em `notebooks/pa
 
 ---
 
-## 3. João Vitor do Sacramento Bezerra da Cunha (Parte Comum: exploração inicial)
-
-### Ferramentas utilizadas
-*(a preencher pelo integrante antes da assinatura final)*
-
-### Tipos de pedido feitos
-*(a preencher pelo integrante antes da assinatura final)*
-
-### O que foi aceito, modificado ou rejeitado e por quê
-*(a preencher pelo integrante antes da assinatura final)*
-
----
-
 ## Assinaturas
 
 | Integrante | Assinatura / Confirmação | Data |
 | --- | --- | --- |
 | Gustavo Henrique Cruz de Oliveira | Gustavo Henrique Cruz de Oliveira | 26/11/2026 |
+| João Vitor do Sacramento Bezerra da Cunha | João Vítor do Sacramento | 26/11/2026 |
 | Arthur de Assis Borges | Arthur de Assis Borges | 26/11/2026 |
-| João Vitor do Sacramento Bezerra da Cunha | *(pendente assinatura do integrante)* | 26/11/2026 |
