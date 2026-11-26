@@ -33,7 +33,7 @@ def obter_raiz_projeto():
 
 ROOT = obter_raiz_projeto()
 CLEAN_PATH = ROOT / "data" / "parte_especifica" / "clean" / "pump_it_up_clean.csv"
-OBESITY_PATH = ROOT / "data" / "parte_comum" / "obesity" / "ObesityDataSet_raw_and_data_sinthetic.csv"
+WINE_PATH = ROOT / "data" / "parte_comum" / "wine_quality" / "winequality-combined.csv"
 OUT_DIR = ROOT / "out" / "parte_especifica"
 METRICAS_PATH = OUT_DIR / "06_metricas_classificadores.csv"
 IMPORTANCIA_PATH = OUT_DIR / "06_importancia_features.csv"
@@ -388,21 +388,22 @@ def gerar_resumo_markdown(df_filtrado, df_total, filtros_ativos):
     return "\n".join(linhas) + "\n"
 
 
-@st.cache_data(show_spinner="Preparando agrupamento K-Means da Parte Comum (Obesity)...")
-def executar_kmeans_parte_comum(k_livre=4):
-    """Carrega Obesity (UCI 544), padroniza as 8 numericas e roda K-Means em 2 passadas + PCA 2D.
+@st.cache_data(show_spinner="Preparando agrupamento K-Means da Parte Comum (Wine Quality)...")
+def executar_kmeans_parte_comum(k_livre=3):
+    """Carrega Wine Quality combinado (UCI 186), padroniza as 11 fisico-quimicas + wine_type_red e roda K-Means em 2 passadas + PCA 2D.
 
-    # [IA] Gemini – calculo do Cotovelo (k=2..10), Passada 1 (k livre), Passada 2 (k=7 fixo), PCA 2D e metricas por passada (Aulas 14, 25 e 26)
+    # [IA] Gemini – calculo do Cotovelo (k=2..10), Passada 1 (k livre), Passada 2 (k=7 fixo), PCA 2D e metricas alinhadas a notebooks/parte_comum/kmeans_metricas.ipynb
     """
-    if not OBESITY_PATH.exists():
+    if not WINE_PATH.exists():
         return None
 
-    df_ob = pd.read_csv(OBESITY_PATH)
-    cols_num_ob = ["Age", "Height", "Weight", "FCVC", "NCP", "CH2O", "FAF", "TUE"]
-    col_cls = "NObeyesdad"
+    df_wq = pd.read_csv(WINE_PATH, sep=";")
+    col_cls = "quality"
+    cols_num_wq = df_wq.select_dtypes(include="number").columns.drop(col_cls).tolist()
 
-    X_num = df_ob[cols_num_ob].copy()
-    y_real = df_ob[col_cls].copy()
+    X_num = df_wq[cols_num_wq].copy()
+    X_num["wine_type_red"] = df_wq["wine_type"].eq("red").astype(int)
+    y_real = df_wq[col_cls].reset_index(drop=True)
     classes_ord = sorted(y_real.unique().tolist())
 
     scaler = StandardScaler()
@@ -430,16 +431,17 @@ def executar_kmeans_parte_comum(k_livre=4):
 
         cm_df = pd.crosstab(
             pd.Series(clusters, name="Cluster"),
-            y_real.rename("Classe real"),
+            y_real.rename("Nota real"),
         ).reindex(columns=classes_ord, fill_value=0)
-        cm_df.index = [f"Cluster {c} ({mapa[c]})" for c in cm_df.index]
+        cm_df.index = [f"Cluster {c} (nota {mapa[c]})" for c in cm_df.index]
+        cm_df.columns = [f"Nota {c}" for c in cm_df.columns]
 
         acc = accuracy_score(y_real, y_map) * 100.0
         prec, rec, f1, sup = precision_recall_fscore_support(
             y_real, y_map, labels=classes_ord, zero_division=0
         )
         df_met = pd.DataFrame({
-            "Classe": classes_ord,
+            "Nota (quality)": [f"Nota {c}" for c in classes_ord],
             "Precisão (%)": np.round(prec * 100, 1),
             "Recall (%)": np.round(rec * 100, 1),
             "F1 (%)": np.round(f1 * 100, 1),
@@ -459,36 +461,39 @@ def executar_kmeans_parte_comum(k_livre=4):
     p1 = rodar_passada(int(k_livre))
     p2 = rodar_passada(len(classes_ord))
 
-    # DataFrame longo para animacao Plotly de transicao Passada 1 -> Passada 2
+    # Amostra estratificada de ate 2.000 vinhos para manter a animacao Plotly fluida sem perder a estrutura
+    rng = np.random.default_rng(RANDOM_STATE)
+    idx_vis = np.sort(rng.choice(len(df_wq), size=min(2000, len(df_wq)), replace=False))
+
     df_anim_1 = pd.DataFrame({
-        "id_ponto": np.arange(len(df_ob)),
-        "PC1": coords_2d[:, 0],
-        "PC2": coords_2d[:, 1],
+        "id_ponto": idx_vis,
+        "PC1": coords_2d[idx_vis, 0],
+        "PC2": coords_2d[idx_vis, 1],
         "Passada": f"Passada 1: k livre (k = {p1['k']})",
-        "Cluster": [f"Cluster {c}" for c in p1["clusters"]],
-        "Classe mapeada": p1["y_map"].values,
-        "Classe real": y_real.values,
-        "Peso (kg)": df_ob["Weight"].values,
-        "Altura (m)": df_ob["Height"].values,
+        "Cluster": [f"Cluster {c}" for c in p1["clusters"][idx_vis]],
+        "Nota mapeada": [f"Nota {v}" for v in p1["y_map"].values[idx_vis]],
+        "Nota real": [f"Nota {v}" for v in y_real.values[idx_vis]],
+        "Tipo": df_wq["wine_type"].values[idx_vis],
+        "Álcool (%)": df_wq["alcohol"].values[idx_vis],
     })
     df_anim_2 = pd.DataFrame({
-        "id_ponto": np.arange(len(df_ob)),
-        "PC1": coords_2d[:, 0],
-        "PC2": coords_2d[:, 1],
+        "id_ponto": idx_vis,
+        "PC1": coords_2d[idx_vis, 0],
+        "PC2": coords_2d[idx_vis, 1],
         "Passada": f"Passada 2: k fixo (k = {p2['k']})",
-        "Cluster": [f"Cluster {c}" for c in p2["clusters"]],
-        "Classe mapeada": p2["y_map"].values,
-        "Classe real": y_real.values,
-        "Peso (kg)": df_ob["Weight"].values,
-        "Altura (m)": df_ob["Height"].values,
+        "Cluster": [f"Cluster {c}" for c in p2["clusters"][idx_vis]],
+        "Nota mapeada": [f"Nota {v}" for v in p2["y_map"].values[idx_vis]],
+        "Nota real": [f"Nota {v}" for v in y_real.values[idx_vis]],
+        "Tipo": df_wq["wine_type"].values[idx_vis],
+        "Álcool (%)": df_wq["alcohol"].values[idx_vis],
     })
     df_anim = pd.concat([df_anim_1, df_anim_2], ignore_index=True)
 
     return {
-        "n_linhas": len(df_ob),
-        "n_colunas": df_ob.shape[1],
+        "n_linhas": len(df_wq),
+        "n_colunas": df_wq.shape[1],
         "n_classes": len(classes_ord),
-        "cols_num": cols_num_ob,
+        "cols_num": list(X_num.columns),
         "var_exp": var_exp,
         "df_cotovelo": df_cotovelo,
         "passada_1": p1,

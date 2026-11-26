@@ -375,7 +375,7 @@ aba_explan, aba_expl, aba_clf, aba_comum, aba_ref = st.tabs([
     "Storytelling e Insights (Explanatória)",
     "Exploração Interativa (Exploratória)",
     "Classificador e Auditoria",
-    "Parte Comum (K-Means Obesity)",
+    "Parte Comum (K-Means Wine Quality)",
     "Glossário e Exportação",
 ])
 
@@ -1572,28 +1572,28 @@ with aba_clf:
 
 
 # =============================================================================
-# ABA 4: PARTE COMUM (K-MEANS OBESITY + ANIMACAO DE TRANSICAO - BONUS +1,0)
+# ABA 4: PARTE COMUM (K-MEANS WINE QUALITY + ANIMACAO DE TRANSICAO - BONUS +1,0)
 # =============================================================================
 @st.fragment
 def secao_parte_comum_kmeans():
     """Bonus Visual/UX (+1,0): pagina da Parte Comum e animacao de transicao Passada 1 -> Passada 2 do K-Means."""
-    st.subheader("Parte Comum: Agrupamento K-Means no dataset Obesity (Bônus Visual/UX)")
+    st.subheader("Parte Comum: Agrupamento K-Means no dataset Wine Quality (Bônus Visual/UX)")
     st.caption(
-        "Dataset UCI 544 (Obesity, 2.111 registros e 7 classes em NObeyesdad). "
-        "Padronização com StandardScaler nas 8 variáveis numéricas, curva do Cotovelo e transição animada entre as duas passadas (PCA 2D)."
+        "Dataset UCI 186 (Wine Quality combinado, 6.497 registros e 7 notas de qualidade de 3 a 9). "
+        "Padronização com StandardScaler nas 11 variáveis físico-químicas + indicador binário wine_type_red, curva do Cotovelo e transição animada (PCA 2D)."
     )
 
     k_escolhido = st.slider(
-        "Valor de k para a Passada 1 (k livre sugerido pelo Método do Cotovelo)",
+        "Valor de k para a Passada 1 (k livre escolhido pelo Método do Cotovelo = 3)",
         min_value=2,
         max_value=10,
-        value=4,
+        value=3,
         key="kmeans_k_livre",
     )
 
     res_km = executar_kmeans_parte_comum(k_livre=k_escolhido)
     if res_km is None:
-        st.warning("Arquivo data/parte_comum/obesity/ObesityDataSet_raw_and_data_sinthetic.csv não encontrado.")
+        st.warning("Arquivo data/parte_comum/wine_quality/winequality-combined.csv não encontrado.")
         return
 
     p1 = res_km["passada_1"]
@@ -1602,16 +1602,16 @@ def secao_parte_comum_kmeans():
     km1, km2, km3, km4 = st.columns(4)
     with km1:
         with st.container(border=True):
-            st.metric("Registros Obesity", fmt_int(res_km["n_linhas"]), delta=f"{res_km['n_classes']} classes reais", delta_color="off")
+            st.metric("Registros Wine Quality", fmt_int(res_km["n_linhas"]), delta=f"{res_km['n_classes']} notas reais (3 a 9)", delta_color="off")
     with km2:
         with st.container(border=True):
-            st.metric(f"Coincidência Passada 1 (k = {p1['k']})", fmt_pct(p1["acc"], 1))
+            st.metric(f"Coincidência Passada 1 (k = {p1['k']})", fmt_pct(p1["acc"], 2))
     with km3:
         with st.container(border=True):
             st.metric(
                 f"Coincidência Passada 2 (k = {p2['k']})",
-                fmt_pct(p2["acc"], 1),
-                delta=f"{fmt_num(p2['acc'] - p1['acc'], 1)} pp vs. Passada 1",
+                fmt_pct(p2["acc"], 2),
+                delta=f"{fmt_num(p2['acc'] - p1['acc'], 2)} pp vs. Passada 1",
             )
     with km4:
         with st.container(border=True):
@@ -1659,13 +1659,12 @@ def secao_parte_comum_kmeans():
             aplicar_layout_base(fig_cot, altura=460, margem_topo=58, margem_baixo=48)
             st.plotly_chart(fig_cot, width="stretch")
             exibir_rodape_grafico(
-                f"Fonte: UCI Machine Learning Repository (id = 544) | StandardScaler em 8 variáveis numéricas | n = {fmt_int(res_km['n_linhas'])}"
+                f"Fonte: UCI Machine Learning Repository (id = 186, Cortez et al. 2009) | StandardScaler em 12 entradas | n = {fmt_int(res_km['n_linhas'])}"
             )
 
     with c_anim:
         with st.container(border=True):
             df_anim = res_km["df_anim"]
-            # Paleta qualitativa acessivel (Okabe-Ito + tons de marca) para ate 10 clusters
             paleta_clusters = [
                 "#0F62FE", "#D55E00", "#009E73", "#E69F00", "#56B4E9",
                 "#CC79A7", "#062A5F", "#6F6F6F", "#198038", "#8E6A00",
@@ -1679,14 +1678,14 @@ def secao_parte_comum_kmeans():
                 color="Cluster",
                 color_discrete_sequence=paleta_clusters,
                 hover_data={
-                    "Classe real": True,
-                    "Classe mapeada": True,
-                    "Peso (kg)": ":.1f",
-                    "Altura (m)": ":.2f",
+                    "Nota real": True,
+                    "Nota mapeada": True,
+                    "Tipo": True,
+                    "Álcool (%)": ":.1f",
                     "id_ponto": False,
                     "Passada": False,
                 },
-                opacity=0.72,
+                opacity=0.70,
             )
             fig_anim.update_traces(marker=dict(size=6))
             fig_anim.update_layout(
@@ -1702,25 +1701,25 @@ def secao_parte_comum_kmeans():
             aplicar_layout_base(fig_anim, altura=460, margem_topo=58, margem_baixo=60)
             st.plotly_chart(fig_anim, width="stretch")
             exibir_rodape_grafico(
-                "Use o botão Play abaixo do gráfico ou alterne o slider para visualizar a reatribuição dos pontos entre as duas passadas do K-Means."
+                "Use o botão Play abaixo do gráfico ou alterne o slider para visualizar a reatribuição de 2.000 amostras entre Passada 1 e Passada 2 do K-Means."
             )
 
     with st.container(border=True):
-        st.markdown("#### Matrizes de confusão (Cluster mapeado x Classe real) e métricas por passada")
+        st.markdown("#### Matrizes de confusão (Cluster mapeado x Nota real) e métricas por passada")
         st.caption(
-            "O K-Means não vê os rótulos reais durante o treino; a taxa de coincidência mede apenas o quanto os "
-            "grupos descobertos coincidem com as classes originais de NObeyesdad (notebooks completos em notebooks/parte_comum/)."
+            "O K-Means não vê a coluna quality durante o treino; a taxa de coincidência mede o alinhamento entre os "
+            "grupos físico-químicos e as notas originais (notebooks completos em notebooks/parte_comum/)."
         )
         tab_p1, tab_p2 = st.columns(2)
         with tab_p1:
-            st.markdown(f"**Passada 1 (k = {p1['k']} livre) | Coincidência global: {fmt_pct(p1['acc'])}**")
+            st.markdown(f"**Passada 1 (k = {p1['k']} livre) | Coincidência global: {fmt_pct(p1['acc'], 2)}**")
             st.dataframe(p1["cm_df"], width="stretch")
-            with st.expander(f"Ver precisão, recall e F1 por classe (Passada 1, k = {p1['k']})"):
+            with st.expander(f"Ver precisão, recall e F1 por nota (Passada 1, k = {p1['k']})"):
                 st.dataframe(p1["df_met"], width="stretch", hide_index=True)
         with tab_p2:
-            st.markdown(f"**Passada 2 (k = {p2['k']} fixo) | Coincidência global: {fmt_pct(p2['acc'])}**")
+            st.markdown(f"**Passada 2 (k = {p2['k']} fixo) | Coincidência global: {fmt_pct(p2['acc'], 2)}**")
             st.dataframe(p2["cm_df"], width="stretch")
-            with st.expander(f"Ver precisão, recall e F1 por classe (Passada 2, k = {p2['k']})"):
+            with st.expander(f"Ver precisão, recall e F1 por nota (Passada 2, k = {p2['k']})"):
                 st.dataframe(p2["df_met"], width="stretch", hide_index=True)
 
 
