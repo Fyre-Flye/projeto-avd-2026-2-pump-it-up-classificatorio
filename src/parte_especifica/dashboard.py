@@ -442,14 +442,18 @@ with aba_explan:
                 tab_e1_show.columns = ["Funcional (%)", "Precisa reparo (%)", "Não funcional (%)", "Pontos (n)"]
                 st.dataframe(tab_e1_show.round(1), width="stretch")
         with col_n1:
-            with st.expander("Nota analítica (revisão autoral do Gustavo)"):
+            with st.expander("Nota analítica (Explanatória 1)"):
                 st.markdown(
-                    "**[AUTORAL - revisar/completar em docs/STORYTELLING_E_NOTAS.md]**\n\n"
-                    "- **O que mostra:** percentual de pontos inoperantes por tecnologia de extração somente entre bombas "
-                    "com água suficiente (`quantity == 'enough'`).\n"
-                    "- **Insight:** *(preencher/confirmar com palavras do aluno)*.\n"
-                    "- **Por que este gráfico:** barra horizontal ordenada com cor por exceção (laranja nas tecnologias "
-                    "mais críticas vs. cinza nas tecnologias mecânicas mais simples)."
+                    "- **O que mostra:** percentual de pontos não funcionais por classe de extração restrito "
+                    "somente aos pontos com água suficiente (`quantity = enough`, n = 33.150 na base limpa).\n"
+                    "- **Insight:** mesmo com disponibilidade de água adequada, bombas motorizadas (`motorpump`, "
+                    "45,9% inoperantes) e eólicas (`wind-powered`, 44,1%, amostra pequena de 59 registros) falham "
+                    "muito mais que sistemas mecânicos simples como gravidade (`gravity`, 18,4%) e bombas manuais "
+                    "(`handpump`, 23,5%). Tecnologias motorizadas tendem a depender de manutenção mais frequente e "
+                    "especializada; já `other` (76,7%) aponta meios alternativos ou improvisados.\n"
+                    "- **Por que este gráfico:** barra horizontal ordenada por taxa de falha, usando posição em eixo "
+                    "comum (maior precisão perceptiva) e cor por exceção (laranja nas tecnologias críticas contra "
+                    "cinza nos sistemas simples), além da linha de média do recorte."
                 )
 
     st.divider()
@@ -548,14 +552,16 @@ with aba_explan:
                 tab_e2a_show.columns = ["Funcional (%)", "Precisa reparo (%)", "Não funcional (%)", "Pontos (n)"]
                 st.dataframe(tab_e2a_show.round(1), width="stretch")
         with col_n2a:
-            with st.expander("Nota analítica (revisão autoral do Gustavo)"):
+            with st.expander("Nota analítica (Explanatória 2A)"):
                 st.markdown(
-                    "**[AUTORAL - revisar/completar em docs/STORYTELLING_E_NOTAS.md]**\n\n"
-                    "- **O que mostra:** evolução do percentual de bombas não funcionais por faixa de idade real "
-                    "(excluindo os registros imputados por ausência MAR).\n"
-                    "- **Insight:** *(preencher/confirmar com palavras do aluno)*.\n"
-                    "- **Por que este gráfico:** barras ordenadas cronologicamente com linha de tendência e cor de destaque "
-                    "nas faixas acima de 20 anos."
+                    "- **O que mostra:** taxa de pontos não funcionais por faixa de idade (`idade_no_registro`), "
+                    "considerando apenas os 38.674 registros com ano de construção informado (omitindo os 34,8% "
+                    "ausentes sob mecanismo MAR).\n"
+                    "- **Insight:** a idade separa claramente o estado operacional das bombas: a taxa de inoperância "
+                    "sobe continuamente de 23,9% (0 a 5 anos) para 60,8% (mais de 30 anos), e a mediana de idade das "
+                    "bombas quebradas (18 anos) é o dobro das funcionais (9 anos), com 14 anos nas que precisam de reparo.\n"
+                    "- **Por que este gráfico:** barras em ordem cronológica combinadas a linha de tendência facilitam "
+                    "enxergar a progressão contínua da falha com o envelhecimento, destacando em laranja as faixas acima de 20 anos."
                 )
 
     st.divider()
@@ -650,14 +656,17 @@ with aba_explan:
             with st.expander("Ver tabela alternativa (Explanatória 2B)"):
                 st.dataframe(df_metricas_csv, width="stretch", hide_index=True)
         with col_n2b:
-            with st.expander("Nota analítica (revisão autoral do Gustavo)"):
+            with st.expander("Nota analítica (Explanatória 2B)"):
                 st.markdown(
-                    "**[AUTORAL - revisar/completar em docs/STORYTELLING_E_NOTAS.md]**\n\n"
-                    "- **O que mostra:** métricas por classe (Precisão e Recall) e importância das 8 principais variáveis "
-                    "no `RandomForestClassifier` no conjunto de teste (`n = 11.867`).\n"
-                    "- **Insight:** *(preencher/confirmar com palavras do aluno)*.\n"
-                    "- **Por que este gráfico:** barras agrupadas com destaque de cor no gargalo da classe minoritária "
-                    "e barras horizontais ordenadas para o ranking de atributos."
+                    "- **O que mostra:** Precisão e Recall por classe do `RandomForestClassifier` no conjunto de teste "
+                    "estratificado (`n = 11.867`, sem data leakage) e o ranking das 10 variáveis mais importantes.\n"
+                    "- **Insight:** o Random Forest atinge 80,58% de acurácia e separa bem bombas funcionais (recall "
+                    "91,02%) e não funcionais (recall 75,96%), mas expõe o principal gargalo operacional na classe "
+                    "minoritária `functional needs repair` (7,3% da base): precisão de 65,82%, porém recall baixo de "
+                    "27,00%. As importâncias reforçam `quantity` (11,75%), `waterpoint_type_group` (5,08%) e "
+                    "`extraction_type_class` (4,58%) junto aos sinais locais de `ward`, `funder`, `installer` e `lga`.\n"
+                    "- **Por que este gráfico:** barras agrupadas com contraste de cor destacam imediatamente a queda "
+                    "de recall na classe minoritária, enquanto o ranking horizontal ordenado organiza os atributos por relevância."
                 )
 
 
@@ -709,7 +718,12 @@ with aba_expl:
                 width="stretch",
                 hide_index=True,
             )
-            st.markdown("**[AUTORAL - revisar em docs/STORYTELLING_E_NOTAS.md]:** Nota curta sobre desbalanceamento da classe alvo.")
+            st.markdown(
+                "**Nota analítica:** Mostra a contagem e a proporção das três classes de `status_group`. "
+                "A base é fortemente desbalanceada (54,3% funcionais, 38,4% não funcionais e apenas 7,3% precisando de reparo), "
+                "o que exige acompanhar precisão, recall e F1 por classe além da acurácia. "
+                "Gráfico de barras verticais escolhido por comparar diretamente o volume de categorias nominais com eixo partindo do zero."
+            )
 
     with c_e2:
         st.markdown("#### Exploratória 2: Situação por variável categórica (seletor interativo)")
@@ -775,7 +789,13 @@ with aba_expl:
             tab_show_e2 = tab_pct.loc[ordem_idx[::-1]].copy()
             tab_show_e2.columns = ["Funcional (%)", "Precisa reparo (%)", "Não funcional (%)", "Pontos (n)"]
             st.dataframe(tab_show_e2.round(1), width="stretch")
-            st.markdown("**[AUTORAL - revisar em docs/STORYTELLING_E_NOTAS.md]:** Nota curta sobre o comportamento das categorias.")
+            st.markdown(
+                "**Nota analítica:** Compara a distribuição proporcional (ou absoluta) da situação operacional dentro "
+                "de cada categoria selecionada. Em `quantity`, pontos secos (`dry`, 96,9% inoperantes) e desconhecidos "
+                "(`unknown`, 71,2%) concentram as maiores falhas; em `payment_type`, o predomínio de `never pay` (42,7% "
+                "da base) também se associa a maior inoperância (48%). Barras 100% empilhadas facilitam comparar proporções "
+                "entre categorias com volumes muito diferentes."
+            )
 
     st.divider()
 
@@ -910,7 +930,13 @@ with aba_expl:
         tab_reg_show = tab_reg.iloc[::-1].copy()
         tab_reg_show.columns = ["Funcional (%)", "Precisa reparo (%)", "Não funcional (%)", "Pontos (n)"]
         st.dataframe(tab_reg_show.round(1), width="stretch")
-        st.markdown("**[AUTORAL - revisar em docs/STORYTELLING_E_NOTAS.md]:** Nota curta sobre o contraste regional e espacial.")
+        st.markdown(
+            "**Nota analítica:** Reúne o ranking ordenado das 21 regiões administrativas por percentual de pontos "
+            "não funcionais e a distribuição espacial das bombas com coordenadas reais (`ausente_coords = 0`). "
+            "Há forte contraste territorial entre regiões como Iringa (19,5% inoperantes) e Arusha (26,3%) frente a "
+            "Lindi (64,2%), Mtwara (62,4%) e Tabora (54,4%). A combinação de barras horizontais ordenadas com mapa "
+            "permite ao gestor comparar o ranking exato e localizar concentrações críticas no território."
+        )
 
     st.divider()
 
@@ -1020,7 +1046,13 @@ with aba_expl:
 
             with st.expander("Tabela numérica e Nota analítica (Exploratória 4)"):
                 st.dataframe(pv_pct.round(1), width="stretch")
-                st.markdown("**[AUTORAL - revisar em docs/STORYTELLING_E_NOTAS.md]:** Nota curta sobre o cruzamento quantity x extraction_type_class.")
+                st.markdown(
+                    "**Nota analítica:** Cruza duas variáveis categóricas exibindo o percentual da situação escolhida e o volume "
+                    "`n` em cada célula. No cruzamento padrão (`extraction_type_class` x `quantity`), pontos secos falham em "
+                    "quase todas as tecnologias (90% a 100%), mas na coluna `enough` aparece o contraste que originou a "
+                    "Explanatória 1 (`motorpump` com 45,9% vs. `gravity` com 18,4%). O mapa de calor é o formato mais direto "
+                    "para detectar padrões combinados entre duas variáveis qualitativas."
+                )
 
     # Extra recolhido: diagnostico de qualidade MAR por regiao
     with st.expander("Diagnóstico de qualidade da base: mecanismo de ausência MAR por região"):
