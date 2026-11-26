@@ -12,8 +12,8 @@
 | Ordem | Integrante | Slides | Escopo na apresentação | Tempo estimado |
 | --- | --- | --- | --- | --- |
 | **1º** | **Gustavo Henrique Cruz de Oliveira** | Slides 1 a 9 | Abertura, Problema e Pergunta, Qualidade MAR, Exploratória, Big Idea, Explanatórias (Tecnologia, Idade, Classificador) e Demo Ao Vivo do Dashboard (Abas 1 a 3) | ~5 min 00 s |
-| **2º** | **Arthur Borges** | Slides 10 a 12 | Parte Comum: Dataset Obesity, EDA e Padronização, K-Means em Duas Passadas (+ Demo da Aba 4 animada no Dashboard), Matrizes de Confusão e Métricas | ~3 min 30 s |
-| **3º** | **João Vitor do Sacramento Bezerra da Cunha** | Slides 13 e 14 | Parte Comum: Discussão Crítica (Passada 1 vs. Passada 2 e granularidade das 7 classes), Conclusões Integradas, Limitações e Abertura para Arguição | ~2 min 30 s |
+| **2º** | **Arthur Borges** | Slides 10 a 12 | Parte Comum: Dataset Wine Quality (UCI 186), EDA e Padronização, K-Means em Duas Passadas (`k = 3` vs. `k = 7` + Demo da Aba 4 animada), Matrizes de Confusão e Métricas | ~3 min 30 s |
+| **3º** | **João Vitor do Sacramento Bezerra da Cunha** | Slides 13 e 14 | Parte Comum: Discussão Crítica (`k = 3` vs. `k = 7` e granularidade das 7 notas sensoriais), Conclusões Integradas, Limitações e Abertura para Arguição | ~2 min 30 s |
 
 > **Regra de ouro da defesa:** qualquer integrante pode ser questionado sobre **qualquer parte** (Comum ou Específica) e sobre **qualquer par de variáveis** do dataset ao vivo. Todos devem treinar com `docs/GUIA_ARGUICAO_E_VARIAVEIS.md` antes do dia 03/12.
 
@@ -35,7 +35,7 @@
 ## BLOCO 1: Gustavo Henrique Cruz de Oliveira (1º a falar | Slides 1 a 9 | ~5 min)
 
 ### Slide 1: Capa (~20 s)
-- **Fala-chave:** "Bom dia/boa tarde, professora e turma. Somos o Grupo 6 (Gustavo, Arthur Borges e João Vitor do Sacramento). Vou iniciar apresentando a nossa Parte Específica, sobre os pontos d'água da Tanzânia no dataset *Pump it Up*, mostrar o dashboard ao vivo e depois passar para o Arthur e o João Vitor concluírem com a Parte Comum no dataset *Obesity*."
+- **Fala-chave:** "Bom dia/boa tarde, professora e turma. Somos o Grupo 6 (Gustavo, Arthur Borges e João Vitor do Sacramento). Vou iniciar apresentando a nossa Parte Específica, sobre os pontos d'água da Tanzânia no dataset *Pump it Up*, mostrar o dashboard ao vivo e depois passar para o Arthur e o João Vitor concluírem com a Parte Comum no dataset *Wine Quality*."
 
 ### Slide 2: Problema, Público-Alvo e Pergunta de Pesquisa (~35 s)
 - **Fala-chave:** "Nosso público-alvo são os **gestores do Ministério de Águas da Tanzânia**, que precisam decidir onde priorizar manutenção preventiva e alocação de equipes. Nossa pergunta de pesquisa tem duas partes: quais características de um ponto d'água se associam ao seu estado operacional (`functional`, `functional needs repair` ou `non functional`) e em que medida esses atributos permitem classificar bombas que precisam de reparo ou estão inoperantes."
@@ -67,24 +67,23 @@
   1. Mostrar o cabeçalho, a Big Idea e os **5 KPIs dinâmicos** no topo; selecionar rapidamente `Lindi` na sidebar para provar a reatividade e clicar em **"Limpar filtros"**.
   2. Abrir a **Aba 2 (Exploração Interativa)**: mostrar o **Comparador lado a lado de duas regiões** (Iringa vs. Lindi) e apontar o **Heatmap livre de 2 variáveis** (avisando à professora que ele está pronto para qualquer cruzamento na arguição).
   3. Abrir a **Aba 3 (Classificador e Auditoria)**: mostrar uma das 3 bombas sorteadas do teste com as probabilidades do Random Forest e expandir a tabela **`decision_path`** da Árvore.
-- **Frase de passagem para o Arthur Borges:** "Para integrar o projeto inteiro num só lugar, colocamos também uma aba interativa do K-Means da Parte Comum. Passo agora a palavra para o Arthur apresentar o dataset *Obesity*, a padronização e o agrupamento em duas passadas."
+- **Frase de passagem para o Arthur Borges:** "Para integrar o projeto inteiro num só lugar, colocamos também uma aba interativa do K-Means da Parte Comum. Passo agora a palavra para o Arthur apresentar o dataset *Wine Quality*, a padronização e o agrupamento em duas passadas."
 
 ---
 
 ## BLOCO 2: Arthur Borges (2º a falar | Slides 10 a 12 | ~3 min 30 s)
 
-### Slide 10: Parte Comum: Dataset Obesity, EDA e Padronização (~1 min)
-- **Fala-chave:** "Obrigado, Gustavo. Na Parte Comum, trabalhamos com o dataset **Obesity** (UCI 544): **2.111 registros e 17 colunas** (8 numéricas, 8 categóricas e o alvo `NObeyesdad` com **7 níveis** de peso e obesidade). Não há valores nulos, encontramos 24 linhas duplicadas e a própria documentação da UCI informa que cerca de 77% dos dados foram gerados sinteticamente via SMOTE."
-- **Explicar a padronização (ponto obrigatório da rubrica):** "Antes de rodar o K-Means, aplicamos `StandardScaler` nas variáveis numéricas. Como o K-Means minimiza distância euclidiana, variáveis em escalas grandes como `Weight` (39 a 173 kg) esmagariam variáveis como `Height` (1,45 a 1,98 m) ou `TUE` (0 a 2). Padronizar para média 0 e desvio padrão 1 coloca todos os atributos em pé de igualdade, e mantemos a coluna `NObeyesdad` estritamente fora do treino."
+### Slide 10: Parte Comum: Dataset Wine Quality, EDA e Padronização (~1 min)
+- **Fala-chave:** "Obrigado, Gustavo. Na Parte Comum, trabalhamos com a base combinada **Wine Quality** (UCI 186, Cortez et al., 2009): **6.497 amostras e 13 colunas** (11 atributos físico-químicos, `wine_type` com 4.898 brancos e 1.599 tintos, e a nota `quality` em **7 classes de 3 a 9**). Não há nulos e mantivemos as 1.177 duplicatas (18,12%) por ausência de identificador único. As notas **5 (32,9%) e 6 (43,7%)** somam **76,6%** da base, enquanto a nota 9 tem apenas 5 vinhos; o teor alcoólico (`+0,44`) é a variável mais associada à nota."
+- **Explicar a padronização (ponto obrigatório da rubrica):** "Antes de rodar o K-Means, aplicamos `StandardScaler` nas 11 numéricas e no indicador binário `wine_type_red`. Como o K-Means usa distância euclidiana, variáveis em centenas como `total sulfur dioxide` dominariam variáveis em milésimos como `chlorides` ou `density` (0,99 a 1,00). A coluna `quality` fica estritamente fora do treino."
 
 ### Slide 11: K-Means em Duas Passadas + Demo da Aba 4 (~1 min 15 s)
-- **Fala-chave:** "Executamos o K-Means em **duas passadas**. Na **Passada 1**, testamos `k` de 2 a 10 e analisamos a curva de inércia pelo Método do Cotovelo para escolher o `k` livre mais coerente com a geometria dos dados. Na **Passada 2**, fixamos `k = 7`, igual ao número real de classes de `NObeyesdad`."
-- **Ação rápida na tela (se estiver com o Dashboard aberto):** abrir a **Aba 4 (Parte Comum: K-Means Obesity)** e apertar **Play** no gráfico animado em PCA 2D mostrando visualmente os pontos migrando dos clusters da Passada 1 para os 7 clusters da Passada 2. *(Se o tempo estiver apertado, apresentar direto nos gráficos do Slide 11.)*
+- **Fala-chave:** "Executamos o K-Means em **duas passadas**. Na **Passada 1**, o Método do Cotovelo mostra a maior queda de inércia de `k = 2` (56.403) para **`k = 3` (45.876, -18,7%)**, suavizando depois; por isso escolhemos **`k = 3`** (Silhouette 0,252; Davies-Bouldin 1,420). Na **Passada 2**, fixamos **`k = 7`**, igual às 7 notas reais (inércia cai para 34.418, mas Silhouette cai para 0,182 e Davies-Bouldin piora para 1,598)."
+- **Ação rápida na tela (se estiver com o Dashboard aberto):** abrir a **Aba 4 (Parte Comum: K-Means Wine Quality)** e apertar **Play** no gráfico animado em PCA 2D (52,8% da variância) mostrando a transição dos 3 clusters para os 7 clusters.
 
-### Slide 12: Mapeamento Cluster -> Classe, Matrizes e Métricas (~1 min 15 s)
-- **Fala-chave:** "Para comparar os clusters com as classes reais sem vazar rótulos no treino, mapeamos cada cluster à classe majoritária de `NObeyesdad` dentro dele. Montamos a **matriz de confusão** (retangular na Passada 1, quadrada 7×7 na Passada 2) e calculamos acurácia de coincidência, precisão e recall por classe usando `zero_division=0` para classes que não dominam nenhum cluster."
-- **Destacar números reais do `kmeans_metricas.ipynb`:** citar a acurácia de coincidência de cada passada e apontar quais classes foram melhor separadas (geralmente extremos como `Obesity_Type_III` e `Insufficient_Weight`) e quais tiveram recall baixo ou zero.
-- **Frase de passagem para o João Vitor do Sacramento:** "Com os números das duas passadas comparados, passo a palavra para o João Vitor trazer nossa discussão crítica sobre a granularidade das 7 classes e o fechamento integrado do projeto."
+### Slide 12: Mapeamento Cluster -> Nota, Matrizes e Métricas (~1 min 15 s)
+- **Fala-chave:** "Mapeando cada cluster à nota majoritária de `quality`, vemos um resultado muito revelador: tanto em **`k = 3` (44,47% de coincidência, Macro F1 13,37%)** quanto em **`k = 7` (45,67%, ganho de só +1,20 pp, Macro F1 14,69%)**, **apenas as notas 5 e 6** dominam clusters; as notas 3, 4, 7, 8 e 9 ficam com precisão e recall de 0,0% (`zero_division=0`)."
+- **Frase de passagem para o João Vitor do Sacramento:** "Com essas métricas comparadas, passo a palavra para o João Vitor trazer nossa discussão crítica sobre a coerência das duas passadas, a granularidade das 7 notas e o fechamento do projeto."
 
 ---
 
@@ -92,12 +91,12 @@
 
 ### Slide 13: Discussão Crítica da Parte Comum (~1 min 20 s)
 - **Fala-chave:** "Obrigado, Arthur. Na nossa discussão crítica, respondemos às duas perguntas centrais da Parte Comum:"
-  1. **Passada 1 vs. Passada 2:** comparar diretamente se os grupos da Passada 1 (`k` livre) são mais limpos e coerentes do que forçar `k = 7`. Explicar que, embora `k = 7` aumente o número de partições e permita capturar mais classes, ele fragmenta regiões densas onde os perfis de hábitos e medidas corporais se misturam.
-  2. **Granularidade das 7 classes:** destacar que `NObeyesdad` divide um espectro contínuo de IMC e hábitos em 7 faixas muito próximas (por exemplo, `Overweight_Level_I`, `Overweight_Level_II` e `Obesity_Type_I`). Como o K-Means não vê a fórmula do IMC nem os rótulos, ele distingue bem os extremos (`Insufficient_Weight` e `Obesity_Type_III`), mas confunde faixas intermediárias contíguas, mostrando que a fronteira entre essas 7 classes é mais médica/normativa do que um agrupamento geométrico isolado nos dados.
+  1. **Passada 1 (`k = 3`) vs. Passada 2 (`k = 7`):** o agrupamento com `k = 3` tem melhor coesão interna (Silhouette 0,252 contra 0,182), enquanto forçar `k = 7` traz ganho marginal de apenas +1,20 ponto percentual (45,67%), muito perto dos 43,65% que a nota 6 sozinha já representa na base.
+  2. **Granularidade das 7 notas:** a nota sensorial é ordinal e fortemente desbalanceada; vinhos de notas vizinhas (5, 6 e 7) têm perfis químicos muito parecidos. Além disso, incluir `wine_type_red` tende a separar tintos de brancos mais do que notas de qualidade. Logo, o K-Means revela perfis físico-químicos, mas não substitui um classificador supervisionado para prever notas finas.
 
 ### Slide 14: Conclusões Integradas, Limitações e Encerramento (~1 min 10 s)
-- **Fala-chave:** "Para fechar integrando as duas frentes: na Parte Específica (*Pump it Up*), respondemos ao gestor público mostrando que escassez hídrica, bombas com mais de 20 anos e tecnologias motorizadas concentram as falhas, e entregamos um dashboard com Random Forest (80,6%) e Árvore auditável para apoiar decisões em campo. Na Parte Comum (*Obesity*), comprovamos na prática a importância da padronização antes do K-Means e os limites do agrupamento não supervisionado diante de 7 rótulos finos."
-- **Destacar transparência nas limitações:** "Registramos quatro limitações claras: a ausência MAR em 6 regiões da Tanzânia (34,8% sem ano real), o recall baixo (27,0%) em `functional needs repair`, amostras pequenas como `wind-powered` (`n = 59`) e o fato de cerca de 77% do dataset *Obesity* ser sintético via SMOTE."
+- **Fala-chave:** "Para fechar integrando as duas frentes: na Parte Específica (*Pump it Up*), respondemos ao gestor público mostrando que escassez hídrica, bombas com mais de 20 anos e tecnologias motorizadas concentram as falhas, e entregamos um dashboard com Random Forest (80,6%) e Árvore auditável para apoiar decisões em campo. Na Parte Comum (*Wine Quality*), comprovamos na prática a importância do `StandardScaler` e os limites do K-Means diante de 7 notas sensoriais desbalanceadas."
+- **Destacar transparência nas limitações:** "Registramos quatro limitações claras: a ausência MAR em 6 regiões da Tanzânia (34,8% sem ano real), o recall baixo (27,0%) em `functional needs repair`, amostras pequenas como `wind-powered` (`n = 59`) e, no *Wine Quality*, a manutenção de 18,1% de duplicatas e a influência de `wine_type_red` nos centroides."
 - **Fechamento:** "Muito obrigado, professora! Todo o código, notebooks, relatório e dashboard estão no repositório, e estamos à disposição para responder às perguntas e testar quaisquer duas variáveis ao vivo no dashboard."
 
 ---
@@ -105,4 +104,4 @@
 ## Notas de ensaio rápido (antes de 03/12)
 - **Cronometragem:** fazer pelo menos 1 ensaio cronometrado pelos três juntos (Gustavo 5 min, Arthur 3 min 30 s, Sacramento 2 min 30 s = 11 min).
 - **Troca de microfone sem pausas:** treinar as duas frases de transição (Gustavo -> Arthur no fim do Slide 9; Arthur -> Sacramento no fim do Slide 12).
-- **Consistência de números:** assim que Arthur Borges terminar `kmeans_metricas.ipynb` e atualizar `docs/gerar_relatorio.py` e `docs/gerar_apresentacao.py`, conferir se todos os números ditos nos Slides 11, 12 e 13 batem 100% com o `relatorio.pdf`.
+- **Consistência verificada:** todos os números acima já estão 100% alinhados entre `notebooks/parte_comum/kmeans_metricas.ipynb`, `relatorio.pdf`, `docs/APRESENTACAO_AVD_G6.pdf` e a Aba 4 do Dashboard Streamlit.

@@ -15,7 +15,7 @@ import pymupdf
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT_ESP = ROOT / "out" / "parte_especifica"
-OUT_COM = ROOT / "out" / "parte_comum"
+OUT_COM = ROOT / "out" / "parte_comum" / "wine_quality"
 DESTINO_PDF = ROOT / "relatorio.pdf"
 
 
@@ -183,7 +183,12 @@ def montar_paginas() -> list[str]:
     fig_explan_2a = img_tag(OUT_ESP / "08_explan_02a_idade_vs_falha.png", "width:72%;")
     fig_explan_2b = img_tag(OUT_ESP / "08_explan_02b_classificador_metricas.png", "width:98%;")
     fig_cm_clf = img_tag(OUT_ESP / "06_matriz_confusao_modelos.png", "width:94%;")
-    fig_ob_cls = img_tag(OUT_COM / "02_distribuicao_classes.png", "width:78%;")
+    fig_wq_dist = img_tag(OUT_COM / "distribuicao_quality.png", "width:46%;")
+    fig_wq_cot = img_tag(OUT_COM / "metodo_cotovelo.png", "width:46%;")
+    fig_wq_c1 = img_tag(OUT_COM / "clusters_livre.png", "width:47%;")
+    fig_wq_c2 = img_tag(OUT_COM / "clusters_fixo.png", "width:47%;")
+    fig_wq_m1 = img_tag(OUT_COM / "matriz_confusao_livre.png", "width:45%;")
+    fig_wq_m2 = img_tag(OUT_COM / "matriz_confusao_fixo.png", "width:45%;")
 
     # ------------------------------------------------------------------
     # PAGINA 1: CAPA + SECAO 1 + SECAO 2
@@ -195,7 +200,7 @@ def montar_paginas() -> list[str]:
   <div class="meta">
     <b>Instituição:</b> CESAR School | <b>Período:</b> 2026.2 | <b>Professora:</b> Maira Lira<br/>
     <b>Parte Específica (Pump it Up: Data Mining the Water Table):</b> Gustavo Henrique Cruz de Oliveira<br/>
-    <b>Parte Comum (Obesity, UCI 544) e Integração Final:</b> João Vitor do Sacramento Bezerra da Cunha; Arthur Borges<br/>
+    <b>Parte Comum (Wine Quality combinado, UCI 186):</b> Arthur Borges; João Vitor do Sacramento Bezerra da Cunha<br/>
     <b>Data de entrega:</b> 26/11/2026 | <b>Apresentação e Defesa:</b> 03/12/2026
   </div>
 </div>
@@ -207,7 +212,8 @@ def montar_paginas() -> list[str]:
   tratamento, storytelling, modelagem preditiva e construção de dashboard interativo em Streamlit sobre os pontos d'água
   da Tanzânia (dataset <i>Pump it Up</i>, DrivenData/Taarifa, 59.400 registros brutos e 59.333 após limpeza), e a
   <b>Parte Comum</b>, voltada à análise exploratória, padronização e agrupamento não supervisionado com K-Means em duas
-  passadas sobre o dataset <i>Obesity</i> (UCI 544, 2.111 registros e 7 classes).
+  passadas sobre o dataset <i>Wine Quality</i> combinado (UCI 186, 6.497 vinhos tintos e brancos em 7 notas de qualidade de
+  3 a 9).
 </p>
 <p>
   Na Parte Específica, os achados respondem integralmente à pergunta de pesquisa formulada para gestores do Ministério de
@@ -539,7 +545,7 @@ def montar_paginas() -> list[str]:
   <li><b>Aba 1 (Storytelling e Insights):</b> apresenta a Big Idea em destaque e as três visualizações explanatórias interativas com notas analíticas expansíveis.</li>
   <li><b>Aba 2 (Exploração Interativa):</b> reúne as quatro visualizações exploratórias, seletor livre de qualquer uma das 12 variáveis categóricas, <b>heatmap livre de duas variáveis</b> (preparado para testes ao vivo na arguição), mapa Carto Positron com opção offline, <b>Comparador lado a lado de duas regiões</b> e diagnóstico do mecanismo MAR.</li>
   <li><b>Aba 3 (Classificador e Auditoria):</b> exibe as matrizes de confusão e métricas, permite sortear 3 bombas reais do teste (alternando entre Cartões e Tabela), mostra mapa e probabilidades previstas, abre a <b>trilha passo a passo <code>decision_path</code></b> da Árvore de Decisão e inclui um simulador de bomba via <code>st.form</code>.</li>
-  <li><b>Aba 4 (Parte Comum: K-Means Obesity):</b> permite ajustar <code>k</code> livre da Passada 1, inspecionar a curva do Método do Cotovelo e reproduzir a <b>animação interativa de transição entre Passada 1 e Passada 2 em PCA 2D</b>, junto às matrizes de confusão e métricas por classe.</li>
+  <li><b>Aba 4 (Parte Comum: K-Means Wine Quality):</b> permite ajustar <code>k</code> livre da Passada 1 (padrão 3), inspecionar a curva do Método do Cotovelo e reproduzir a <b>animação interativa de transição entre Passada 1 e Passada 2 em PCA 2D</b>, junto às matrizes de confusão e métricas por nota.</li>
   <li><b>Aba 5 (Glossário e Exportação):</b> glossário pesquisável de colunas/termos e download direto do recorte filtrado em CSV e do resumo executivo em Markdown.</li>
 </ul>
 <div class="box-azul">
@@ -551,45 +557,134 @@ def montar_paginas() -> list[str]:
 """)
 
     # ------------------------------------------------------------------
-    # PAGINA 9: SECAO 6 (PARTE COMUM) + SECAO 7 (LIMITACOES E REFERENCIAS)
+    # PAGINA 9: SECAO 6 (PARTE COMUM - WINE QUALITY: EDA, PADRONIZACAO E PASSADAS)
     # ------------------------------------------------------------------
     p9 = wrap_page(f"""
-<h1 class="topo">6. Parte Comum: EDA e Agrupamento K-Means (Obesity, UCI 544)</h1>
+<h1 class="topo">6. Parte Comum: EDA e Agrupamento K-Means (Wine Quality, UCI 186)</h1>
+<h2>6.1 Estrutura, qualidade dos dados e principais achados da EDA</h2>
 <p>
-  O grupo selecionou o dataset <b>Obesity</b> (UCI Machine Learning Repository, id = 544,
-  <code>data/parte_comum/obesity/ObesityDataSet_raw_and_data_sinthetic.csv</code>), composto por <b>2.111 registros e 17
-  colunas</b> (8 atributos numéricos: <code>Age</code>, <code>Height</code>, <code>Weight</code>, <code>FCVC</code>,
-  <code>NCP</code>, <code>CH2O</code>, <code>FAF</code>, <code>TUE</code>; 8 atributos qualitativos; e a variável de classe
-  <code>NObeyesdad</code> com <b>7 níveis de peso/obesidade</b>). Não há valores nulos, há 24 linhas duplicadas e cerca de
-  77% dos dados são sintéticos (SMOTE), conforme documentação da UCI.
+  A Parte Comum analisa a base combinada <b>Wine Quality</b> (Cortez et al., 2009; UCI id = 186;
+  <code>data/parte_comum/wine_quality/winequality-combined.csv</code>), com <b>6.497 amostras e 13 colunas</b>: 11
+  atributos físico-químicos numéricos, o tipo de vinho (<code>wine_type</code>: 4.898 brancos, 75,39%; 1.599 tintos,
+  24,61%) e a variável de classe ordinal <code>quality</code>, com <b>7 notas reais (3 a 9)</b>. Não há valores nulos; os
+  151 zeros em <code>citric acid</code> são medições válidas. Foram identificadas <b>1.177 duplicatas completas</b> (18,12%;
+  240 tintos e 937 brancos), mantidas na base junto aos valores sinalizados pelo critério IQR (maior incidência global em
+  <code>citric acid</code> com 7,83%, <code>volatile acidity</code> com 5,80% e <code>fixed acidity</code> com 5,49%) por
+  não haver identificador individual que comprove repetição indevida de amostra.
+</p>
+<p>
+  A distribuição das notas é fortemente concentrada no centro: <b>notas 5 (32,91%) e 6 (43,65%) somam 76,56%</b> da base,
+  enquanto os extremos são raros (30 vinhos na nota 3 e apenas 5 na nota 9). Na análise relacional, o teor alcoólico é o
+  atributo mais associado positivamente à qualidade (Pearson +0,44; Spearman +0,45; mediana sobe de 9,60 na nota 5 para 10,50
+  na nota 6 e 11,40 na nota 7), enquanto <code>density</code> (-0,31), <code>volatile acidity</code> (-0,27) e
+  <code>chlorides</code> (-0,20) têm associação negativa; destacam-se ainda <code>free</code> × <code>total sulfur dioxide</code>
+  (+0,72) e <code>density</code> × <code>alcohol</code> (-0,69).
 </p>
 
-{fig_ob_cls}
-<div class="legenda">Figura 10: Distribuição das 7 classes originais de NObeyesdad no dataset Obesity (n = 2.111). Fonte: UCI (id = 544).</div>
-
-<h2>6.1 Por que padronizar antes do K-Means (Aula 14)</h2>
+<h2>6.2 Por que padronizar antes do K-Means (Aula 14)</h2>
 <p>
-  O algoritmo K-Means agrupa observações minimizando a soma das distâncias euclidianas ao quadrado até os centroides. Como as
-  variáveis numéricas de <i>Obesity</i> possuem escalas muito distintas (<code>Weight</code> varia entre 39 kg e 173 kg
-  enquanto <code>Height</code> varia entre 1,45 m e 1,98 m e <code>TUE</code> entre 0 e 2), rodar o K-Means sem padronização
-  faria o peso dominar quase completamente o cálculo de distância. Aplicar <code>StandardScaler</code> (média 0 e desvio padrão
-  1) antes do agrupamento garante que todas as variáveis numéricas contribuam em igualdade de escala. A coluna
-  <code>NObeyesdad</code> nunca entra no treinamento do K-Means.
+  O K-Means agrupa registros por distância euclidiana até os centroides. Como os 11 atributos físico-químicos têm escalas
+  muito distintas (por exemplo, <code>total sulfur dioxide</code> atinge centenas de mg/dm³, enquanto <code>density</code>
+  varia em torno de 0,99 a 1,00 e <code>chlorides</code> em milésimos), rodar o algoritmo sem padronização faria variáveis
+  de grande amplitude dominarem o agrupamento. Aplicou-se <code>StandardScaler</code> (média 0 e desvio padrão 1) às 11
+  variáveis numéricas e ao indicador binário <code>wine_type_red</code>, mantendo a coluna <code>quality</code> estritamente
+  fora do treino.
 </p>
 
-<div class="box-alerta">
-  <div class="titulo-alerta">INTEGRAÇÃO PENDENTE (ARTHUR BORGES): Resultados finais e discussão crítica da Parte Comum</div>
-  Os notebooks <code>notebooks/parte_comum/eda.ipynb</code> (pilares distribucional, relacional e outliers) e
-  <code>notebooks/parte_comum/kmeans_metricas.ipynb</code> (Passada 1 com k livre via Cotovelo, Passada 2 com k = 7, gráficos
-  dos clusters, mapeamento cluster -&gt; classe majoritária, matrizes de confusão e métricas por classe) estão sob conclusão do
-  integrante Arthur Borges. Após rodar os notebooks e salvar as figuras em <code>out/parte_comum/</code>, substituir este
-  quadro em <code>docs/gerar_relatorio.py</code> adicionando uma página com:
-  <ul>
-    <li><b>6.2 EDA completa do Obesity:</b> correlações/boxplots com <code>NObeyesdad</code> e decisão sobre outliers e 24 duplicadas.</li>
-    <li><b>6.3 K-Means (Passada 1 vs. Passada 2):</b> gráfico do Método do Cotovelo, justificativa de k livre e visualização dos grupos.</li>
-    <li><b>6.4 Matrizes de confusão e métricas por classe:</b> mapeamento cluster -&gt; classe, matrizes retangular e 7×7, acurácia, precisão e recall (<code>zero_division=0</code>).</li>
-    <li><b>6.5 Discussão crítica autoral (1,0 pt):</b> coerência entre Passada 1 e Passada 2 e análise crítica da granularidade das 7 classes originais.</li>
-  </ul>
+<table style="border:none; margin:4pt 0;">
+  <tr>
+    <td style="border:none; width:50%; text-align:center; padding:2pt;"><img src="out/parte_comum/wine_quality/distribuicao_quality.png" style="width:98%;"/></td>
+    <td style="border:none; width:50%; text-align:center; padding:2pt;"><img src="out/parte_comum/wine_quality/metodo_cotovelo.png" style="width:98%;"/></td>
+  </tr>
+</table>
+<div class="legenda">Figura 10: Distribuição das 7 notas reais de quality (esq.) e curva de inércia do Método do Cotovelo para k = 2 a 10 (dir., n = 6.497).</div>
+
+<h2>6.3 K-Means em duas passadas: Passada 1 (k = 3 livre) vs. Passada 2 (k = 7 fixo)</h2>
+<p>
+  Na curva do Método do Cotovelo (Figura 10), a maior redução relativa de inércia ocorre de k = 2 (56.403,48) para k = 3
+  (45.875,74; queda de 18,67%), passando a cair de forma mais suave a partir de k = 4 (10,21%, 6,60% e 5,50%). Assim,
+  adotou-se <b>k = 3 na Passada 1</b> (Silhouette 0,2523; Davies-Bouldin 1,4196) e <b>k = 7 na Passada 2</b> (= 7 notas
+  reais; inércia 34.418,18; Silhouette 0,1822; Davies-Bouldin 1,5977). A Figura 11 projeta os agrupamentos em PCA 2D
+  (PC1 = 31,74% e PC2 = 21,07%, somando 52,82% da variância explicada).
+</p>
+
+<table style="border:none; margin:4pt 0;">
+  <tr>
+    <td style="border:none; width:50%; text-align:center; padding:2pt;"><img src="out/parte_comum/wine_quality/clusters_livre.png" style="width:98%;"/></td>
+    <td style="border:none; width:50%; text-align:center; padding:2pt;"><img src="out/parte_comum/wine_quality/clusters_fixo.png" style="width:98%;"/></td>
+  </tr>
+</table>
+<div class="legenda">Figura 11: Projeção PCA 2D dos clusters do K-Means na Passada 1 (k = 3, esq.) e na Passada 2 (k = 7, dir.).</div>
+""")
+
+    # ------------------------------------------------------------------
+    # PAGINA 10: SECAO 6.4 + 6.5 (MATRIZES, METRICAS, DISCUSSAO) + SECAO 7
+    # ------------------------------------------------------------------
+    p10 = wrap_page("""
+<h2 style="margin-top:0;">6.4 Mapeamento cluster -&gt; nota majoritária, matrizes de confusão e métricas</h2>
+<p>
+  Cada cluster foi associado à nota real de <code>quality</code> mais frequente em seu interior. Na <b>Passada 1 (k = 3)</b>,
+  os clusters 0 e 1 mapearam para a nota 6 e o cluster 2 para a nota 5. Na <b>Passada 2 (k = 7)</b>, os clusters 0, 1 e 5
+  mapearam para a nota 5 e os clusters 2, 3, 4 e 6 para a nota 6. Em ambas as passadas, <b>apenas as notas 5 e 6</b>
+  aparecem como classe majoritária; as notas 3, 4, 7, 8 e 9 não lideram nenhum cluster e recebem precisão e recall de 0,0%
+  (<code>zero_division=0</code>).
+</p>
+
+<table style="border:none; margin:4pt 0;">
+  <tr>
+    <td style="border:none; width:50%; text-align:center; padding:2pt;"><img src="out/parte_comum/wine_quality/matriz_confusao_livre.png" style="width:94%;"/></td>
+    <td style="border:none; width:50%; text-align:center; padding:2pt;"><img src="out/parte_comum/wine_quality/matriz_confusao_fixo.png" style="width:94%;"/></td>
+  </tr>
+</table>
+<div class="legenda">Figura 12: Matrizes de confusão entre nota real e nota mapeada na Passada 1 (k = 3, esq.) e na Passada 2 (k = 7, dir., n = 6.497).</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Passada</th>
+      <th class="num">k</th>
+      <th class="num">Inércia</th>
+      <th class="num">Coincidência (%)</th>
+      <th class="num">Macro F1 (%)</th>
+      <th class="num">Nota 5 (Prec / Rec)</th>
+      <th class="num">Nota 6 (Prec / Rec)</th>
+      <th>Notas 3, 4, 7, 8, 9</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Passada 1 (k livre)</td>
+      <td class="num">3</td>
+      <td class="num">45.875,74</td>
+      <td class="num">44,47%</td>
+      <td class="num">13,37%</td>
+      <td class="num">42,87% / 31,90%</td>
+      <td class="num">44,99% / 77,82%</td>
+      <td>0,0% (sem cluster)</td>
+    </tr>
+    <tr class="par">
+      <td>Passada 2 (k fixo)</td>
+      <td class="num">7</td>
+      <td class="num">34.418,18</td>
+      <td class="num">45,67%</td>
+      <td class="num">14,69%</td>
+      <td class="num">46,74% / 53,32%</td>
+      <td class="num">45,02% / 64,42%</td>
+      <td>0,0% (sem cluster)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>6.5 Discussão crítica (Passada 1 vs. Passada 2 e granularidade das 7 notas)</h2>
+<div class="box-azul">
+  <div class="titulo-box">Síntese crítica da Parte Comum</div>
+  A Passada 1 (k = 3) apresenta melhor coesão interna (Silhouette 0,2523 vs. 0,1822 em k = 7), enquanto a Passada 2 (k = 7)
+  eleva a coincidência global em apenas +1,20 ponto percentual (de 44,47% para 45,67%, pouco acima da frequência da classe
+  majoritária 6 sozinha, que já soma 43,65% da base). As sete notas não correspondem a sete agrupamentos naturais isolados:
+  a qualidade sensorial é ordinal e fortemente desbalanceada, e amostras com notas vizinhas (como 5 e 6, ou 6 e 7) possuem
+  composições físico-químicas muito próximas. Além disso, incluir <code>wine_type_red</code> favorece a separação por tipo
+  de vinho (tinto vs. branco) em vez de qualidade. Logo, o K-Means revela perfis físico-químicos, mas não substitui um
+  classificador supervisionado para prever notas sensoriais finas.
 </div>
 
 <h1>7. Limitações e Referências</h1>
@@ -598,18 +693,19 @@ def montar_paginas() -> list[str]:
   seis regiões), exigindo imputação para modelagem e exclusão desses casos na Explanatória 2A; (ii) amostras pequenas como
   <code>wind-powered</code> (n = 59 em <code>enough</code>) exigem cautela; (iii) <code>functional needs repair</code> (7,3%)
   manteve recall de 27,00% no Random Forest, pedindo vistorias preventivas complementares; (iv) unidades de
-  <code>amount_tsh</code> e <code>gps_height</code> não são detalhadas no DrivenData; e (v) ~77% da base <i>Obesity</i> é
-  gerada sinteticamente via SMOTE.
+  <code>amount_tsh</code> e <code>gps_height</code> não são detalhadas no DrivenData; e (v) em <i>Wine Quality</i>, 18,12%
+  das linhas são duplicatas completas mantidas por falta de identificador e a inclusão de <code>wine_type_red</code> influencia
+  os centroides do K-Means.
 </p>
 <p>
   <b>Referências:</b> DrivenData, <i>Pump it Up: Data Mining the Water Table</i> (Taarifa / Ministério da Água da Tanzânia);
-  UCI Machine Learning Repository, <i>Estimation of Obesity Levels</i> (id = 544); Knaflic, C. N., <i>Storytelling com Dados</i>;
-  Tufte, E. R., <i>The Visual Display of Quantitative Information</i>; Slides das Aulas 01 a 26 de AVD (2026.2, Prof. Maira
-  Lira, CESAR School).
+  Cortez et al. (2009), <i>Modeling wine preferences by data mining from physicochemical properties</i> (UCI id = 186);
+  Knaflic, C. N., <i>Storytelling com Dados</i>; Tufte, E. R., <i>The Visual Display of Quantitative Information</i>; Slides
+  das Aulas 01 a 26 de AVD (2026.2, Prof. Maira Lira, CESAR School).
 </p>
 """)
 
-    return [p1, p2, p3, p4, p5, p6, p7, p8, p9]
+    return [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10]
 
 
 def gerar_pdf():

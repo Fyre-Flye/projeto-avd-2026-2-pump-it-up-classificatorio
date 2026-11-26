@@ -91,30 +91,26 @@ Se a professora disser: *"Me mostre e interprete a relação entre a variável X
 
 ---
 
-## PARTE 3: Colinha das 17 Variáveis da Parte Comum (Obesity, UCI 544)
+## PARTE 3: Colinha das 13 Variáveis da Parte Comum (Wine Quality Combinado, UCI 186)
 
-> **Resumo da base:** `2.111 linhas × 17 colunas`, 0 nulos, 24 linhas duplicadas, ~77% registros sintéticos via SMOTE (documentação UCI).  
-> **Escalas muito diferentes -> obrigatório `StandardScaler` antes do K-Means!**
+> **Resumo da base:** `6.497 linhas × 13 colunas` (4.898 brancos, 75,39%; 1.599 tintos, 24,61%), 0 nulos, 1.177 duplicatas completas (18,12%, mantidas por falta de identificador individual).  
+> **Escalas muito diferentes -> obrigatório `StandardScaler` nas 11 numéricas + `wine_type_red` antes do K-Means!**
 
-| Coluna | Tipo | Significado (UCI 544) | Papel no K-Means e na EDA |
+| Coluna | Tipo | Significado (Cortez et al., 2009 / UCI 186) | Papel no K-Means e na EDA |
 | --- | --- | --- | --- |
-| `NObeyesdad` | Alvo (7 classes) | Nível de peso/obesidade: `Insufficient_Weight`, `Normal_Weight`, `Overweight_Level_I`, `Overweight_Level_II`, `Obesity_Type_I`, `Obesity_Type_II`, `Obesity_Type_III` | **NUNCA entra no treino do K-Means.** Usada só após o agrupamento para mapear cluster -> classe majoritária, matriz de confusão e métricas. |
-| `Weight` | Numérica (39 a 173 kg) | Peso corporal em kg | Maior amplitude numérica; dominaria o K-Means sem padronização. Mais forte separador direto das 7 classes (junto com `Height`, define o IMC = Peso / Altura²). |
-| `Height` | Numérica (1,45 a 1,98 m) | Altura em metros | Escala muito pequena frente a `Weight`; combinada com `Weight` forma o IMC que originou os rótulos. |
-| `Age` | Numérica (14 a 61 anos) | Idade | Maioria adultos jovens (~20 a 30 anos); obesidade tipo II e sobrepeso tendem a idades médias ligeiramente mais altas que `Insufficient_Weight`. |
-| `FCVC` | Numérica (1 a 3) | Frequência de consumo de vegetais nas refeições | Valores fracionários ocorrem por causa da geração sintética (SMOTE). |
-| `NCP` | Numérica (1 a 4) | Número de refeições principais por dia | Também apresenta valores intermediários devido ao SMOTE. |
-| `CH2O` | Numérica (1 a 3) | Consumo diário de água (litros/escala) | Escala pequena (1 a 3); varia moderadamente entre classes. |
-| `FAF` | Numérica (0 a 3) | Frequência de atividade física semanal | Tendência inversa nos níveis mais altos de obesidade (`Obesity_Type_III` costuma ter menor `FAF`). |
-| `TUE` | Numérica (0 a 2) | Tempo diário usando dispositivos tecnológicos | Escala pequena (0 a 2). |
-| `Gender` | Categórica (2) | Gênero (`Male`, `Female`) | Forte associação em classes extremas (ex.: `Obesity_Type_III` concentra-se em `Female` e `Obesity_Type_II` em `Male` neste dataset). |
-| `family_history_with_overweight` | Categórica (2) | Histórico familiar de sobrepeso (`yes`/`no`) | Forte associação com os níveis de obesidade (quase 100% `yes` nos tipos I, II e III). |
-| `FAVC` | Categórica (2) | Consumo frequente de alimentos altamente calóricos | Maioria `yes`, ainda mais concentrado nas classes de obesidade. |
-| `CAEC` | Categórica (4) | Comer entre refeições (`no`, `Sometimes`, `Frequently`, `Always`) | `Sometimes` domina nos grupos de obesidade; `Frequently` aparece muito em `Insufficient_Weight`. |
-| `SMOKE` | Categórica (2) | Fumante (`yes`/`no`) | Extremamente desbalanceada (~98% `no`). |
-| `SCC` | Categórica (2) | Monitora ingestão de calorias (`yes`/`no`) | Maioria `no` (>95%). |
-| `CALC` | Categórica (4) | Consumo de álcool (`no`, `Sometimes`, `Frequently`, `Always`) | Distribuição varia entre `no` e `Sometimes`. |
-| `MTRANS` | Categórica (5) | Meio de transporte principal (`Public_Transportation`, `Automobile`, `Walking`, `Motorbike`, `Bike`) | `Public_Transportation` domina amplamente; `Walking` concentra-se mais em peso normal/insuficiente. |
+| `quality` | Alvo ordinal (7 classes: 3 a 9) | Nota sensorial atribuída por especialistas | **NUNCA entra no treino do K-Means.** Notas 5 (32,91%) e 6 (43,65%) somam 76,56%; nota 9 tem só 5 vinhos. |
+| `wine_type` | Categórica (`white`, `red`) | Tipo de vinho | Convertida em `wine_type_red` (0/1) padronizada no K-Means; nos tintos a moda é nota 5 (42,59%) e nos brancos é nota 6 (44,88%). |
+| `alcohol` | Numérica (% vol.) | Teor alcoólico | **Maior correlação positiva com `quality`** (+0,44 Pearson / +0,45 Spearman); mediana sobe de 9,60 (nota 5) -> 10,50 (nota 6) -> 11,40 (nota 7). |
+| `density` | Numérica (g/cm³) | Densidade do vinho (~0,99 a 1,00) | Forte correlação negativa com `alcohol` (-0,69) e com `quality` (-0,31); positiva com `residual sugar` (+0,55). |
+| `volatile acidity` | Numérica (g/dm³) | Acidez volátil (ácido acético; excesso dá gosto de vinagre) | Correlação negativa com `quality` (-0,27); média cai de ~0,517 (nota 3) para ~0,289 (nota 7). 5,80% outliers IQR. |
+| `chlorides` | Numérica (g/dm³) | Cloretos (teor de sal) | Escala pequena (milésimos); associação negativa com `quality` (-0,20 Pearson / -0,30 Spearman). |
+| `fixed acidity` | Numérica (g/dm³) | Acidez fixa (ácido tartárico) | 5,49% outliers IQR; associação moderada com `density` (+0,46). |
+| `citric acid` | Numérica (g/dm³) | Ácido cítrico (frescor) | 151 valores iguais a 0 (medições reais, não nulos); maior taxa de outliers IQR global (7,83%). |
+| `residual sugar` | Numérica (g/dm³) | Açúcar residual pós-fermentação | Forte diferença entre tipos (9,69% outliers IQR nos tintos vs. 0,14% nos brancos); correlaciona +0,55 com `density`. |
+| `free sulfur dioxide` | Numérica (mg/dm³) | Dióxido de enxofre livre (antioxidante) | Forte correlação com `total sulfur dioxide` (+0,72 Pearson / +0,74 Spearman). |
+| `total sulfur dioxide` | Numérica (mg/dm³) | Dióxido de enxofre total (centenas de mg/dm³) | **Maior amplitude numérica**; dominaria o K-Means sem `StandardScaler`. Bem mais alto em vinhos brancos. |
+| `pH` | Numérica | Escala de acidez (~2,7 a 4,0) | Correlação muito baixa com `quality` (+0,02); negativa com `citric acid` (-0,33) e `fixed acidity` (-0,25). |
+| `sulphates` | Numérica (g/dm³) | Sulfatos (aditivo que contribui para SO₂) | Correlação positiva com `chlorides` (+0,40); associação linear muito fraca com `quality` (+0,04). |
 
 ---
 
@@ -134,8 +130,8 @@ Treine explicar cada par abaixo em 20 segundos (e lembre que os pares categóric
 10. **`waterpoint_type_group × extraction_type_class` (Pump it Up):** Forte alinhamento físico: `hand pump` coincide com `handpump`; `communal standpipe` (chafarizes comunitários) é alimentado sobretudo por `gravity`, `submersible` e `motorpump`; a categoria `other` acumula alta inoperância nos dois lados.
 11. **`region × quantity` (Pump it Up):** Abrir no Heatmap da Aba 2! Mostra se a alta inoperância de regiões críticas como **Lindi (64,2%)** e **Mtwara (62,4%)** vem apenas de fontes secas (`dry`) ou também de falhas onde há água (`enough`/`insufficient`).
 12. **`ward × region` (ou `funder × installer`) (Pump it Up):** Relação hierárquica/organizacional. `ward` fica dentro de `lga` que fica dentro de `region`; `ward`, `funder`, `installer` e `lga` lideram as importâncias do Random Forest (Top 5 junto com `quantity`), mostrando que contexto local e quem financiou/construiu pesam muito no funcionamento.
-13. **`Weight × Height` (Obesity):** Relação física direta que gera o IMC (`Weight / Height²`), critério médico por trás das 7 classes de `NObeyesdad`. Escalas totalmente distintas (39 a 173 kg vs. 1,45 a 1,98 m), exemplo clássico de por que o K-Means exige `StandardScaler`.
-14. **`FAF × NObeyesdad` ou `family_history_with_overweight × NObeyesdad` (Obesity):** Atividade física (`FAF`) tende a cair nos graus mais severos de obesidade, e histórico familiar positivo (`yes`) aparece quase universalmente nos tipos I, II e III de obesidade, diferenciando hábitos que complementam peso e altura.
+13. **`alcohol × density` e `alcohol × quality` (Wine Quality):** O teor alcoólico tem forte correlação negativa com a densidade (`-0,69` Pearson / `-0,70` Spearman, pois o etanol é menos denso que água e açúcar) e é o principal associado positivo com a nota `quality` (`+0,44`; mediana sobe de 9,60 na nota 5 para 10,50 na 6 e 11,40 na 7).
+14. **`free sulfur dioxide × total sulfur dioxide` e `wine_type × quality` (Wine Quality):** Os dois dióxidos de enxofre têm a maior correlação da base (`+0,72` Pearson / `+0,74` Spearman) e são muito mais altos nos vinhos brancos; nos tintos a nota mais frequente é 5 (42,59%), enquanto nos brancos é 6 (44,88%).
 
 ---
 
@@ -189,23 +185,23 @@ Treine explicar cada par abaixo em 20 segundos (e lembre que os pares categóric
 **14. Por que vocês escolheram essas cores específicas no relatório e no dashboard?**  
 - Combinamos a identidade visual limpa da marca (`#062A5F` marinho para cabeçalhos/capa, `#0F62FE` azul principal para elementos sem `status_group`, fundo branco) com a **paleta Okabe-Ito** fixa para `status_group` (`#0072B2` funcional, `#E69F00` precisa de reparo, `#D55E00` não funcional), que é segura para pessoas com daltonismo e nunca mistura o significado de alerta com a cor de marca.
 
-### D. Parte Comum (Obesity e K-Means)
+### D. Parte Comum (Wine Quality e K-Means)
 
-**15. Por que o K-Means exige padronização (`StandardScaler`) no dataset *Obesity*?**  
-- Porque o K-Means atribui pontos ao centroide mais próximo usando **distância euclidiana**. Em *Obesity*, `Weight` varia de 39 a 173 kg (amplitude 134), enquanto `Height` varia de 1,45 a 1,98 m (amplitude 0,53) e `TUE` varia de 0 a 2. Sem padronização, `Weight` teria peso dezenas de vezes maior que todas as outras variáveis juntas. O `StandardScaler` coloca todas com média 0 e desvio padrão 1.
+**15. Por que o K-Means exige padronização (`StandardScaler`) no dataset *Wine Quality*?**  
+- Porque o K-Means atribui pontos ao centroide mais próximo usando **distância euclidiana**. Em *Wine Quality*, `total sulfur dioxide` chega a centenas de mg/dm³, enquanto `density` varia em torno de 0,99 a 1,00 e `chlorides` fica em milésimos. Sem `StandardScaler`, o dióxido de enxofre esmagaria todas as demais variáveis. Padronizar para média 0 e desvio padrão 1 equilibra os 11 atributos físico-químicos + `wine_type_red`.
 
-**16. Por que a coluna `NObeyesdad` não pode entrar no K-Means?**  
-- Porque K-Means é **aprendizado não supervisionado**: o objetivo da tarefa é testar se a estrutura natural dos atributos sozinhos consegue recuperar os grupos de obesidade. Incluir `NObeyesdad` no treino seria vazamento de rótulo (*label leakage*) e invalidaria o experimento.
+**16. Por que a coluna `quality` não pode entrar no K-Means?**  
+- Porque K-Means é **aprendizado não supervisionado**: o objetivo é testar se os atributos físico-químicos sozinhos recuperam os 7 níveis de nota. Incluir `quality` no treino seria vazamento de rótulo (*label leakage*) e invalidaria o experimento.
 
-**17. Como vocês escolheram o `k` na Passada 1 (Método do Cotovelo)?**  
-- Rodamos K-Means para `k = 2` até `k = 10` e plotamos a **inércia** (soma das distâncias quadráticas dos pontos até seus centroides). A inércia sempre cai quando `k` aumenta; o "cotovelo" é o ponto onde o ganho marginal de redução de inércia começa a desacelerar nitidamente, indicando um bom equilíbrio entre compactação e simplicidade.
+**17. Como vocês escolheram `k = 3` na Passada 1 (Método do Cotovelo)?**  
+- Rodamos K-Means para `k = 2` até `k = 10` e plotamos a **inércia** (WCSS). A maior queda percentual acontece de `k = 2` (56.403,5) para **`k = 3` (45.875,7; -18,67%)**; a partir daí as quedas desaceleram (`-10,21%`, `-6,60%`, `-5,50%`). O ponto de inflexão ("cotovelo") em `k = 3` equilibra coesão (Silhouette 0,252 vs. 0,182 em `k = 7`) e parcimônia.
 
-**18. O que significa "acurácia", "precisão" e "recall" no K-Means se ele é não supervisionado?**  
-- Não é acurácia preditiva de um classificador supervisionado! É uma **medida de coincidência (alinhamento)**: após o K-Means terminar, olhamos qual classe real de `NObeyesdad` é majoritária em cada cluster e atribuímos esse rótulo ao cluster. A matriz de confusão e as métricas medem o quanto os grupos puramente geométricos coincidem com os 7 rótulos oficiais. Na Passada 1 (quando `k < 7`), algumas classes nunca são majoritárias em nenhum cluster, ficando com **recall = 0%** (por isso usamos `zero_division=0`).
+**18. O que significa "acurácia", "precisão" e "recall" no K-Means e por que 5 notas tiveram recall 0%?**  
+- Não é acurácia preditiva supervisionada, mas **coincidência** entre cada cluster (rotulado pela nota mais frequente nele) e a nota real. Como as notas 5 (32,91%) e 6 (43,65%) representam **76,56%** da base, todos os clusters tanto em `k = 3` (coincidência **44,47%**) quanto em `k = 7` (**45,67%**) tiveram 5 ou 6 como maioria. As notas 3, 4, 7, 8 e 9 nunca dominaram nenhum cluster, ficando com precisão e recall 0,0% (`zero_division=0`).
 
-**19. Por que na Passada 2 (`k = 7`) algumas classes ainda se confundem na matriz de confusão?**  
-- Porque os 7 níveis de `NObeyesdad` são **faixas contíguas de um contínuo** (IMC = Peso / Altura²), não "ilhas" separadas no espaço euclidiano 8D (que também mistura hábitos como água, vegetais, refeições, atividade física e tecnologia). O K-Means tende a isolar melhor extremos bem marcados (como `Obesity_Type_III` e `Insufficient_Weight`), mas sobrepõe níveis vizinhos como `Overweight_Level_I`, `Overweight_Level_II` e `Obesity_Type_I`.
+**19. Por que forçar `k = 7` quase não melhorou a coincidência (+1,20 pp)?**  
+- Porque as 7 notas sensoriais não formam 7 "ilhas" geométricas separadas no espaço físico-químico: a qualidade é **ordinal**, as classes são muito desbalanceadas (nota 6 sozinha já dá 43,65%) e vinhos de notas vizinhas (5, 6 e 7) têm composição química muito próxima. Além disso, incluir `wine_type_red` puxa os centroides para separar tintos de brancos mais do que notas.
 
 **20. O que vocês fariam diferente se tivessem mais tempo ou outro ciclo de projeto?**  
-- (1) Na Parte Específica: testar ajuste de limiar de probabilidade ou `class_weight="balanced"` / reamostragem para elevar o recall de `functional needs repair` (hoje 27,0%) sem destruir a precisão, e coletar dados de campo nas 6 regiões com ausência MAR.  
-- (2) Na Parte Comum: testar codificação adequada das 8 variáveis categóricas relevantes (`Gender`, `family_history_with_overweight`, `CAEC`, `MTRANS`) ou algoritmos baseados em densidade/misturas para comparar com o K-Means puramente numérico, e avaliar o impacto dos ~77% de registros sintéticos (SMOTE) da base UCI.
+- (1) Na Parte Específica: testar ajuste de limiar de probabilidade ou `class_weight="balanced"` para elevar o recall de `functional needs repair` (hoje 27,0%) sem destruir a precisão, e coletar dados de campo nas 6 regiões com ausência MAR.  
+- (2) Na Parte Comum: rodar a análise de sensibilidade do K-Means **sem** `wine_type_red` e **sem** as 1.177 duplicatas (18,12%) para isolar o efeito da composição pura sobre a qualidade, e comparar tinto vs. branco separadamente.

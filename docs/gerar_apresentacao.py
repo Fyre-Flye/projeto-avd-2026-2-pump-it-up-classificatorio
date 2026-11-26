@@ -15,7 +15,7 @@ import pymupdf
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT_ESP = ROOT / "out" / "parte_especifica"
-OUT_COM = ROOT / "out" / "parte_comum"
+OUT_COM = ROOT / "out" / "parte_comum" / "wine_quality"
 DESTINO_PDF = ROOT / "docs" / "APRESENTACAO_AVD_G6.pdf"
 
 SLIDE_W = 960.0
@@ -193,7 +193,7 @@ def montar_slides() -> list[tuple[str, str]]:
       <h1>Agrupamento, EDA e Dashboard Interativo</h1>
       <div class="sub">
         Parte Específica: Pontos d'Água da Tanzânia (Pump it Up, DrivenData)<br/>
-        Parte Comum: Níveis de Obesidade e Agrupamento K-Means (Obesity, UCI 544)
+        Parte Comum: Qualidade de Vinhos e Agrupamento K-Means (Wine Quality, UCI 186)
       </div>
       <div class="linha"></div>
       <div class="meta">
@@ -479,25 +479,26 @@ def montar_slides() -> list[tuple[str, str]]:
     slides.append(("conteudo", s9))
 
     # ------------------------------------------------------------------
-    # SLIDE 10: PARTE COMUM - DATASET OBESITY, EDA E PADRONIZACAO
+    # SLIDE 10: PARTE COMUM - DATASET WINE QUALITY, EDA E PADRONIZACAO
     # ------------------------------------------------------------------
     s10 = f"""<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"/>{CSS_BASE}</head><body>
       <div class="slide-header">
-        <div class="slide-kicker">Parte Comum: Obesity (UCI 544)</div>
-        <h1>Dataset Obesity: 7 Classes Equilibradas e Necessidade de Padronização</h1>
+        <div class="slide-kicker">Parte Comum: Wine Quality Combinado (UCI 186)</div>
+        <h1>Wine Quality: Notas Concentradas em 5 e 6 e Escalas Muito Distintas</h1>
       </div>
       <table class="layout">
         <tr>
-          <td style="width:54%; padding-right:14pt;">
-            {img_rel(OUT_COM / "02_distribuicao_classes.png", "width:100%; max-height:335pt;")}
-            <div class="legenda">Distribuição das 7 classes de NObeyesdad no dataset Obesity (n = 2.111, UCI id = 544).</div>
+          <td style="width:52%; padding-right:14pt;">
+            {img_rel(OUT_COM / "distribuicao_quality.png", "width:100%;")}
+            <div class="legenda">Distribuição das 7 notas reais (3 a 9) em Wine Quality (n = 6.497; 4.898 brancos e 1.599 tintos).</div>
           </td>
-          <td style="width:46%;">
-            <h2>Estrutura e Escalas</h2>
-            <ul style="font-size:12pt;">
-              <li><b>2.111 registros × 17 colunas</b> (8 numéricas, 8 categóricas e classe <code>NObeyesdad</code>), 0 nulos, 24 duplicadas e ~77% sintéticos (SMOTE).</li>
-              <li><b>Por que padronizar (<code>StandardScaler</code>)?</b> K-Means usa distância euclidiana. <code>Weight</code> varia de 39 a 173 kg enquanto <code>Height</code> varia de 1,45 a 1,98 m e <code>TUE</code> de 0 a 2.</li>
-              <li>Sem padronização, <code>Weight</code> dominaria os centroides. A classe <code>NObeyesdad</code> fica fora do treino.</li>
+          <td style="width:48%;">
+            <h2>Estrutura, EDA e Padronização</h2>
+            <ul style="font-size:11.8pt;">
+              <li><b>6.497 × 13</b> (11 físico-químicas + <code>wine_type</code> + <code>quality</code>), 0 nulos, 1.177 duplicatas (18,12%, mantidas).</li>
+              <li><b>Desbalanceamento:</b> notas <b>5 (32,9%)</b> e <b>6 (43,7%)</b> somam <b>76,6%</b>; nota 9 tem só 5 vinhos.</li>
+              <li><b>Relacional:</b> <code>alcohol</code> (+0,44) sobe com a nota; <code>density</code> (-0,31) e <code>volatile acidity</code> (-0,27) caem.</li>
+              <li><b><code>StandardScaler</code> obrigatório:</b> sem padronizar, <code>total sulfur dioxide</code> dominaria <code>density</code> e <code>chlorides</code> na distância euclidiana. <code>quality</code> fica fora do treino.</li>
             </ul>
           </td>
         </tr>
@@ -511,30 +512,28 @@ def montar_slides() -> list[tuple[str, str]]:
     s11 = f"""<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"/>{CSS_BASE}</head><body>
       <div class="slide-header">
         <div class="slide-kicker">Parte Comum: Agrupamento Não Supervisionado (K-Means)</div>
-        <h1>K-Means em Duas Passadas: Método do Cotovelo vs. k Fixo = 7</h1>
+        <h1>K-Means em Duas Passadas: Cotovelo (k = 3) vs. k Fixo = 7</h1>
       </div>
       <table class="layout">
         <tr>
-          <td style="width:50%; padding-right:12pt;">
-            <div class="box-azul">
-              <div class="titulo">Passada 1: Escolha livre de k (2 a 10)</div>
-              Curva de inércia (Método do Cotovelo) sobre as variáveis numéricas padronizadas para identificar o número natural de grupos sem olhar os rótulos.
-            </div>
+          <td style="width:33%; padding-right:8pt;">
+            {img_rel(OUT_COM / "metodo_cotovelo.png", "width:100%;")}
+            <div class="legenda">Cotovelo em k = 3 (-18,7% de inércia de k=2 para k=3).</div>
           </td>
-          <td style="width:50%;">
-            <div class="box-cinza">
-              <div class="titulo" style="font-weight:bold; color:#062A5F; margin-bottom:4pt;">Passada 2: k fixo = 7 classes reais</div>
-              Agrupamento forçado com k = 7 para confrontar diretamente os clusters encontrados pelo algoritmo com os 7 níveis oficiais de <code>NObeyesdad</code>.
-            </div>
+          <td style="width:33.5%; padding-right:8pt;">
+            {img_rel(OUT_COM / "clusters_livre.png", "width:100%;")}
+            <div class="legenda">Passada 1 (k = 3, PCA 2D = 52,8% var.).</div>
+          </td>
+          <td style="width:33.5%;">
+            {img_rel(OUT_COM / "clusters_fixo.png", "width:100%;")}
+            <div class="legenda">Passada 2 (k = 7 = notas 3 a 9).</div>
           </td>
         </tr>
       </table>
-      <div class="box-alerta">
-        <div class="titulo">INTEGRAÇÃO ARTHUR BORGES (inserir figuras de out/parte_comum/ antes da defesa)</div>
-        Após concluir <code>notebooks/parte_comum/kmeans_metricas.ipynb</code>, substitua este quadro em
-        <code>docs/gerar_apresentacao.py</code> pelas imagens finais do <b>Método do Cotovelo</b> e da
-        <b>visualização comparativa dos clusters (Passada 1 vs. Passada 2)</b> e rode <code>python docs/gerar_apresentacao.py</code>.
-        (Na demo ao vivo, a <b>Aba 4 do Dashboard Streamlit</b> já executa e anima essa transição em PCA 2D.)
+      <div class="box-azul" style="margin-top:10pt; font-size:11.5pt;">
+        <div class="titulo">Comparação das Passadas (Aba 4 do Dashboard anima esta transição ao vivo)</div>
+        Passada 1 (<b>k = 3</b>): inércia <b>45.875,7</b>, Silhouette <b>0,252</b> e Davies-Bouldin <b>1,420</b>.
+        Passada 2 (<b>k = 7</b>): inércia cai para <b>34.418,2</b>, mas Silhouette cai para <b>0,182</b> e Davies-Bouldin piora para <b>1,598</b>.
       </div>
     </body></html>"""
     slides.append(("conteudo", s11))
@@ -544,19 +543,51 @@ def montar_slides() -> list[tuple[str, str]]:
     # ------------------------------------------------------------------
     s12 = f"""<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"/>{CSS_BASE}</head><body>
       <div class="slide-header">
-        <div class="slide-kicker">Parte Comum: Avaliação dos Clusters Frente às Classes Reais</div>
-        <h1>Mapeamento Cluster -&gt; Classe Majoritária, Matrizes e Métricas</h1>
+        <div class="slide-kicker">Parte Comum: Avaliação dos Clusters Frente às Notas Reais</div>
+        <h1>Apenas Notas 5 e 6 Dominam Clusters; Ganho de k = 7 É de +1,2 pp</h1>
       </div>
-      <ul style="font-size:12.5pt;">
-        <li><b>Regra de avaliação:</b> cada cluster recebe o rótulo da classe <code>NObeyesdad</code> mais frequente dentro dele; em seguida calculam-se <b>matriz de confusão</b> (retangular na Passada 1, 7×7 na Passada 2), <b>acurácia de coincidência</b>, <b>precisão</b> e <b>recall</b> por classe (<code>zero_division=0</code>).</li>
-        <li><b>Cuidado conceitual:</b> essa "acurácia" não mede previsão supervisionada, mas o grau de coincidência entre os grupos naturais nos dados e a rotulagem original.</li>
-      </ul>
-      <div class="box-alerta">
-        <div class="titulo">INTEGRAÇÃO ARTHUR BORGES (inserir matrizes e tabela final de out/parte_comum/)</div>
-        Inserir aqui as imagens das matrizes de confusão (Passada 1 e Passada 2) e os valores exatos de acurácia global,
-        precisão e recall por classe gerados em <code>notebooks/parte_comum/kmeans_metricas.ipynb</code>, mantendo 100%
-        de consistência com a Seção 6.4 do <code>relatorio.pdf</code>.
-      </div>
+      <table class="layout">
+        <tr>
+          <td style="width:46%; padding-right:10pt; text-align:center;">
+            {img_rel(OUT_COM / "matriz_confusao_livre.png", "width:84%;")}
+            <div class="legenda">Passada 1 (k = 3): coincidência 44,47% | Macro F1 13,37%.</div>
+          </td>
+          <td style="width:46%; text-align:center;">
+            {img_rel(OUT_COM / "matriz_confusao_fixo.png", "width:84%;")}
+            <div class="legenda">Passada 2 (k = 7): coincidência 45,67% | Macro F1 14,69%.</div>
+          </td>
+        </tr>
+      </table>
+      <table class="dados" style="margin-top:6pt; font-size:10pt;">
+        <thead>
+          <tr>
+            <th>Passada</th>
+            <th class="num">Coincidência</th>
+            <th class="num">Macro F1</th>
+            <th class="num">Nota 5 (Prec / Rec)</th>
+            <th class="num">Nota 6 (Prec / Rec)</th>
+            <th>Notas 3, 4, 7, 8 e 9</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Passada 1 (k = 3 livre)</td>
+            <td class="num">44,47%</td>
+            <td class="num">13,37%</td>
+            <td class="num">42,87% / 31,90%</td>
+            <td class="num">44,99% / 77,82%</td>
+            <td>0,0% (<code>zero_division=0</code>)</td>
+          </tr>
+          <tr>
+            <td><b>Passada 2 (k = 7 fixo)</b></td>
+            <td class="num"><b>45,67%</b></td>
+            <td class="num"><b>14,69%</b></td>
+            <td class="num"><b>46,74% / 53,32%</b></td>
+            <td class="num"><b>45,02% / 64,42%</b></td>
+            <td>0,0% (<code>zero_division=0</code>)</td>
+          </tr>
+        </tbody>
+      </table>
     </body></html>"""
     slides.append(("conteudo", s12))
 
@@ -565,29 +596,34 @@ def montar_slides() -> list[tuple[str, str]]:
     # ------------------------------------------------------------------
     s13 = f"""<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"/>{CSS_BASE}</head><body>
       <div class="slide-header">
-        <div class="slide-kicker">Parte Comum: Discussão Crítica</div>
-        <h1>Coerência entre Passadas e Granularidade das 7 Classes de Obesidade</h1>
+        <div class="slide-kicker">Parte Comum: Discussão Crítica (Wine Quality)</div>
+        <h1>7 Notas Sensoriais Não Formam 7 Grupos Naturais no Espaço Químico</h1>
       </div>
       <table class="layout">
         <tr>
           <td style="width:50%; padding-right:12pt;">
             <div class="box-azul">
-              <div class="titulo">1. Passada 1 (k livre) vs. Passada 2 (k = 7)</div>
-              Avaliar qual escolha formou grupos mais compactos e coerentes e se forçar 7 clusters realmente separa melhor os perfis físicos e hábitos de vida.
+              <div class="titulo">1. Passada 1 (k = 3) vs. Passada 2 (k = 7)</div>
+              <ul style="font-size:11.8pt; margin-bottom:0;">
+                <li><b>Coesão interna:</b> k = 3 entrega grupos mais limpos (Silhouette 0,252 vs. 0,182).</li>
+                <li><b>Coincidência limitada:</b> passar para k = 7 eleva a taxa em só +1,20 pp (44,47% -&gt; 45,67%), pouco acima da nota 6 sozinha (43,65%).</li>
+              </ul>
             </div>
           </td>
           <td style="width:50%;">
             <div class="box-cinza">
-              <div class="titulo" style="font-weight:bold; color:#062A5F; margin-bottom:4pt;">2. Granularidade das classes originais</div>
-              Discutir se níveis contíguos de IMC (como <i>Overweight Level I</i>, <i>Overweight Level II</i> e <i>Obesity Type I</i>) formam fronteiras reais nos dados ou se sobrepõem no espaço numérico.
+              <div class="titulo" style="font-weight:bold; color:#062A5F; margin-bottom:4pt;">2. Granularidade das 7 notas originais</div>
+              <ul style="font-size:11.8pt; margin-bottom:0;">
+                <li><b>Qualidade ordinal e desbalanceada:</b> notas 5 e 6 concentram 76,6% dos vinhos e têm química parecida.</li>
+                <li><b>Efeito do tipo de vinho:</b> incluir <code>wine_type_red</code> puxa o agrupamento para composição (tinto vs. branco) mais do que para nota.</li>
+              </ul>
             </div>
           </td>
         </tr>
       </table>
-      <div class="box-alerta">
-        <div class="titulo">INTEGRAÇÃO ARTHUR BORGES / SACRAMENTO (conclusão autoral da Parte Comum)</div>
-        Substituir este aviso por 3 bullets autorais resumindo os números exatos e a conclusão crítica escrita na
-        Seção 6.5 do <code>relatorio.pdf</code> (ex.: quais classes tiveram recall 0% na Passada 1 e quais se confundiram na Passada 2).
+      <div class="box-azul" style="margin-top:8pt; font-size:12pt;">
+        <div class="titulo">Conclusão metodológica</div>
+        K-Means descobre perfis físico-químicos naturais, mas <b>não substitui um classificador supervisionado</b> para distinguir notas sensoriais vizinhas (como 5, 6 e 7).
       </div>
     </body></html>"""
     slides.append(("conteudo", s13))
@@ -607,7 +643,7 @@ def montar_slides() -> list[tuple[str, str]]:
             <ul style="font-size:12pt;">
               <li><b>Pump it Up:</b> escassez hídrica, envelhecimento da bomba (&gt; 20 anos) e tecnologias motorizadas concentram as falhas; o Random Forest (80,6%) apoia a triagem e a Árvore (75,3%) oferece auditoria transparente.</li>
               <li><b>Dashboard Streamlit:</b> reúne storytelling, exploração livre (inclusive de quaisquer 2 variáveis ao vivo), auditoria do classificador e transição animada do K-Means.</li>
-              <li><b>Obesity (K-Means):</b> evidencia na prática o impacto da padronização e o limite de recuperar 7 rótulos finos sem supervisão.</li>
+              <li><b>Wine Quality (K-Means):</b> evidencia o papel do <code>StandardScaler</code> e por que 7 notas sensoriais desbalanceadas não viram 7 clusters puros.</li>
             </ul>
           </td>
           <td style="width:47%;">
@@ -617,7 +653,7 @@ def montar_slides() -> list[tuple[str, str]]:
                 <li><b>MAR em 6 regiões:</b> 34,8% sem ano de construção real (excluídos da análise de idade).</li>
                 <li><b>Classe minoritária:</b> recall de 27,0% em <code>functional needs repair</code> pede inspeção preventiva complementar.</li>
                 <li><b>Amostras pequenas e unidades:</b> cautela com <code>wind-powered</code> (n = 59) e unidades não declaradas (<code>amount_tsh</code>, <code>gps_height</code>).</li>
-                <li><b>Obesity sintético:</b> ~77% dos registros vêm de SMOTE (UCI).</li>
+                <li><b>Wine Quality:</b> 18,1% de duplicatas mantidas e influência de <code>wine_type_red</code> nos centroides.</li>
               </ul>
             </div>
             <div class="box-azul" style="margin-top:8pt; margin-bottom:0;">
