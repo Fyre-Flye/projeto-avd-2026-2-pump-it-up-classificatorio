@@ -157,9 +157,8 @@ CSS_BASE = """
   }
   code {
     font-family: Courier, monospace;
-    font-size: 11pt;
-    background-color: #F4F4F4;
-    padding: 1pt 3pt;
+    font-size: 0.92em;
+    color: #0043CE;
   }
 </style>
 """
@@ -357,7 +356,7 @@ def montar_slides() -> list[tuple[str, str]]:
             {img_rel(OUT_ESP / "08_explan_01_tecnologia_com_agua.png", "width:100%; max-height:315pt;")}
           </td>
           <td style="width:32%;">
-            <h2>Destaque em <code>enough</code></h2>
+            <h2>Destaque em água suficiente</h2>
             <ul style="font-size:11.5pt;">
               <li><b><code>motorpump</code>:</b> <b>45,9%</b> inoperantes (n = 1.539), +27,4 pp acima de <code>gravity</code>.</li>
               <li><b><code>gravity</code> e <code>handpump</code>:</b> apenas <b>18,4%</b> e <b>23,5%</b> de falha.</li>
@@ -455,7 +454,8 @@ def montar_slides() -> list[tuple[str, str]]:
         <tr>
           <td style="width:52%; padding-right:14pt;">
             <div class="box-azul">
-              <div class="titulo">Roteiro da Demo (<code>streamlit run src/parte_especifica/dashboard.py</code>)</div>
+              <div class="titulo">Roteiro da Demo ao Vivo (Streamlit)</div>
+              <p style="font-size:10.5pt; margin:0 0 6pt 0; color:#525252;">Comando: <code>streamlit run src/parte_especifica/dashboard.py</code></p>
               <ol style="margin:4pt 0 0 18pt; padding:0; font-size:12pt;">
                 <li style="margin-bottom:5pt;"><b>Filtros globais + KPIs dinâmicos:</b> filtrar <code>Lindi</code> e <code>enough</code> e observar o recálculo instantâneo.</li>
                 <li style="margin-bottom:5pt;"><b>Aba 2 (Exploração):</b> usar o <b>Comparador lado a lado de duas regiões</b> (Iringa vs. Lindi) e o <b>Heatmap livre de 2 variáveis</b> (pronto para arguição!).</li>

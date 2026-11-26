@@ -153,9 +153,8 @@ CSS_BASE = """
   }
   code {
     font-family: Courier, monospace;
-    font-size: 8.4pt;
-    background-color: #F4F4F4;
-    padding: 0.5pt 2pt;
+    font-size: 8.5pt;
+    color: #0043CE;
   }
 </style>
 """
@@ -648,7 +647,7 @@ def montar_paginas() -> list[str]:
       <th class="num">Macro F1 (%)</th>
       <th class="num">Nota 5 (Prec / Rec)</th>
       <th class="num">Nota 6 (Prec / Rec)</th>
-      <th>Notas 3, 4, 7, 8, 9</th>
+      <th>Demais notas (3, 4, 7-9)</th>
     </tr>
   </thead>
   <tbody>
