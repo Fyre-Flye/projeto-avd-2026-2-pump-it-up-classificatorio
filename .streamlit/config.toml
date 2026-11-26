@@ -1,0 +1,14 @@
+# [IA] Gemini – identidade visual limpa e acessivel (Aula 22, pag. 11; 06_GUIDELINES)
+# Fundo branco, texto escuro e cor primaria alinhada ao azul Okabe-Ito (#0072B2)
+
+[theme]
+base = "light"
+primaryColor = "#0072B2"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F5F7FA"
+textColor = "#111827"
+font = "sans serif"
+
+[client]
+showErrorDetails = false
+toolbarMode = "minimal"
