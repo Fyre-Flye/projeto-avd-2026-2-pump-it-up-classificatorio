@@ -21,3 +21,23 @@ st.info(
     "(`src/parte_especifica/eda.ipynb`), lendo os dados tratados em "
     "`data/parte_especifica/clean/`."
 )
+
+# [IA] Gemini – marcação das seções de intervenção autoral exigidas pelo enunciado (sem escolher gráficos nem gerar análises)
+# =============================================================================
+# [AUTORAL] 1. Carga de dados tratados (data/parte_especifica/clean/) com @st.cache_data
+#   - Definir colunas finais após as decisões da Seção 6 do eda.ipynb (sem acentos nos nomes).
+#
+# [AUTORAL] 2. Público-alvo e Storytelling
+#   - Definir linguagem, hierarquia visual, identidade visual (.streamlit/config.toml) e filtros.
+#
+# [AUTORAL] 3. Visualizações Exploratórias (mínimo 4) + Notas Analíticas Autorais
+#   - Escolher tipos de gráficos coerentes com os dados (título, legenda e eixos obrigatórios).
+#   - Escrever nota analítica autoral para cada gráfico (o que mostra, insight, por que o gráfico).
+#
+# [AUTORAL] 4. Visualizações Explanatórias (mínimo 2, >=1 respondendo à pergunta) + Notas Analíticas
+#   - Escolher tipos de gráficos e atributos pré-atentivos (cor, tamanho, posição) que destacam a mensagem.
+#   - Escrever nota analítica autoral para cada gráfico.
+#
+# [AUTORAL] 5. (Opcional — Bônus Visual/UX até +1,0)
+#   - Filtros dinâmicos interligados, seleção de variáveis/eixos, página da Parte Comum / animação K-Means.
+# =============================================================================
