@@ -30,6 +30,8 @@ Pastas locais **fora do Git** (estão no `.gitignore`): `DatasetParteComum/`, `D
 - Figuras com muitos painéis são divididas em figuras de até 6 painéis (`NN_nome_1.png`, `NN_nome_2.png`).
 - Notebooks devem rodar também no Google Colab: tenha uma célula inicial que clone o repositório (só no Colab) e não dependa de caminhos da sua máquina.
 - Arquivos gerados que não vão para o Git: `*_leitura.html` (página de leitura do notebook).
+- **Remoção de arquivos (regra do Gustavo):** nunca usar deleção permanente nem recursiva (`rm -rf`, `Remove-Item -Recurse` etc.). Sempre mover arquivos obsoletos/temporários para a **Lixeira do Windows** (`SendToRecycleBin`) e incluir um **audit rápido de deleção** no final da resposta listando o que foi enviado para a lixeira.
+- **Estilo ao revisar textos autorais do Gustavo:** preservar o tom natural e direto do aluno (parágrafos corridos e simples). Evitar vícios de escrita de IA: nada de travessões (`—`) em excesso, nada de negritar todo número/termo técnico, nada de listas `- **Tópico:** ...` nem conectores artificiais (*"Em primeiro lugar"*, *"Em contrapartida"*, *"De forma semelhante"*, *"Por fim"*).
 
 ## Git
 - Branch principal: `master`. Antes de começar: `git pull`. Cada um mexe nos arquivos da sua parte, para evitar conflito em notebook.
