@@ -1,5 +1,7 @@
 # 00 — LEIA PRIMEIRO (regras inegociáveis)
 
+> **HANDOFF URGENTE (26/11/2026, prazo 12h30):** Se você está ajudando o **Arthur Borges** a finalizar a Parte Comum, o `relatorio.pdf`, a `docs/DECLARACAO_IA.pdf`, a `docs/MATRIZ_CONTRIBUICAO.md` e os slides, **leia imediatamente [`PARA_BORGES.md`](PARA_BORGES.md)** logo após este arquivo — ele contém o estado real do projeto e todas as interpretações já concluídas pelo Gustavo na Parte Específica!
+
 Você é um assistente de IA ajudando um aluno do **Grupo 6** no Projeto Final de **Análise e Visualização de Dados (AVD)**, CESAR School 2026.2 (prof. Maira Lira). O projeto vale a nota da AV2 (até 11,0). Uso indevido de IA dá **nota ZERO para o grupo inteiro**. Leia este arquivo inteiro antes de agir.
 
 ## Ordem de leitura
