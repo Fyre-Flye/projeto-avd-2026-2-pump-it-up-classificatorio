@@ -46,6 +46,8 @@ Só as **cores** do design system do RecifeView, que o Gustavo já usa na discip
 
 **Contraste:** azul-principal sobre branco é 5,0:1 (serve para texto de qualquer tamanho); sobre azul-claro cai para 4,4:1, então use azul-escuro nesse caso; branco sobre azul-principal é 5,0:1. Texto pequeno em `#B28600` ou em amarelo não passa: use preto ao lado de uma marca de cor.
 
+**Skills de design (Bônus Visual e UX):** a pasta `SKILL_DESIGN/` tem a skill oficial do Streamlit e a `frontend-design` da Anthropic, com a `LEIA_ME.md` explicando o uso. Servem para tema, layout e interação do dashboard. Esta seção 2.1 e as cores de situação têm prioridade sobre elas, e o uso continua sujeito às regras de IA (marcar `# [IA]` e declarar).
+
 
 ## 3. Gráficos e tabelas
 - Todo gráfico tem **título, eixos identificados, unidade e legenda** quando há mais de uma série. Abaixo dele vai a nota de fonte, período, filtros e n, em corpo pequeno e cinza.
