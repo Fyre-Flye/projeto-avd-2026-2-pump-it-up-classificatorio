@@ -5,8 +5,8 @@ Título do enunciado: *Projeto Final: Agrupamento, EDA e Dashboard Interativo*.
 
 | Parte | Dataset | Conteúdo | Responsável |
 | --- | --- | --- | --- |
-| **Comum** | [Wine Quality (UCI 186)](https://archive.ics.uci.edu/dataset/186) **ou** [Obesity (UCI 544)](https://archive.ics.uci.edu/dataset/544) (escolha do Sacramento) | EDA (4 pilares), padronização, K-Means em duas passadas, matriz de confusão e métricas, discussão crítica | João Vitor do Sacramento |
-| **Específica** | [Pump it Up: Data Mining the Water Table (DrivenData)](https://www.drivendata.org/competitions/7/pump-it-up-data-mining-the-water-table/) | Pergunta de pesquisa, EDA, storytelling, 6 visualizações, dashboard Streamlit, notas analíticas | Gustavo Henrique Cruz de Oliveira |
+| **Comum** | [Obesity (UCI 544)](https://archive.ics.uci.edu/dataset/544) | EDA (4 pilares), padronização, K-Means em duas passadas, matriz de confusão e métricas, discussão crítica | João Vitor do Sacramento e Arthur Borges |
+| **Específica** | [Pump it Up: Data Mining the Water Table (DrivenData)](https://www.drivendata.org/competitions/7/pump-it-up-data-mining-the-water-table/) | Pergunta de pesquisa, EDA, classificador sem *data leakage*, storytelling, 7 visualizações, dashboard Streamlit com Bônus UX/UI, relatório, apresentação e guia de defesa | Gustavo Henrique Cruz de Oliveira |
 
 A matriz de contribuição está em [docs/MATRIZ_CONTRIBUICAO.md](docs/MATRIZ_CONTRIBUICAO.md).
 
@@ -45,9 +45,12 @@ Bibliotecas usadas (apenas as permitidas pelo enunciado): pandas, numpy, matplot
 jupyter notebook notebooks/parte_comum/eda.ipynb
 jupyter notebook notebooks/parte_comum/kmeans_metricas.ipynb
 
-# PARTE ESPECÍFICA
+# PARTE ESPECÍFICA (notebooks, figuras, dashboard e PDFs)
 jupyter notebook src/parte_especifica/eda.ipynb
+jupyter notebook src/parte_especifica/classificador.ipynb
 streamlit run src/parte_especifica/dashboard.py
+python docs/gerar_relatorio.py
+python docs/gerar_apresentacao.py
 ```
 
 **No Google Colab** (sem instalar nada): abra [`eda.ipynb` no Colab](https://colab.research.google.com/github/Fyre-Flye/projeto-avd-2026-2-pump-it-up-classificatorio/blob/master/src/parte_especifica/eda.ipynb) e rode a primeira célula de código, que clona o repositório. O Colab sempre abre a versão mais recente da `master`.
@@ -90,12 +93,11 @@ A pasta `_CONTEXTO_IA/` reúne as regras do projeto num formato que um assistent
 ## Status
 
 - [x] Estrutura inicial do repositório
-- [ ] Parte Comum: escolha do dataset (Wine Quality ou Obesity) + EDA
-- [ ] Parte Comum: padronização + K-Means (duas passadas) + métricas
-- [ ] Parte Comum: discussão crítica
-- [x] Parte Específica: código da EDA (4 pilares)
-- [x] Parte Específica: interpretações da EDA, tratamento dos dados e pergunta de pesquisa final
-- [x] Parte Específica: classificador (Árvore de Decisão baseline + Random Forest, sem data leakage)
-- [x] Parte Específica: storytelling + 7 visualizações finais (4 exploratórias + 3 explanatórias; revisão final das notas autorais em `docs/STORYTELLING_E_NOTAS.md`)
-- [x] Parte Específica: dashboard Streamlit (`src/parte_especifica/dashboard.py`)
-- [ ] Relatório PDF, Declaração de IA assinada, matriz de contribuição final
+- [x] Parte Comum: escolha do dataset (`Obesity`, UCI 544) e início da EDA (`notebooks/parte_comum/eda.ipynb`)
+- [ ] Parte Comum: finalização da EDA, K-Means (duas passadas), métricas e discussão crítica (em conclusão por Arthur Borges)
+- [x] Parte Específica: código e interpretações da EDA (4 pilares), tratamento dos dados (`59.333 × 31`) e pergunta de pesquisa
+- [x] Parte Específica: classificador (Árvore de Decisão baseline 75,33% + Random Forest 80,58%, sem *data leakage*, auditoria `decision_path`)
+- [x] Parte Específica: storytelling + 7 visualizações finais (4 exploratórias + 3 explanatórias) e notas analíticas (`docs/STORYTELLING_E_NOTAS.md`)
+- [x] Parte Específica: dashboard Streamlit com identidade visual RecifeView + Bônus Visual/UX (`src/parte_especifica/dashboard.py`, 5 abas)
+- [x] Relatório técnico (`relatorio.pdf`), Apresentação 16:9 (`docs/APRESENTACAO_AVD_G6.pdf`), Roteiro em 3 (`docs/ROTEIRO_APRESENTACAO.md`) e Guia de Arguição (`docs/GUIA_ARGUICAO_E_VARIAVEIS.md`) *(aguardando inserção dos resultados finais da Parte Comum por Arthur Borges)*
+- [ ] Assinaturas finais em `docs/DECLARACAO_IA.pdf` e preenchimento de `docs/MATRIZ_CONTRIBUICAO.md` (após commits do Arthur Borges)

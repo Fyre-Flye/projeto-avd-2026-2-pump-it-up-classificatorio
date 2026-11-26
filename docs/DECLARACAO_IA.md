@@ -21,8 +21,8 @@ Claude Code (Anthropic) e Gemini via Antigravity (Google).
 - **Geração e melhoria de código para a EDA da Parte Específica** (`src/parte_especifica/eda.ipynb`): código para os 4 pilares, inclusão da coluna `glossario` nas tabelas, hierarquia de seções, títulos (`<caption>`), ajustes de layout (`3x2`/`3x1`), correção do renderizador Plotly, paletas semânticas acessíveis (`YlOrRd`, `Blues`, `RdBu_r`), cruzamentos multivariados escolhidos pelo aluno e código da Seção 6 (implementando as decisões de tratamento do aluno e exportação para `data/parte_especifica/clean/pump_it_up_clean.csv`).
 - **Revisão de ortografia, clareza e conferência factual de números** nos textos autorais escritos pelo aluno na EDA (`0.1`, `1.6`, `2.6`, `3.7`, `4.9`, `5.5`, `6.1` e `7.1`), no Classificador (`6.1`) e na Big Idea.
 - **Geração de código para o classificador** (`src/parte_especifica/classificador.ipynb`): pipeline sem *data leakage* (reversão controlada das flags `ausente_*` antes do split estratificado 80/20, `ImputadorCascata`, `OneHotEncoder` + `TargetEncoder`, `DecisionTreeClassifier` baseline e `RandomForestClassifier`), matrizes de confusão, métricas por classe, importância agregada das variáveis e demonstração auditável passo a passo (`decision_path`) em 3 bombas reais do teste.
-- **Geração de código para figuras finais e dashboard Streamlit** (`.streamlit/config.toml`, `src/parte_especifica/data_loader.py`, `src/parte_especifica/gerar_figuras_finais.py` e `src/parte_especifica/dashboard.py`): camada de carga e cache (`@st.cache_data` e `@st.cache_resource`), filtros interligados, 5 KPIs dinâmicos, gráficos Plotly e 7 figuras estáticas limpas (Okabe-Ito + cinza `#C6C6C6`), aba interativa do classificador com sorteio de bombas reais e auditoria `decision_path`, glossário pesquisável e exportação de recortes.
-- **Glossário** (`docs/GLOSSARIO.md`): tradução e definição dos termos técnicos do dataset e da EDA a partir da documentação do DrivenData e dos slides das aulas.
+- **Geração de código para figuras finais e dashboard Streamlit com Bônus UX/UI** (`.streamlit/config.toml`, `src/parte_especifica/data_loader.py`, `src/parte_especifica/gerar_figuras_finais.py` e `src/parte_especifica/dashboard.py`): aplicação das boas práticas de UI/UX em Streamlit (`SKILL_DESIGN/` + identidade visual RecifeView Seção 2.1 + paleta Okabe-Ito), cache separado (`@st.cache_data` e `@st.cache_resource`), controles nativos modernos (`st.pills`, `st.segmented_control`, `@st.fragment`), Comparador lado a lado de duas regiões, Heatmap livre de duas variáveis, aba interativa do classificador com sorteio e auditoria `decision_path`, Aba 4 animada do K-Means da Parte Comum em PCA 2D, 7 figuras estáticas limpas e exportação CSV/Markdown.
+- **Diagramação reproduzível em PDF e material de apoio à defesa** (`docs/gerar_relatorio.py` -> `relatorio.pdf`, `docs/gerar_apresentacao.py` -> `docs/APRESENTACAO_AVD_G6.pdf`, `docs/ROTEIRO_APRESENTACAO.md`, `docs/GUIA_ARGUICAO_E_VARIAVEIS.md` e `docs/GLOSSARIO.md`): compilação editorial dos textos autorais já escritos pelo aluno nos notebooks em PDFs padronizados (A4 e 16:9), organização do roteiro dividido entre os 3 integrantes e guia de estudo de variáveis e perguntas técnicas para a arguição de 03/12/2026.
 
 ### O que foi aceito, modificado ou rejeitado e por quê
 - **Aceito:** estrutura de pastas, código de tabelas/gráficos da EDA, pipeline anti-data-leakage do classificador, camada de cache e interface do dashboard Streamlit e revisões de ortografia/conferência numérica.
@@ -44,7 +44,7 @@ Claude Code (Anthropic) e Gemini via Antigravity (Google).
 
 ---
 
-## 3. Arthur Borges (Parte Comum, Relatório PDF, Revisão das Notas e Apresentação)
+## 3. Arthur Borges (Conclusão da Parte Comum e Integração Final)
 
 ### Ferramentas utilizadas
 *(a preencher pelo integrante antes da assinatura final)*
