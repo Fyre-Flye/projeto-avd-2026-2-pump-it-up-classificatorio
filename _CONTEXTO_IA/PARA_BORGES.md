@@ -1,14 +1,16 @@
-# PARA_BORGES: Dossiê Atualizado de Integração (Grupo 6, prazo 26/11/2026 às 12h30)
+# PARA_BORGES: Integração Final Concluída (26/11/2026)
 
-> **ATUALIZAÇÃO DE PLANOS (26/11/2026 às 11h30):**
-> O **Gustavo** já concluiu, revisou e subiu no GitHub **toda a Parte Específica**, o **Dashboard com Bônus Visual/UX & UI** (identidade visual RecifeView + Okabe-Ito + Comparador de Regiões + Aba 4 animada do K-Means), o **`relatorio.pdf`** (com gerador reproduzível `docs/gerar_relatorio.py`), a **Apresentação 16:9 (`docs/APRESENTACAO_AVD_G6.pdf`)** (com `docs/gerar_apresentacao.py`), o **Roteiro de Apresentação dividido em 3 (`docs/ROTEIRO_APRESENTACAO.md`, Gustavo 1º -> Arthur 2º -> Sacramento 3º)** e o **Guia de Treino para Arguição e Variáveis (`docs/GUIA_ARGUICAO_E_VARIAVEIS.md`)**.
+> **TUDO INTEGRADO (Parte Específica + Parte Comum Wine Quality):**
+> O trabalho da Parte Comum que você subiu no commit `86287c9` (**Wine Quality combinado**, UCI 186, `6.497 × 13`) já foi revisado, reexecutado em ordem (`eda.ipynb` e `kmeans_metricas.ipynb` alinhados a `k = 3` vs. `k = 7`, `44,47%` vs. `45,67%`) e integrado em:
+> - `relatorio.pdf` (10 páginas A4 completas, sem quadros pendentes)
+> - `docs/APRESENTACAO_AVD_G6.pdf` (14 slides 16:9 completos, sem quadros pendentes)
+> - `src/parte_especifica/dashboard.py` (Aba 4 atualizada para **Wine Quality** com transição animada `k = 3` -> `k = 7` em PCA 2D)
+> - `docs/ROTEIRO_APRESENTACAO.md` (dividido nos 3, com você nos Slides 10 a 12)
+> - `docs/GUIA_ARGUICAO_E_VARIAVEIS.md` (colinha das 31 variáveis Pump it Up + 13 variáveis Wine Quality + 20 perguntas)
+> - `docs/MATRIZ_CONTRIBUICAO.md` (atualizada com a participação real de Gustavo, Arthur Borges e Sacramento)
+> - `docs/DECLARACAO_IA.md` e `docs/DECLARACAO_IA.pdf` (seção do Arthur preenchida com `ChatGPT` conforme marcações nos notebooks)
 >
-> **O que ficou faltando da Parte Comum (que estava com o Sacramento) e precisa ser concluído pelo Arthur Borges:**
-> 1. Finalizar os notebooks da **Parte Comum (`Obesity`, UCI 544)**: `notebooks/parte_comum/eda.ipynb` e `notebooks/parte_comum/kmeans_metricas.ipynb`, salvando figuras e tabelas em `out/parte_comum/`.
-> 2. Plugar os resultados e a **Discussão Crítica autoral (1,0 pt)** da Parte Comum nos espaços amarelos já marcados em `docs/gerar_relatorio.py` e `docs/gerar_apresentacao.py` e reexecutar os dois scripts para atualizar `relatorio.pdf` e `docs/APRESENTACAO_AVD_G6.pdf`.
-> 3. Preencher as seções de **Arthur Borges** e **João Vitor do Sacramento** em `docs/DECLARACAO_IA.md` e coletar as assinaturas finais em `docs/DECLARACAO_IA.pdf` *(obrigatório: sem assinaturas de todos os ativos a nota é zero!)*.
-> 4. Atualizar `docs/MATRIZ_CONTRIBUICAO.md` (deixada pendente de propósito pelo Gustavo até você concluir e commitar sua parte).
-> 5. Fazer pelo menos 1 commit com **autoria do Arthur Borges** (sem `Co-Authored-By`, 1 commit por etapa, sempre `git pull` antes de `git push`) e postar o link no Classroom até **12h30**.
+> **ÚNICA PENDÊNCIA:** confirmar sua seção e adicionar as assinaturas finais de **Arthur Borges** e **João Vitor do Sacramento** em `docs/DECLARACAO_IA.pdf` e garantir que os 3 postem o link do repositório no Classroom!
 
 ---
 

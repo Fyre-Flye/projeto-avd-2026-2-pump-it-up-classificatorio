@@ -1,8 +1,8 @@
-# 02 — Parte Comum: Obesity (UCI 544) (responsáveis: Sacramento e Arthur Borges)
+# 02 — Parte Comum: Wine Quality Combinado (UCI 186) (responsáveis: Arthur Borges e Sacramento)
 
-> **Estado real em 26/11/2026 (11h50):** dataset escolhido pelo Sacramento é **Obesity (UCI 544)** (`data/parte_comum/obesity/ObesityDataSet_raw_and_data_sinthetic.csv`, `2.111 × 17`, 7 classes de `NObeyesdad`). `notebooks/parte_comum/eda.ipynb` tem apenas **6/22 células rodadas** (falta relacional, outliers, decisão das 24 duplicadas e textos autorais) e `notebooks/parte_comum/kmeans_metricas.ipynb` tem **0/18 células rodadas**. Arthur Borges assumiu a conclusão desta parte e a integração nas Seções `6.2` a `6.5` de `docs/gerar_relatorio.py` e nos Slides 11 a 13 de `docs/gerar_apresentacao.py` (ver `PARA_BORGES.md`).
+> **Estado final em 26/11/2026 (12h25):** **CONCLUÍDA E INTEGRADA!** Dataset final: **Wine Quality combinado (UCI 186)** (`data/parte_comum/wine_quality/winequality-combined.csv`, `6.497 × 13`, 7 notas de `3` a `9`). `notebooks/parte_comum/eda.ipynb` e `notebooks/parte_comum/kmeans_metricas.ipynb` executados integralmente em ordem (`k = 3` livre com `44,47%` vs. `k = 7` fixo com `45,67%`), figuras/CSVs em `out/parte_comum/wine_quality/`, integrados em `relatorio.pdf`, `docs/APRESENTACAO_AVD_G6.pdf`, `docs/ROTEIRO_APRESENTACAO.md`, `docs/GUIA_ARGUICAO_E_VARIAVEIS.md` e Aba 4 do `dashboard.py`.
 
-## Dataset escolhido: Obesity (UCI 544)
+## Dataset escolhido: Wine Quality combinado (UCI 186)
 O enunciado deixa o grupo escolher **um** dos dois datasets. Os dois estão no repositório. A IA não deve escolher pelo aluno, mas pode explicar as consequências de cada opção.
 
 | | Wine Quality (UCI 186) | Obesity (UCI 544) |

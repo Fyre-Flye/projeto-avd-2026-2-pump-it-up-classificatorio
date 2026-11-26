@@ -1,33 +1,32 @@
-# Matriz de Contribuição — Grupo 6
+# Matriz de Contribuição: Grupo 6 (AVD 2026.2)
 
-> Documento atualizado ao longo do projeto. Legenda: **R** = responsável (executou), **A** = apoio/revisão, — = não participou.
+> Atualizada em 26/11/2026. Legenda: **R** = responsável principal (executou), **A** = apoio/revisão/integração, **—** = não participou.
 
 ## Integrantes
 
 | Integrante | Situação |
 | --- | --- |
 | Gustavo Henrique Cruz de Oliveira | Ativo |
+| Arthur Borges | Ativo |
 | João Vitor do Sacramento Bezerra da Cunha | Ativo |
-| Arthur Borges | Sem contribuição registrada até o momento |
 | Luiz Felipe Cruz Braz | Reprovado por falta na disciplina (fora do projeto) |
 
 ## Atividades
 
-| Atividade | Gustavo | Sacramento | Arthur Borges |
+| Atividade | Gustavo | Arthur Borges | Sacramento |
 | --- | :---: | :---: | :---: |
-| Escolha do dataset e checkpoint (27/10) | R | | |
-| Estrutura do repositório, README, requirements | R | | — |
-| **Parte Comum**: EDA do dataset escolhido (4 pilares) | | R | — |
-| **Parte Comum**: padronização + K-Means (duas passadas) | | R | — |
-| **Parte Comum**: mapeamento, matriz de confusão e métricas | | R | — |
-| **Parte Comum**: discussão crítica | | R | — |
-| **Parte Específica**: pergunta de pesquisa | R | | — |
-| **Parte Específica**: EDA Pump it Up | R | | — |
-| **Parte Específica**: storytelling e visualizações | R | | — |
-| **Parte Específica**: dashboard Streamlit | R | | — |
-| **Parte Específica**: notas analíticas | R | | — |
-| Relatório PDF | | | — |
-| Declaração de Uso de IA | | | — |
-| Preparação da apresentação | | | — |
+| Escolha do dataset da Parte Específica e checkpoint (27/10) | R | — | A |
+| Estrutura do repositório, README, requirements, contexto | R | — | — |
+| **Parte Comum (Wine Quality, UCI 186)**: EDA nos 4 pilares | A | R | A |
+| **Parte Comum**: padronização + K-Means (duas passadas, k = 3 e k = 7) | A | R | — |
+| **Parte Comum**: mapeamento, matriz de confusão, métricas e discussão crítica | A | R | — |
+| **Parte Específica (Pump it Up)**: pergunta de pesquisa e público-alvo | R | — | — |
+| **Parte Específica**: EDA completa (4 pilares, MAR, tratamento) | R | — | — |
+| **Parte Específica**: classificador (Árvore + Random Forest sem data leakage) | R | — | — |
+| **Parte Específica**: storytelling, 7 visualizações finais e notas analíticas | R | — | — |
+| **Dashboard Streamlit + Bônus UX/UI** (5 abas, incluindo Aba 4 K-Means animada) | R | A | — |
+| Relatório Técnico em PDF (`relatorio.pdf`) | R | A | — |
+| Declaração de Uso de IA (`docs/DECLARACAO_IA.pdf`) | R | A | A |
+| Apresentação 16:9, Roteiro em 3 e Guia de Arguição (`docs/`) | R | A | A |
 
-*Células vazias ainda não foram definidas. A coluna de apoio/revisão será preenchida à medida que o trabalho avançar.*
+*Observação: Arthur Borges concluiu e submeteu a análise completa da Parte Comum em `notebooks/parte_comum/` (`Wine Quality`, commit `86287c9`), posteriormente integrada ao relatório, slides e Aba 4 do dashboard por Gustavo. João Vitor do Sacramento iniciou a exploração preliminar da Parte Comum e participa da defesa oral (Bloco 3).*

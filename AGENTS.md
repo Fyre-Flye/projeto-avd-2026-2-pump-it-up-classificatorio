@@ -2,7 +2,7 @@
 
 **Antes de qualquer resposta ou alteração neste repositório, leia todos os arquivos da pasta [`_CONTEXTO_IA/`](_CONTEXTO_IA/), começando por [`00_LEIA_PRIMEIRO.md`](_CONTEXTO_IA/00_LEIA_PRIMEIRO.md).**
 
-> **Para Arthur Borges e sua IA (entrega 26/11 às 12h30):** leia [`_CONTEXTO_IA/PARA_BORGES.md`](_CONTEXTO_IA/PARA_BORGES.md) — a Parte Específica, o Dashboard (com Bônus UX/UI e Aba 4 K-Means animada), `relatorio.pdf`, `docs/APRESENTACAO_AVD_G6.pdf`, `docs/ROTEIRO_APRESENTACAO.md` e `docs/GUIA_ARGUICAO_E_VARIAVEIS.md` já foram concluídos pelo Gustavo; falta finalizar a Parte Comum (Obesity), plugar Seções `6.2` a `6.5` em `docs/gerar_relatorio.py` e Slides 11 a 13 em `docs/gerar_apresentacao.py`, coletar assinaturas em `docs/DECLARACAO_IA.pdf` e preencher `docs/MATRIZ_CONTRIBUICAO.md`.
+> **Estado final (26/11 às 12h25):** Parte Específica (Pump it Up), Parte Comum (Wine Quality combinado, UCI 186, `k = 3` e `k = 7`), Dashboard Streamlit (5 abas com Bônus UX/UI e K-Means animado), `relatorio.pdf` (10 páginas sem pendências), `docs/APRESENTACAO_AVD_G6.pdf` (14 slides sem pendências), `docs/ROTEIRO_APRESENTACAO.md`, `docs/GUIA_ARGUICAO_E_VARIAVEIS.md` e `docs/MATRIZ_CONTRIBUICAO.md` estão 100% integrados no GitHub. Pendência única antes da defesa: coleta final das assinaturas de Arthur Borges e Sacramento em `docs/DECLARACAO_IA.pdf`.
 
 Este é um projeto acadêmico avaliado com regras rígidas de uso de IA. Se houver violação, a nota do projeto é ZERO. Na dúvida, não gere análise nem interpretação: pergunte ao aluno.
 

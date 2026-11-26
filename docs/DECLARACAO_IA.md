@@ -44,16 +44,16 @@ Claude Code (Anthropic) e Gemini via Antigravity (Google).
 
 ---
 
-## 3. Arthur Borges (Conclusão da Parte Comum e Integração Final)
+## 3. Arthur Borges (Parte Comum: Wine Quality, EDA e K-Means)
 
 ### Ferramentas utilizadas
-*(a preencher pelo integrante antes da assinatura final)*
+ChatGPT (OpenAI), conforme marcações `# [IA] ChatGPT – ...` em `notebooks/parte_comum/eda.ipynb` e `notebooks/parte_comum/kmeans_metricas.ipynb`.
 
 ### Tipos de pedido feitos
-*(a preencher pelo integrante antes da assinatura final)*
+- Apoio à implementação em Python (pandas, matplotlib, seaborn e scikit-learn) de cálculos, tabelas, gráficos da EDA (`notebooks/parte_comum/eda.ipynb`), `StandardScaler`, loop do Método do Cotovelo, K-Means em duas passadas (`k = 3` e `k = 7`), projeção PCA 2D, matrizes de confusão e métricas por classe (`notebooks/parte_comum/kmeans_metricas.ipynb`).
 
 ### O que foi aceito, modificado ou rejeitado e por quê
-*(a preencher pelo integrante antes da assinatura final)*
+- **Aceito/Modificado pelo integrante:** estrutura de código das tabelas/gráficos e do K-Means, decisão pelo dataset combinado *Wine Quality* (6.497 × 13), manutenção das duplicatas/outliers, escolha de `k = 3` no Método do Cotovelo e discussão crítica comparativa (a confirmar/complementar pelo integrante na assinatura final).
 
 ---
 
