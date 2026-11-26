@@ -100,4 +100,4 @@ A pasta `_CONTEXTO_IA/` reúne as regras do projeto num formato que um assistent
 - [x] Parte Específica: storytelling + 7 visualizações finais (4 exploratórias + 3 explanatórias) e notas analíticas (`docs/STORYTELLING_E_NOTAS.md`)
 - [x] Parte Específica: dashboard Streamlit com identidade visual RecifeView + Bônus Visual/UX (`src/parte_especifica/dashboard.py`, 5 abas incluindo K-Means Wine Quality animado)
 - [x] Relatório técnico completo (`relatorio.pdf`), Apresentação 16:9 (`docs/APRESENTACAO_AVD_G6.pdf`), Roteiro em 3 (`docs/ROTEIRO_APRESENTACAO.md`), Guia de Arguição (`docs/GUIA_ARGUICAO_E_VARIAVEIS.md`) e Matriz de Contribuição (`docs/MATRIZ_CONTRIBUICAO.md`)
-- [ ] Coleta final das assinaturas de Arthur Borges e Sacramento em `docs/DECLARACAO_IA.pdf`
+- [x] Coleta final das assinaturas de Arthur Borges e Sacramento em `docs/DECLARACAO_IA.pdf`
