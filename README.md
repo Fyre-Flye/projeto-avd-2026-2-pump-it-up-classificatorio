@@ -59,7 +59,7 @@ Execute os comandos **a partir da raiz do repositório**. As figuras geradas vã
 
 ## Dados
 
-- `data/parte_comum/`: os dois datasets permitidos pelo enunciado, e o grupo usa um. São eles `wine_quality/` (`winequality-red.csv`, `winequality-white.csv` e `winequality-combined.csv` com os dois juntos, separador `;`) e `obesity/` (`ObesityDataSet_raw_and_data_sinthetic.csv`). Comparação em [data/parte_comum/README.md](data/parte_comum/README.md).
+- `data/parte_comum/`: contém o dataset **escolhido pelo grupo** na Parte Comum, `wine_quality/winequality-combined.csv` (6.497 linhas × 13 colunas, combinando `winequality-red.csv` e `winequality-white.csv`, separador `;`), além da pasta `obesity/` mantida apenas como segunda opção permitida pelo enunciado. Comparação em [data/parte_comum/README.md](data/parte_comum/README.md).
 - `data/parte_especifica/raw/pump_it_up_train.csv`: dataset bruto (59.400 linhas × 41 colunas, valores e rótulos unificados). Como baixar do DrivenData (exige cadastro): [data/parte_especifica/README.md](data/parte_especifica/README.md).
 - `data/parte_especifica/clean/`: dataset tratado, exportado ao final da EDA. O dashboard lê **só** desta pasta.
 
@@ -70,15 +70,15 @@ Execute os comandos **a partir da raiz do repositório**. As figuras geradas vã
 ├─ requirements.txt
 ├─ docs/                      # Declaração de Uso de IA, matriz de contribuição, glossário
 ├─ data/
-│  ├─ parte_comum/            # Wine Quality e Obesity (o grupo usa um)
+│  ├─ parte_comum/            # wine_quality/ (escolhido pelo grupo) e obesity/ (referência)
 │  └─ parte_especifica/       # Pump it Up (raw/ e clean/)
 ├─ out/
-│  ├─ parte_comum/            # figuras e tabelas da Parte Comum
+│  ├─ parte_comum/            # figuras e tabelas da Parte Comum (wine_quality/)
 │  └─ parte_especifica/       # figuras e tabelas da Parte Específica
 ├─ notebooks/parte_comum/     # eda.ipynb, kmeans_metricas.ipynb
 ├─ src/
 │  ├─ parte_comum/            # (optamos por notebooks; ver README da pasta)
-│  └─ parte_especifica/       # eda.ipynb, dashboard.py
+│  └─ parte_especifica/       # eda.ipynb, classificador.ipynb, data_loader.py, dashboard.py, gerar_figuras_finais.py
 ├─ _CONTEXTO_IA/              # contexto do projeto para assistentes de IA (ver Uso de IA)
 ├─ Requisitos/                # enunciado (PDF com e sem marcação de quem faz cada parte) e print do checkpoint
 └─ relatorio.pdf              # relatório técnico (entregue ao final)
@@ -100,4 +100,5 @@ A pasta `_CONTEXTO_IA/` reúne as regras do projeto num formato que um assistent
 - [x] Parte Específica: storytelling + 7 visualizações finais (4 exploratórias + 3 explanatórias) e notas analíticas (`docs/STORYTELLING_E_NOTAS.md`)
 - [x] Parte Específica: dashboard Streamlit com identidade visual RecifeView + Bônus Visual/UX (`src/parte_especifica/dashboard.py`, 5 abas incluindo K-Means Wine Quality animado)
 - [x] Relatório técnico completo (`relatorio.pdf`), Apresentação 16:9 (`docs/APRESENTACAO_AVD_G6.pdf`), Roteiro em 3 (`docs/ROTEIRO_APRESENTACAO.md`), Guia de Arguição (`docs/GUIA_ARGUICAO_E_VARIAVEIS.md`) e Matriz de Contribuição (`docs/MATRIZ_CONTRIBUICAO.md`)
-- [x] Coleta final das assinaturas de Arthur Borges e Sacramento em `docs/DECLARACAO_IA.pdf`
+- [x] Assinaturas de Gustavo Henrique e Arthur Borges registradas em `docs/DECLARACAO_IA.pdf`
+- [ ] Coleta final da assinatura de João Vitor do Sacramento em `docs/DECLARACAO_IA.pdf`
