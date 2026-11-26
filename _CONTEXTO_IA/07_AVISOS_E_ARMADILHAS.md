@@ -34,4 +34,4 @@ Coisas que não estão claras nos outros arquivos e que já causaram, ou podem c
 `.venv/`, `*_leitura.html`, planilha da turma (`Requisitos/*.xlsx`), pastas `DatasetParte*/`, chaves e tokens. O repositório é **público**.
 
 ## 6. Quando houver dúvida
-Pergunte ao Gustavo antes de: apagar arquivo, reescrever histórico, mudar a estrutura de pastas exigida pelo enunciado, aplicar identidade visual, decidir tratamento de dado, escolher gráfico explanatório ou fechar a pergunta de pesquisa. Prefira não fazer a fazer errado, porque a avaliação é individual e o uso indevido de IA zera o projeto.
+Pergunte ao Gustavo antes de: apagar arquivo, reescrever histórico, mudar a estrutura de pastas exigida pelo enunciado, mudar a identidade visual definida em `06_GUIDELINES_PDF_E_APRESENTACAO.md` (seção 2.1), decidir tratamento de dado, escolher gráfico explanatório ou fechar a pergunta de pesquisa. Prefira não fazer a fazer errado, porque a avaliação é individual e o uso indevido de IA zera o projeto.
