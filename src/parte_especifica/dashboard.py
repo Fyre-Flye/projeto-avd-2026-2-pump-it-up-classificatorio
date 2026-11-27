@@ -8,6 +8,8 @@ Execucao, a partir da raiz do repositorio:
     streamlit run src/parte_especifica/dashboard.py
 """
 
+import base64
+
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -253,18 +255,20 @@ idade_max_global = int(df_total["idade_no_registro"].max())
 inicializar_estado(idade_min_global, idade_max_global)
 
 def bandeira_tanzania_svg(largura=32, altura=21, estilo_extra=""):
-    """Bandeira oficial da Tanzania em SVG inline (renderiza nitida no Windows sem depender de emoji)."""
-    return (
-        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 48" width="{largura}" height="{altura}" '
-        f'role="img" aria-label="Bandeira da Tanzânia" '
-        f'style="display:inline-block;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,0.15);{estilo_extra}">'
-        '<defs><clipPath id="tz-clip"><rect width="72" height="48" rx="4"/></clipPath></defs>'
-        '<g clip-path="url(#tz-clip)">'
-        '<polygon points="0,0 72,0 0,48" fill="#1EB53A"/>'
+    """Bandeira oficial da Tanzania como <img> data-URI SVG (passa no sanitizador do st.html e fica nitida no Windows)."""
+    svg = (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 48" width="72" height="48">'
+        '<rect width="72" height="48" fill="#1EB53A"/>'
         '<polygon points="72,0 72,48 0,48" fill="#00A3DD"/>'
-        '<path d="M0,48 L72,0" stroke="#FCD116" stroke-width="19"/>'
-        '<path d="M0,48 L72,0" stroke="#000000" stroke-width="13"/>'
-        "</g></svg>"
+        '<polygon points="0,37 55,0 72,0 72,11 17,48 0,48" fill="#FCD116"/>'
+        '<polygon points="0,41 61,0 72,0 72,7 11,48 0,48" fill="#000000"/>'
+        "</svg>"
+    )
+    b64 = base64.b64encode(svg.encode("utf-8")).decode("ascii")
+    return (
+        f'<img src="data:image/svg+xml;base64,{b64}" alt="Bandeira da Tanzânia" '
+        f'width="{largura}" height="{altura}" '
+        f'style="display:inline-block;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,0.18);{estilo_extra}" />'
     )
 
 
