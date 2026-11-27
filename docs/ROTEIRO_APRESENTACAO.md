@@ -28,7 +28,7 @@
 2. Deixar duas janelas prontas lado a lado (ou em abas do navegador):
    - Aba 1: `docs/APRESENTACAO_AVD_G6.pdf` em tela cheia.
    - Aba 2: Dashboard Streamlit já carregado (`http://localhost:8501`) com o cache do classificador e do K-Means já aquecido (clique uma vez na Aba 3 e na Aba 4 antes de começar para o `@st.cache_resource` e `@st.cache_data` responderem instantaneamente!).
-3. **Plano B sem internet:** se o Wi-Fi da sala cair, ativar o modo **"Offline (sem internet)"** no mapa da Aba 2 do dashboard e usar as figuras estáticas em `out/parte_especifica/` e `out/parte_comum/`.
+3. **Plano B sem internet:** se o Wi-Fi da sala cair, desligar a chave **"Usar mapa base cartográfico (Carto Positron)"** na Exploratória 3 (Aba 2) do dashboard e usar as figuras estáticas em `out/parte_especifica/` e `out/parte_comum/`.
 
 ---
 
@@ -79,7 +79,7 @@
 
 ### Slide 11: K-Means em Duas Passadas + Demo da Aba 4 (~1 min 15 s)
 - **Fala-chave:** "Executamos o K-Means em **duas passadas**. Na **Passada 1**, o Método do Cotovelo mostra a maior queda de inércia de `k = 2` (56.403) para **`k = 3` (45.876, -18,7%)**, suavizando depois; por isso escolhemos **`k = 3`** (Silhouette 0,252; Davies-Bouldin 1,420). Na **Passada 2**, fixamos **`k = 7`**, igual às 7 notas reais (inércia cai para 34.418, mas Silhouette cai para 0,182 e Davies-Bouldin piora para 1,598)."
-- **Ação rápida na tela (se estiver com o Dashboard aberto):** abrir a **Aba 4 (Parte Comum: K-Means Wine Quality)** e apertar **Play** no gráfico animado em PCA 2D (52,8% da variância) mostrando a transição dos 3 clusters para os 7 clusters.
+- **Ação rápida na tela (se estiver com o Dashboard aberto):** abrir a **Aba 4 (Parte Comum: K-Means)** e apertar **Play** no gráfico animado em PCA 2D (52,8% da variância) mostrando a transição dos 3 clusters para os 7 clusters.
 
 ### Slide 12: Mapeamento Cluster -> Nota, Matrizes e Métricas (~1 min 15 s)
 - **Fala-chave:** "Mapeando cada cluster à nota majoritária de `quality`, vemos um resultado muito revelador: tanto em **`k = 3` (44,47% de coincidência, Macro F1 13,37%)** quanto em **`k = 7` (45,67%, ganho de só +1,20 pp, Macro F1 14,69%)**, **apenas as notas 5 e 6** dominam clusters; as notas 3, 4, 7, 8 e 9 ficam com precisão e recall de 0,0% (`zero_division=0`)."

@@ -14,8 +14,8 @@ Este guia foi montado para que **Gustavo, Arthur Borges e João Vitor do Sacrame
 Se a professora disser: *"Me mostre e interprete a relação entre a variável X e a variável Y"*, siga exatamente estes 4 passos sem travar:
 
 1. **Classifique o par em voz alta (2 s):**
-   - **Categórica × Categórica (ex.: `payment_type × quality_group`, `source_class × extraction_type_class`):** vá direto à **Aba 2 (Exploração Interativa)** do dashboard Streamlit -> seção **"Cruzamento livre de duas variáveis categóricas (Heatmap)"**, selecione Variável nas linhas = X e Variável nas colunas = Y!
-   - **Categórica × `status_group` (ex.: `management_group × status_group`, `permit × status_group`):** na **Aba 2**, use o seletor **"Explorar qualquer variável categórica"** (já traz todas as 12 categóricas!).
+   - **Categórica × Categórica (ex.: `payment_type × quality_group`, `source_class × extraction_type_class`):** vá direto à **Aba 2 (Exploração Interativa)** do dashboard Streamlit -> seção **"Exploratória 4: Cruzamento multivariado entre duas variáveis (Heatmap livre)"**, selecione Variável nas linhas = X e Variável nas colunas = Y!
+   - **Categórica × `status_group` (ex.: `management_group × status_group`, `permit × status_group`):** na **Aba 2**, use o seletor **"Variável categórica"** da Exploratória 2 (já traz todas as 12 categóricas!).
    - **Numérica × `status_group` ou Numérica × Numérica:** relembre os achados da EDA abaixo (`idade_no_registro`, `population`, `amount_tsh`, `gps_height`, `longitude`, `latitude`) e, se precisar filtrar uma região ou tecnologia, use a sidebar do dashboard para conferir os KPIs na hora.
 2. **Leia o padrão dominante, sem inventar causalidade (5 s):**
    - Sempre comece pelo que está visível no gráfico: *"No cruzamento de X com Y, observamos que a categoria A concentra..."*.
