@@ -252,10 +252,32 @@ idade_min_global = int(df_total["idade_no_registro"].min())
 idade_max_global = int(df_total["idade_no_registro"].max())
 inicializar_estado(idade_min_global, idade_max_global)
 
+def bandeira_tanzania_svg(largura=32, altura=21, estilo_extra=""):
+    """Bandeira oficial da Tanzania em SVG inline (renderiza nitida no Windows sem depender de emoji)."""
+    return (
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 48" width="{largura}" height="{altura}" '
+        f'role="img" aria-label="Bandeira da Tanzânia" '
+        f'style="display:inline-block;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,0.15);{estilo_extra}">'
+        '<defs><clipPath id="tz-clip"><rect width="72" height="48" rx="4"/></clipPath></defs>'
+        '<g clip-path="url(#tz-clip)">'
+        '<polygon points="0,0 72,0 0,48" fill="#1EB53A"/>'
+        '<polygon points="72,0 72,48 0,48" fill="#00A3DD"/>'
+        '<path d="M0,48 L72,0" stroke="#FCD116" stroke-width="19"/>'
+        '<path d="M0,48 L72,0" stroke="#000000" stroke-width="13"/>'
+        "</g></svg>"
+    )
+
+
 # -----------------------------------------------------------------------------
 # Sidebar em azul-claro (#EAF2FF): filtros dinamicos interligados + exportacao
 # -----------------------------------------------------------------------------
 with st.sidebar:
+    st.html(
+        f'<div style="display:flex;align-items:center;gap:10px;margin:-0.2rem 0 0.6rem 0;">'
+        f'{bandeira_tanzania_svg(40, 27)}'
+        f'<span style="font-size:0.88rem;font-weight:700;color:#062A5F;line-height:1.2;">'
+        f'Tanzânia · Pump it Up</span></div>'
+    )
     st.subheader("Filtros do painel")
     st.caption("Atualizam KPIs e gráficos da Parte Específica em tempo real.")
 
@@ -348,10 +370,10 @@ with st.sidebar:
 # Cabecalho principal em azul-marinho (#062A5F) + faixa de filtros ativos
 # -----------------------------------------------------------------------------
 st.html(
-    """
+    f"""
     <div class="hero-header">
         <p class="hero-kicker">Projeto Final AVD 2026.2 · CESAR School · Grupo 6</p>
-        <div class="hero-title">Pump it Up: monitoramento operacional de pontos d'água na Tanzânia</div>
+        <div class="hero-title">Pump it Up: monitoramento operacional de pontos d'água na Tanzânia {bandeira_tanzania_svg(32, 21, "vertical-align:-3px;margin-left:6px;")}</div>
         <p class="hero-subtitle">
             Para gestores do Ministério de Águas da Tanzânia. Base tratada DrivenData/Taarifa,
             registros de 2011 a 2013, n = 59.333 pontos d'água.
