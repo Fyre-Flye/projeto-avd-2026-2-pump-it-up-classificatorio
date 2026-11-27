@@ -1,13 +1,65 @@
 # [IA] Gemini – identidade visual oficial do projeto (Secao 2.1 de 06_GUIDELINES, RecifeView adaptado ao AVD)
 # Fundo branco, barra lateral em azul-claro (#EAF2FF), azul-principal (#0F62FE) e texto preto
 
+# Tipografia Montserrat (a mesma do RecifeView), servida pelo proprio app a partir de
+# src/parte_especifica/static/fonts/ (licenca OFL), sem depender do Google Fonts.
+
+[server]
+enableStaticServing = true
+
+[browser]
+gatherUsageStats = false
+
 [theme]
 base = "light"
 primaryColor = "#0F62FE"
 backgroundColor = "#FFFFFF"
 secondaryBackgroundColor = "#EAF2FF"
-textColor = "#000000"
-font = "sans serif"
+textColor = "#111111"
+linkColor = "#0F62FE"
+borderColor = "#C6DAFF"
+font = "Montserrat, sans-serif"
+headingFont = "Montserrat, sans-serif"
+headingFontWeights = [700, 700, 600, 600]
+headingFontSizes = ["2.1rem", "1.5rem", "1.2rem", "1.02rem"]
+baseRadius = "0.5rem"
+paddingTop = "0.5rem"
+showSidebarBorder = true
+metricValueFontSize = "1.9rem"
+metricValueFontWeight = 700
+
+[theme.sidebar]
+backgroundColor = "#EAF2FF"
+
+[[theme.fontFaces]]
+family = "Montserrat"
+url = "app/static/fonts/Montserrat-Regular.ttf"
+weight = "400"
+style = "normal"
+
+[[theme.fontFaces]]
+family = "Montserrat"
+url = "app/static/fonts/Montserrat-Medium.ttf"
+weight = "500"
+style = "normal"
+
+[[theme.fontFaces]]
+family = "Montserrat"
+url = "app/static/fonts/Montserrat-SemiBold.ttf"
+weight = "600"
+style = "normal"
+
+[[theme.fontFaces]]
+family = "Montserrat"
+url = "app/static/fonts/Montserrat-Bold.ttf"
+weight = "700"
+style = "normal"
+
+[[theme.fontFaces]]
+family = "Montserrat"
+url = "app/static/fonts/Montserrat-Italic.ttf"
+weight = "400"
+style = "italic"
 
 [client]
 showErrorDetails = false
