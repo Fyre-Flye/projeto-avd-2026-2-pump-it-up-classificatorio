@@ -1,4 +1,4 @@
-"""Dashboard Interativo em Streamlit: Parte Especifica (Pump it Up) + Bonus Parte Comum (K-Means).
+"""Dashboard Interativo em Streamlit: Parte Especifica (Pump it Up) e Parte Comum (K-Means Wine Quality).
 
 # [IA] Gemini – dashboard Streamlit 1.67 aplicando identidade visual RecifeView (Secao 2.1 de 06_GUIDELINES),
 # skills de SKILL_DESIGN (fragments, segmented_control, pills, containers com borda), filtros dinamicos
@@ -60,83 +60,139 @@ st.set_page_config(
 st.html(
     """
     <style>
+    .stMainBlockContainer {padding-top: 3.4rem; padding-bottom: 2.5rem; max-width: 1440px;}
+    .stMainBlockContainer h2, .stMainBlockContainer h3 {padding-top: .5rem; padding-bottom: .35rem;}
     .hero-header {
-        background-color: #062A5F;
+        background-color: #0F62FE;
         color: #FFFFFF;
-        padding: 1.25rem 1.5rem;
-        border-radius: 6px;
-        margin-bottom: 1rem;
+        padding: 1.6rem 1.9rem 1.5rem 1.9rem;
+        border-radius: 8px;
+        margin-bottom: 1.1rem;
+    }
+    .hero-kicker {
+        color: #FFFFFF;
+        opacity: .85;
+        font-size: .82rem;
+        font-weight: 600;
+        margin: 0 0 .45rem 0;
+        letter-spacing: .01em;
     }
     .hero-title {
         color: #FFFFFF;
-        font-size: 1.55rem;
+        font-size: 1.85rem;
         font-weight: 700;
-        margin: 0 0 0.35rem 0;
-        line-height: 1.25;
+        margin: 0 0 .55rem 0;
+        line-height: 1.2;
     }
     .hero-subtitle {
-        color: #EAF2FF;
-        font-size: 0.92rem;
+        color: #FFFFFF;
+        opacity: .9;
+        font-size: .95rem;
         margin: 0;
-        line-height: 1.4;
+        line-height: 1.5;
+        max-width: 62rem;
     }
     .big-idea-card {
-        background-color: #EAF2FF;
-        border-left: 4px solid #0F62FE;
-        padding: 1rem 1.25rem;
-        border-radius: 4px;
-        margin: 0.75rem 0 1.25rem 0;
+        background-color: #0F62FE;
+        color: #FFFFFF;
+        padding: 1.15rem 1.4rem;
+        border-radius: 8px;
+        margin: .9rem 0 1.4rem 0;
     }
     .big-idea-heading {
-        color: #0043CE;
-        font-size: 0.92rem;
-        font-weight: 700;
-        margin: 0 0 0.35rem 0;
+        color: #FFFFFF;
+        opacity: .85;
+        font-size: .85rem;
+        font-weight: 600;
+        margin: 0 0 .4rem 0;
     }
     .big-idea-body {
-        color: #000000;
-        font-size: 1.03rem;
-        line-height: 1.5;
+        color: #FFFFFF;
+        font-size: 1.08rem;
+        font-weight: 500;
+        line-height: 1.55;
         margin: 0;
     }
     .chart-footnote {
-        font-size: 0.80rem;
+        font-size: .8rem;
         color: #6F6F6F;
-        margin-top: -0.35rem;
-        margin-bottom: 0.85rem;
+        line-height: 1.45;
+        margin-top: -.2rem;
+        margin-bottom: .9rem;
     }
     .filter-summary {
         background-color: #EAF2FF;
         color: #0043CE;
-        font-size: 0.85rem;
-        padding: 0.5rem 0.85rem;
-        border-radius: 4px;
-        border: 1px solid #C6D8FF;
-        margin-bottom: 0.9rem;
+        font-size: .86rem;
+        padding: .55rem .9rem;
+        border-radius: 6px;
+        border: 1px solid #C6DAFF;
+        margin-bottom: 1rem;
+    }
+    .rodape-app {
+        font-size: .8rem;
+        color: #6F6F6F;
+        border-top: 1px solid #E0E0E0;
+        padding-top: .8rem;
+        margin-top: 1.6rem;
     }
     </style>
     """
 )
 
 
+FONTE_GRAFICOS = "Montserrat, Helvetica, Arial, sans-serif"
+
+
 def aplicar_layout_base(fig, altura=420, margem_topo=60, margem_baixo=48):
-    """Padroniza fundo branco, texto preto e grade horizontal discreta (#E0E0E0)."""
+    """Padroniza fundo branco, Montserrat, numeros pt-BR e grade horizontal discreta (#E0E0E0)."""
     fig.update_layout(
         template="plotly_white",
         paper_bgcolor="#FFFFFF",
         plot_bgcolor="#FFFFFF",
-        font=dict(family="sans-serif", color=COR_TEXTO, size=12),
+        font=dict(family=FONTE_GRAFICOS, color=COR_TEXTO, size=13),
+        title_font=dict(family=FONTE_GRAFICOS, size=15, color=COR_TEXTO),
+        legend_font=dict(size=12.5),
+        separators=",.",
         height=altura,
-        margin=dict(l=20, r=24, t=margem_topo, b=margem_baixo),
-        hoverlabel=dict(bgcolor="#FFFFFF", font_color=COR_TEXTO, bordercolor=COR_BORDA),
+        margin=dict(l=20, r=28, t=margem_topo, b=margem_baixo),
+        hoverlabel=dict(bgcolor="#FFFFFF", font_color=COR_TEXTO, bordercolor=COR_BORDA, font_family=FONTE_GRAFICOS),
     )
-    fig.update_xaxes(gridcolor="#E0E0E0", linecolor="#8D8D8D")
-    fig.update_yaxes(gridcolor="#E0E0E0", linecolor="#8D8D8D")
+    fig.update_xaxes(gridcolor="#E0E0E0", linecolor="#8D8D8D", title_font_size=12.5, tickfont_size=12)
+    fig.update_yaxes(gridcolor="#E0E0E0", linecolor="#8D8D8D", title_font_size=12.5, tickfont_size=12)
+    fig.update_traces(cliponaxis=False, selector=dict(type="bar"))
+    return fig
+
+
+def linha_de_media(fig, valor, texto, cor=None, eixo="x"):
+    """Linha tracejada de referencia com o rotulo acima da area do grafico, sem cobrir barras nem rotulos."""
+    cor = cor or COR_TEXTO_SECUNDARIO
+    if eixo == "x":
+        fig.add_vline(x=valor, line_dash="dash", line_color=cor, line_width=1.3)
+        fig.add_annotation(
+            x=valor, xref="x", y=1.0, yref="paper", yanchor="bottom", text=texto, showarrow=False,
+            font=dict(size=12, color=cor), bgcolor="#FFFFFF", borderpad=2,
+        )
+    else:
+        fig.add_hline(y=valor, line_dash="dash", line_color=cor, line_width=1.3)
+        fig.add_annotation(
+            x=1.0, xref="paper", y=valor, yref="y", xanchor="left", text=texto, showarrow=False,
+            font=dict(size=12, color=cor), bgcolor="#FFFFFF", borderpad=2,
+        )
     return fig
 
 
 def exibir_rodape_grafico(texto):
     st.html(f'<p class="chart-footnote">{texto}</p>')
+
+
+def anos(valor):
+    """'1 ano' e 'N anos', sem o erro de concordancia '1 anos'."""
+    n = int(valor)
+    return f"{n} ano" if n == 1 else f"{n} anos"
+
+
+NOME_MODELO = {"Arvore de Decisao": "Árvore de Decisão", "Random Forest": "Random Forest"}
 
 
 def inicializar_estado(idade_min, idade_max):
@@ -271,10 +327,11 @@ with st.sidebar:
 st.html(
     """
     <div class="hero-header">
+        <p class="hero-kicker">Projeto Final AVD 2026.2 · CESAR School · Grupo 6</p>
         <div class="hero-title">Pump it Up: monitoramento operacional de pontos d'água na Tanzânia</div>
         <p class="hero-subtitle">
-            Projeto Final AVD 2026.2 (Grupo 6) | Público-alvo: gestores do Ministério de Águas da Tanzânia |
-            Base tratada DrivenData/Taarifa (2011 a 2013, n = 59.333)
+            Para gestores do Ministério de Águas da Tanzânia. Base tratada DrivenData/Taarifa,
+            registros de 2011 a 2013, n = 59.333 pontos d'água.
         </p>
     </div>
     """
@@ -324,59 +381,74 @@ k1, k2, k3, k4, k5 = st.columns(5)
 with k1:
     with st.container(border=True):
         st.metric(
-            "Pontos d'água no recorte",
+            "Pontos no recorte",
             fmt_int(n_filt),
+            help="Pontos d'água que passam pelos filtros da barra lateral.",
             delta=f"{fmt_pct(pct_base)} da base",
             delta_color="off",
+            delta_arrow="off",
         )
 with k2:
     with st.container(border=True):
         diff_f = pct_func - ref_func
+        igual_f = abs(diff_f) < 0.05
         st.metric(
             "Funcionais",
             fmt_pct(pct_func),
-            delta=f"{fmt_num(diff_f, 1)} pp vs. nacional" if abs(diff_f) >= 0.05 else "Média nacional",
+            delta="Igual à média" if igual_f else f"{fmt_num(diff_f, 1)} pp vs. país",
+            delta_color="off" if igual_f else "normal",
+            delta_arrow="off" if igual_f else "auto",
         )
 with k3:
     with st.container(border=True):
         diff_nf = pct_nf - ref_nf
+        igual_nf = abs(diff_nf) < 0.05
         st.metric(
             "Não funcionais",
             fmt_pct(pct_nf),
-            delta=f"{fmt_num(diff_nf, 1)} pp vs. nacional" if abs(diff_nf) >= 0.05 else "Média nacional",
-            delta_color="inverse",
+            delta="Igual à média" if igual_nf else f"{fmt_num(diff_nf, 1)} pp vs. país",
+            delta_color="off" if igual_nf else "inverse",
+            delta_arrow="off" if igual_nf else "auto",
         )
 with k4:
     with st.container(border=True):
         diff_r = pct_rep - ref_rep
+        igual_r = abs(diff_r) < 0.05
         st.metric(
             "Precisam de reparo",
             fmt_pct(pct_rep),
-            delta=f"{fmt_num(diff_r, 1)} pp vs. nacional" if abs(diff_r) >= 0.05 else "Média nacional",
-            delta_color="inverse",
+            delta="Igual à média" if igual_r else f"{fmt_num(diff_r, 1)} pp vs. país",
+            delta_color="off" if igual_r else "inverse",
+            delta_arrow="off" if igual_r else "auto",
         )
 with k5:
     with st.container(border=True):
         if pd.notna(med_idade_filt):
             diff_id = med_idade_filt - ref_idade
+            igual_id = abs(diff_id) < 0.5
             st.metric(
-                "Idade mediana (reais)",
+                "Idade mediana",
                 f"{fmt_num(med_idade_filt, 0)} anos",
-                delta=f"{fmt_num(diff_id, 0)} anos vs. nacional" if abs(diff_id) >= 0.5 else "Igual à nacional",
-                delta_color="inverse",
+                help="Só pontos com ano de construção informado (ausente_construction_year = 0).",
+                delta="Igual à do país" if igual_id else f"{fmt_num(diff_id, 0)} anos vs. país",
+                delta_color="off" if igual_id else "inverse",
+                delta_arrow="off" if igual_id else "auto",
             )
         else:
-            st.metric("Idade mediana (reais)", "Sem dados", delta="100% MAR no recorte", delta_color="off")
+            st.metric(
+                "Idade mediana", "Sem dados",
+                delta="100% MAR no recorte", delta_color="off", delta_arrow="off",
+            )
 
 # -----------------------------------------------------------------------------
 # Navegacao principal em 5 abas
 # -----------------------------------------------------------------------------
 aba_explan, aba_expl, aba_clf, aba_comum, aba_ref = st.tabs([
-    "Storytelling e Insights (Explanatória)",
-    "Exploração Interativa (Exploratória)",
-    "Classificador e Auditoria",
-    "Parte Comum (K-Means Wine Quality)",
-    "Glossário e Exportação",
+    ":material/lightbulb: Storytelling e insights",
+    ":material/travel_explore: Exploração interativa",
+    ":material/account_tree: Classificador e auditoria",
+    ":material/scatter_plot: Parte Comum: K-Means",
+    ":material/menu_book: Glossário e exportação",
 ])
 
 
@@ -469,26 +541,19 @@ with aba_explan:
                     ),
                 )
             )
-            fig_e1.add_vline(
-                x=media_e1,
-                line_dash="dash",
-                line_color=COR_TEXTO_SECUNDARIO,
-                line_width=1.3,
-                annotation_text=f"Média (água suficiente): {fmt_pct(media_e1)}",
-                annotation_position="top right",
-                annotation_font=dict(size=11, color=COR_TEXTO),
-            )
+            linha_de_media(fig_e1, media_e1, f"Média (água suficiente): {fmt_pct(media_e1)}")
             fig_e1.update_layout(
                 title=dict(
                     text="Mesmo com água suficiente, bombas motorizadas falham bem mais que gravidade e bombas manuais",
                     x=0.0,
-                    font=dict(size=14.5),
+                    y=0.97,
+                    yanchor="top",
                 ),
                 xaxis=dict(title="Taxa de pontos não funcionais (%)", range=[0, min(108, float(tab_e1["non functional"].max()) + 24)]),
                 yaxis=dict(title="", automargin=True),
                 showlegend=False,
             )
-            aplicar_layout_base(fig_e1, altura=410, margem_topo=62, margem_baixo=44)
+            aplicar_layout_base(fig_e1, altura=440, margem_topo=86, margem_baixo=48)
             st.plotly_chart(fig_e1, width="stretch")
             exibir_rodape_grafico(
                 f"Fonte: DrivenData/Taarifa (Pump it Up) | 2011 a 2013 | Recorte quantity = enough dentro dos filtros ativos "
@@ -589,15 +654,17 @@ with aba_explan:
             )
             fig_e2a.update_layout(
                 title=dict(
-                    text=f"Envelhecimento da rede: taxa de inoperância sobe com a idade ({sub_med_txt})",
+                    text=(
+                        "Envelhecimento da rede: taxa de inoperância sobe com a idade"
+                        f"<br><span style='font-size:12.5px;color:#525252'>{sub_med_txt}</span>"
+                    ),
                     x=0.0,
-                    font=dict(size=14.2),
                 ),
                 xaxis=dict(title="Faixa de idade do ponto d'água no registro (idade_no_registro)"),
                 yaxis=dict(title="Taxa de pontos não funcionais (%)", range=[0, min(105, float(tab_e2a["non functional"].max()) + 18)]),
                 showlegend=False,
             )
-            aplicar_layout_base(fig_e2a, altura=420, margem_topo=62, margem_baixo=50)
+            aplicar_layout_base(fig_e2a, altura=450, margem_topo=78, margem_baixo=56)
             st.plotly_chart(fig_e2a, width="stretch")
             exibir_rodape_grafico(
                 f"Fonte: DrivenData/Taarifa (Pump it Up) | 2011 a 2013 | Somente registros com ano de construção informado "
@@ -635,7 +702,7 @@ with aba_explan:
             rf_cls["classe"] = pd.Categorical(rf_cls["classe"], categories=STATUS_ORDEM, ordered=True)
             rf_cls = rf_cls.sort_values("classe")
 
-            c_left, c_right = st.columns(2)
+            c_left, c_right = st.columns([1.0, 1.25])
             with c_left:
                 fig_e2b_1 = go.Figure()
                 rotulos_cls = [STATUS_ROTULO_PT[c] for c in rf_cls["classe"]]
@@ -662,15 +729,14 @@ with aba_explan:
                 fig_e2b_1.update_layout(
                     barmode="group",
                     title=dict(
-                        text="Random Forest (80,6% acurácia): gargalo de recall (27,0%) em 'Precisa de reparo'",
+                        text="Random Forest (80,6% acurácia):<br>gargalo de recall (27,0%) em 'Precisa de reparo'",
                         x=0.0,
-                        font=dict(size=13.2),
                     ),
                     xaxis=dict(title="Situação real (status_group)"),
                     yaxis=dict(title="Desempenho no teste (%)", range=[0, 110]),
-                    legend=dict(orientation="h", x=0.0, y=1.09),
+                    legend=dict(orientation="h", x=0.0, y=-0.22, yanchor="top"),
                 )
-                aplicar_layout_base(fig_e2b_1, altura=420, margem_topo=82, margem_baixo=48)
+                aplicar_layout_base(fig_e2b_1, altura=460, margem_topo=78, margem_baixo=96)
                 st.plotly_chart(fig_e2b_1, width="stretch")
 
             with c_right:
@@ -692,15 +758,19 @@ with aba_explan:
                 )
                 fig_e2b_2.update_layout(
                     title=dict(
-                        text="Top 10 atributos mais relevantes no Random Forest",
+                        text="Top 10 atributos mais relevantes<br>no Random Forest",
                         x=0.0,
-                        font=dict(size=13.2),
                     ),
-                    xaxis=dict(title="Importância agregada (%)", range=[0, float(top10["importancia_pct"].max()) + 4.5]),
+                    xaxis=dict(
+                        title="Importância agregada (%)",
+                        range=[0, float(top10["importancia_pct"].max()) * 1.3],
+                        tickangle=0,
+                        nticks=5,
+                    ),
                     yaxis=dict(title="", automargin=True),
                     showlegend=False,
                 )
-                aplicar_layout_base(fig_e2b_2, altura=420, margem_topo=82, margem_baixo=48)
+                aplicar_layout_base(fig_e2b_2, altura=460, margem_topo=78, margem_baixo=96)
                 st.plotly_chart(fig_e2b_2, width="stretch")
 
             exibir_rodape_grafico(
@@ -734,15 +804,14 @@ with aba_explan:
 def secao_exploratoria_categorica(df_base):
     """Fragmento isolado para selecao interativa de variavel categorica (SKILL Streamlit 1.67)."""
     st.markdown("#### Exploratória 2: Situação por variável categórica (seletor interativo)")
-    ctrl_a, ctrl_b, ctrl_c = st.columns([1.45, 0.9, 0.9], vertical_alignment="bottom")
-    with ctrl_a:
-        var_cat = st.selectbox(
-            "Variável categórica",
-            options=list(ROTULOS_VARS_CAT.keys()),
-            format_func=lambda k: ROTULOS_VARS_CAT[k],
-            index=0,
-            key="expl2_var_cat",
-        )
+    var_cat = st.selectbox(
+        "Variável categórica",
+        options=list(ROTULOS_VARS_CAT.keys()),
+        format_func=lambda k: ROTULOS_VARS_CAT[k],
+        index=0,
+        key="expl2_var_cat",
+    )
+    ctrl_b, ctrl_c = st.columns(2, vertical_alignment="bottom")
     with ctrl_b:
         modo_e2 = st.segmented_control(
             "Escala",
@@ -791,16 +860,16 @@ def secao_exploratoria_categorica(df_base):
 
     fig_x2.update_layout(
         barmode="stack",
-        title=dict(text=f"Situação por {ROTULOS_VARS_CAT[var_cat]}", x=0.0, font=dict(size=13.5)),
+        title=dict(text=f"Situação por {ROTULOS_VARS_CAT[var_cat]}", x=0.0),
         xaxis=dict(
             title="% dos pontos d'água na categoria" if modo_e2 == "Proporção (%)" else "Número de pontos d'água",
             range=[0, 100] if modo_e2 == "Proporção (%)" else None,
         ),
         yaxis=dict(title="", automargin=True),
-        legend=dict(orientation="h", x=0.0, y=1.12, title=""),
+        legend=dict(orientation="h", x=0.0, y=-0.16, yanchor="top", title=""),
     )
-    altura_x2 = max(380, min(620, 32 * len(ordem_idx) + 120))
-    aplicar_layout_base(fig_x2, altura=altura_x2, margem_topo=75, margem_baixo=45)
+    altura_x2 = max(430, min(660, 34 * len(ordem_idx) + 170))
+    aplicar_layout_base(fig_x2, altura=altura_x2, margem_topo=56, margem_baixo=104)
     st.plotly_chart(fig_x2, width="stretch")
     exibir_rodape_grafico(f"Fonte: DrivenData/Taarifa | 2011 a 2013 | n = {fmt_int(len(df_base))}")
 
@@ -819,9 +888,10 @@ def secao_exploratoria_categorica(df_base):
 
 @st.fragment
 def secao_heatmap_multivariado(df_base):
-    """Fragmento isolado para heatmap de quaisquer 2 variaveis categoricas (Bonus UX + arguicao)."""
+    """Fragmento isolado para heatmap de quaisquer 2 variaveis categoricas (usado tambem na arguicao)."""
     st.markdown("#### Exploratória 4: Cruzamento multivariado entre duas variáveis (Heatmap livre)")
-    hm_c1, hm_c2, hm_c3, hm_c4 = st.columns([1.1, 1.1, 1.0, 0.9], vertical_alignment="bottom")
+    hm_c1, hm_c2 = st.columns(2, vertical_alignment="bottom")
+    hm_c3, hm_c4 = st.columns(2, vertical_alignment="bottom")
     vars_hm = [
         "extraction_type_class",
         "quantity",
@@ -834,10 +904,15 @@ def secao_heatmap_multivariado(df_base):
         "region",
         "faixa_idade",
     ]
+    rotulo_hm = {**ROTULOS_VARS_CAT, "faixa_idade": "Faixa de idade (idade_no_registro)"}
     with hm_c1:
-        var_lin = st.selectbox("Variável nas linhas", options=vars_hm, index=0, key="hm_var_lin")
+        var_lin = st.selectbox(
+            "Variável nas linhas", options=vars_hm, index=0, key="hm_var_lin", format_func=lambda v: rotulo_hm.get(v, v)
+        )
     with hm_c2:
-        var_col = st.selectbox("Variável nas colunas", options=vars_hm, index=1, key="hm_var_col")
+        var_col = st.selectbox(
+            "Variável nas colunas", options=vars_hm, index=1, key="hm_var_col", format_func=lambda v: rotulo_hm.get(v, v)
+        )
     with hm_c3:
         alvo_hm = st.selectbox(
             "Métrica exibida na célula",
@@ -900,7 +975,7 @@ def secao_heatmap_multivariado(df_base):
             y=pv_pct.index.tolist(),
             text=text_mat,
             texttemplate="%{text}",
-            textfont=dict(size=10),
+            textfont=dict(size=11.5),
             colorscale=escala_hm,
             zmin=0,
             zmax=100,
@@ -909,9 +984,9 @@ def secao_heatmap_multivariado(df_base):
         )
     )
     fig_hm.update_layout(
-        title=dict(text=f"% de pontos '{STATUS_ROTULO_PT[alvo_hm]}': {var_lin} vs. {var_col}", x=0.0, font=dict(size=14)),
-        xaxis=dict(title=var_col, side="bottom"),
-        yaxis=dict(title=var_lin, autorange="reversed", automargin=True),
+        title=dict(text=f"% de pontos '{STATUS_ROTULO_PT[alvo_hm]}': {var_lin} vs. {var_col}", x=0.0),
+        xaxis=dict(title=rotulo_hm.get(var_col, var_col), side="bottom"),
+        yaxis=dict(title=rotulo_hm.get(var_lin, var_lin), autorange="reversed", automargin=True),
     )
     altura_hm = max(420, min(720, 46 * len(pv_pct.index) + 140))
     aplicar_layout_base(fig_hm, altura=altura_hm, margem_topo=60, margem_baixo=55)
@@ -934,8 +1009,9 @@ def secao_heatmap_multivariado(df_base):
 
 @st.fragment
 def secao_comparador_regioes(df_base_total):
-    """Bonus UX: comparacao lado a lado de duas regioes da Tanzania."""
-    st.markdown("#### Comparador lado a lado entre duas regiões (Bônus UX)")
+    """Comparacao lado a lado de duas regioes da Tanzania."""
+    st.markdown("#### Comparador lado a lado entre duas regiões")
+    st.caption("Compara a base tratada inteira de cada região, sem os filtros da barra lateral.")
     regioes_disp = sorted(df_base_total["region"].unique().tolist())
     idx_a = regioes_disp.index("Iringa") if "Iringa" in regioes_disp else 0
     idx_b = regioes_disp.index("Lindi") if "Lindi" in regioes_disp else min(1, len(regioes_disp) - 1)
@@ -1099,20 +1175,14 @@ with aba_expl:
                     hovertemplate="<b>%{y}</b><br>Não funcional: %{x:.1f}%<extra></extra>",
                 )
             )
-            fig_reg.add_vline(
-                x=media_reg,
-                line_dash="dash",
-                line_color=COR_TEXTO,
-                annotation_text=f"Média: {fmt_pct(media_reg)}",
-                annotation_position="bottom right",
-            )
+            linha_de_media(fig_reg, media_reg, f"Média: {fmt_pct(media_reg)}", cor=COR_TEXTO)
             fig_reg.update_layout(
-                title=dict(text="Taxa de inoperância (%) por região", x=0.0, font=dict(size=13.5)),
+                title=dict(text="Taxa de inoperância (%) por região", x=0.0, y=0.98, yanchor="top"),
                 xaxis=dict(title="% de pontos não funcionais", range=[0, min(105, float(tab_reg["non functional"].max()) + 16)]),
                 yaxis=dict(title="", automargin=True),
                 showlegend=False,
             )
-            aplicar_layout_base(fig_reg, altura=520, margem_topo=55, margem_baixo=44)
+            aplicar_layout_base(fig_reg, altura=560, margem_topo=76, margem_baixo=48)
             st.plotly_chart(fig_reg, width="stretch")
 
         with col_map:
@@ -1195,7 +1265,7 @@ with aba_expl:
     with st.container(border=True):
         secao_heatmap_multivariado(df_filt)
 
-    # COMPARADOR LADO A LADO DE DUAS REGIOES (Bonus UX)
+    # COMPARADOR LADO A LADO DE DUAS REGIOES
     with st.container(border=True):
         secao_comparador_regioes(df_total)
 
@@ -1245,6 +1315,7 @@ def secao_demo_classificador(bundle, df_base_total):
         modelo_demo = st.selectbox(
             "Modelo para avaliação",
             options=["Ambos", "Random Forest", "Arvore de Decisao"],
+            format_func=lambda m: NOME_MODELO.get(m, m),
             index=0,
             key="clf_modelo_demo",
         )
@@ -1311,7 +1382,7 @@ def secao_demo_classificador(bundle, df_base_total):
                         f"Água (`quantity`): {row_f['quantity']}  \n"
                         f"Extração: {row_f['extraction_type_class']}  \n"
                         f"Tipo: {row_f['waterpoint_type_group']}  \n"
-                        f"Idade: {int(row_f['idade_no_registro'])} anos | Pagamento: {row_f['payment_type']}  \n"
+                        f"Idade: {anos(row_f['idade_no_registro'])} | Pagamento: {row_f['payment_type']}  \n"
                         f"Financiador: {row_f['funder']}"
                     )
                     st.divider()
@@ -1320,7 +1391,7 @@ def secao_demo_classificador(bundle, df_base_total):
                         bg_tag = "#DEFBE6" if rp["acertou"] == "Acertou" else "#FFF1F1"
                         st.html(
                             f"<div style='font-size:0.86rem; margin-bottom:4px;'>"
-                            f"<b>{rp['modelo']}:</b> {STATUS_ROTULO_PT[rp['classe_prevista']]} "
+                            f"<b>{NOME_MODELO[rp['modelo']]}:</b> {STATUS_ROTULO_PT[rp['classe_prevista']]} "
                             f"<span style='background:{bg_tag}; color:{cor_tag}; font-weight:700; "
                             f"padding:1px 6px; border-radius:3px;'>{rp['acertou']}</span></div>"
                         )
@@ -1339,12 +1410,13 @@ def secao_demo_classificador(bundle, df_base_total):
             rows=1,
             cols=3,
             subplot_titles=[
-                f"Bomba #{k} (real: {STATUS_ROTULO_PT[y_amostra.iloc[k - 1]]})" for k in range(1, 4)
+                f"Bomba #{k}<br>real: {STATUS_ROTULO_PT[y_amostra.iloc[k - 1]]}" for k in range(1, 4)
             ],
             shared_yaxes=True,
+            horizontal_spacing=0.06,
         )
         cores_modelos = {"Arvore de Decisao": COR_CINZA, "Random Forest": COR_MARCA_PRINCIPAL}
-        rot_curto = ["Funcional", "Reparo", "Não func."]
+        rot_curto = ["Func.", "Reparo", "Não f."]
 
         for k in range(1, 4):
             sub_k = df_pred_demo[df_pred_demo["bomba"] == f"Bomba #{k}"]
@@ -1354,10 +1426,12 @@ def secao_demo_classificador(bundle, df_base_total):
                     go.Bar(
                         x=rot_curto,
                         y=vals_p,
-                        name=rm["modelo"],
+                        name=NOME_MODELO[rm["modelo"]],
                         marker_color=cores_modelos[rm["modelo"]],
                         text=[f"{v:.0f}%" for v in vals_p],
                         textposition="outside",
+                        textangle=0,
+                        textfont=dict(size=10.5),
                         showlegend=(k == 1),
                         legendgroup=rm["modelo"],
                     ),
@@ -1367,10 +1441,12 @@ def secao_demo_classificador(bundle, df_base_total):
         fig_probs.update_yaxes(range=[0, 118], title_text="Probabilidade (%)", col=1)
         fig_probs.update_layout(
             barmode="group",
-            title=dict(text=f"Probabilidades previstas nas 3 bombas reais (seed = {seed_atual})", x=0.0, font=dict(size=13.5)),
-            legend=dict(orientation="h", x=0.32, y=1.18, title=""),
+            title=dict(text=f"Probabilidades previstas nas 3 bombas reais (seed = {seed_atual})", x=0.0),
+            legend=dict(orientation="h", x=0.0, y=-0.18, yanchor="top", title=""),
         )
-        aplicar_layout_base(fig_probs, altura=365, margem_topo=85, margem_baixo=40)
+        aplicar_layout_base(fig_probs, altura=420, margem_topo=96, margem_baixo=70)
+        fig_probs.update_annotations(font_size=12.5)
+        fig_probs.update_xaxes(tickangle=0, tickfont_size=11)
         st.plotly_chart(fig_probs, width="stretch")
 
     with g_map_col:
@@ -1395,7 +1471,7 @@ def secao_demo_classificador(bundle, df_base_total):
             title=dict(text="Localização das 3 bombas sorteadas", x=0.0, font=dict(size=13.5)),
             legend=dict(orientation="h", x=0.0, y=1.12, title=""),
         )
-        aplicar_layout_base(fig_m3, altura=365, margem_topo=70, margem_baixo=20)
+        aplicar_layout_base(fig_m3, altura=420, margem_topo=70, margem_baixo=20)
         st.plotly_chart(fig_m3, width="stretch")
 
     if "Arvore de Decisao" in escolhidos:
@@ -1520,10 +1596,16 @@ with aba_clf:
             )
     with m3:
         with st.container(border=True):
-            st.metric("Conjunto de teste (20%)", fmt_int(len(bundle["X_test"])), delta="Estratificado", delta_color="off")
+            st.metric(
+                "Conjunto de teste (20%)", fmt_int(len(bundle["X_test"])),
+                delta="Estratificado", delta_color="off", delta_arrow="off",
+            )
     with m4:
         with st.container(border=True):
-            st.metric("Árvores no Random Forest", "200", delta="min_samples_leaf = 2", delta_color="off")
+            st.metric(
+                "Árvores no Random Forest", "200",
+                delta="min_samples_leaf = 2", delta_color="off", delta_arrow="off",
+            )
 
     with st.container(border=True):
         c_cm1, c_cm2 = st.columns(2)
@@ -1553,11 +1635,12 @@ with aba_clf:
                 )
             )
             fig_cm.update_layout(
-                title=dict(text=f"Matriz de confusão (% por classe real): {nome_m}", x=0.0, font=dict(size=13)),
+                title=dict(text=f"Matriz de confusão (% por classe real):<br>{nome_m}", x=0.0),
                 xaxis=dict(title="Classe prevista"),
                 yaxis=dict(title="Classe real", autorange="reversed"),
             )
-            aplicar_layout_base(fig_cm, altura=360, margem_topo=50, margem_baixo=48)
+            aplicar_layout_base(fig_cm, altura=400, margem_topo=74, margem_baixo=56)
+            fig_cm.update_xaxes(tickangle=0)
             with col_box:
                 st.plotly_chart(fig_cm, width="stretch")
 
@@ -1572,12 +1655,25 @@ with aba_clf:
 
 
 # =============================================================================
-# ABA 4: PARTE COMUM (K-MEANS WINE QUALITY + ANIMACAO DE TRANSICAO - BONUS +1,0)
+# ABA 4: PARTE COMUM (K-MEANS WINE QUALITY + ANIMACAO DE TRANSICAO)
 # =============================================================================
+def config_matriz(cm_df):
+    """Colunas estreitas para as 7 notas caberem na metade da tela sem barra de rolagem."""
+    return {c: st.column_config.NumberColumn(str(c), width="small", format="%d") for c in cm_df.columns}
+
+
+def ordem_clusters(serie):
+    """Legenda na ordem Cluster 0, 1, 2... (e nao na ordem em que aparecem nos dados)."""
+    def numero(c):
+        digitos = "".join(ch for ch in str(c) if ch.isdigit())
+        return int(digitos) if digitos else 0
+    return sorted(serie.unique().tolist(), key=numero)
+
+
 @st.fragment
 def secao_parte_comum_kmeans():
-    """Bonus Visual/UX (+1,0): pagina da Parte Comum e animacao de transicao Passada 1 -> Passada 2 do K-Means."""
-    st.subheader("Parte Comum: Agrupamento K-Means no dataset Wine Quality (Bônus Visual/UX)")
+    """Pagina da Parte Comum e animacao de transicao Passada 1 -> Passada 2 do K-Means."""
+    st.subheader("Parte Comum: agrupamento K-Means no dataset Wine Quality")
     st.caption(
         "Dataset UCI 186 (Wine Quality combinado, 6.497 registros e 7 notas de qualidade de 3 a 9). "
         "Padronização com StandardScaler nas 11 variáveis físico-químicas + indicador binário wine_type_red, curva do Cotovelo e transição animada (PCA 2D)."
@@ -1602,20 +1698,31 @@ def secao_parte_comum_kmeans():
     km1, km2, km3, km4 = st.columns(4)
     with km1:
         with st.container(border=True):
-            st.metric("Registros Wine Quality", fmt_int(res_km["n_linhas"]), delta=f"{res_km['n_classes']} notas reais (3 a 9)", delta_color="off")
+            st.metric(
+                "Registros Wine Quality", fmt_int(res_km["n_linhas"]),
+                delta=f"{res_km['n_classes']} notas reais (3 a 9)", delta_color="off", delta_arrow="off",
+            )
     with km2:
         with st.container(border=True):
-            st.metric(f"Coincidência Passada 1 (k = {p1['k']})", fmt_pct(p1["acc"], 2))
+            st.metric(
+                f"Passada 1 (k = {p1['k']})", fmt_pct(p1["acc"], 2),
+                help="Coincidência global entre o cluster mapeado e a nota real.",
+                delta="Coincidência, k livre", delta_color="off", delta_arrow="off",
+            )
     with km3:
         with st.container(border=True):
             st.metric(
-                f"Coincidência Passada 2 (k = {p2['k']})",
+                f"Passada 2 (k = {p2['k']})",
                 fmt_pct(p2["acc"], 2),
+                help="Coincidência global entre o cluster mapeado e a nota real.",
                 delta=f"{fmt_num(p2['acc'] - p1['acc'], 2)} pp vs. Passada 1",
             )
     with km4:
         with st.container(border=True):
-            st.metric("Variância explicada (PCA 2D)", fmt_pct(float(res_km["var_exp"].sum()), 1), delta="PC1 + PC2", delta_color="off")
+            st.metric(
+                "Variância explicada (PCA 2D)", fmt_pct(float(res_km["var_exp"].sum()), 1),
+                delta="PC1 + PC2", delta_color="off", delta_arrow="off",
+            )
 
     c_cot, c_anim = st.columns([0.95, 1.35])
     with c_cot:
@@ -1651,12 +1758,12 @@ def secao_parte_comum_kmeans():
                 annotation_position="bottom right",
             )
             fig_cot.update_layout(
-                title=dict(text="Método do Cotovelo (k = 2 a 10, StandardScaler)", x=0.0, font=dict(size=13.5)),
+                title=dict(text="Método do Cotovelo<br>(k = 2 a 10, StandardScaler)", x=0.0),
                 xaxis=dict(title="Número de clusters (k)", dtick=1),
                 yaxis=dict(title="Inércia (WCSS)"),
                 showlegend=False,
             )
-            aplicar_layout_base(fig_cot, altura=460, margem_topo=58, margem_baixo=48)
+            aplicar_layout_base(fig_cot, altura=500, margem_topo=78, margem_baixo=48)
             st.plotly_chart(fig_cot, width="stretch")
             exibir_rodape_grafico(
                 f"Fonte: UCI Machine Learning Repository (id = 186, Cortez et al. 2009) | StandardScaler em 12 entradas | n = {fmt_int(res_km['n_linhas'])}"
@@ -1677,6 +1784,7 @@ def secao_parte_comum_kmeans():
                 animation_group="id_ponto",
                 color="Cluster",
                 color_discrete_sequence=paleta_clusters,
+                category_orders={"Cluster": ordem_clusters(df_anim["Cluster"])},
                 hover_data={
                     "Nota real": True,
                     "Nota mapeada": True,
@@ -1690,15 +1798,14 @@ def secao_parte_comum_kmeans():
             fig_anim.update_traces(marker=dict(size=6))
             fig_anim.update_layout(
                 title=dict(
-                    text=f"Transição animada dos clusters em PCA 2D: Passada 1 (k = {p1['k']}) para Passada 2 (k = {p2['k']})",
+                    text=f"Transição animada dos clusters em PCA 2D:<br>Passada 1 (k = {p1['k']}) para Passada 2 (k = {p2['k']})",
                     x=0.0,
-                    font=dict(size=13.5),
                 ),
                 xaxis=dict(title=f"PC1 ({fmt_pct(res_km['var_exp'][0])} da variância)"),
                 yaxis=dict(title=f"PC2 ({fmt_pct(res_km['var_exp'][1])} da variância)"),
                 legend=dict(title="Cluster", orientation="v"),
             )
-            aplicar_layout_base(fig_anim, altura=460, margem_topo=58, margem_baixo=60)
+            aplicar_layout_base(fig_anim, altura=500, margem_topo=78, margem_baixo=60)
             st.plotly_chart(fig_anim, width="stretch")
             exibir_rodape_grafico(
                 "Use o botão Play abaixo do gráfico ou alterne o slider para visualizar a reatribuição de 2.000 amostras entre Passada 1 e Passada 2 do K-Means."
@@ -1710,17 +1817,16 @@ def secao_parte_comum_kmeans():
             "O K-Means não vê a coluna quality durante o treino; a taxa de coincidência mede o alinhamento entre os "
             "grupos físico-químicos e as notas originais (notebooks completos em notebooks/parte_comum/)."
         )
-        tab_p1, tab_p2 = st.columns(2)
-        with tab_p1:
-            st.markdown(f"**Passada 1 (k = {p1['k']} livre) | Coincidência global: {fmt_pct(p1['acc'], 2)}**")
-            st.dataframe(p1["cm_df"], width="stretch")
-            with st.expander(f"Ver precisão, recall e F1 por nota (Passada 1, k = {p1['k']})"):
-                st.dataframe(p1["df_met"], width="stretch", hide_index=True)
-        with tab_p2:
-            st.markdown(f"**Passada 2 (k = {p2['k']} fixo) | Coincidência global: {fmt_pct(p2['acc'], 2)}**")
-            st.dataframe(p2["cm_df"], width="stretch")
-            with st.expander(f"Ver precisão, recall e F1 por nota (Passada 2, k = {p2['k']})"):
-                st.dataframe(p2["df_met"], width="stretch", hide_index=True)
+        # Uma matriz abaixo da outra: lado a lado, as 7 colunas de notas nao cabiam e a tabela rolava.
+        st.markdown(f"**Passada 1 (k = {p1['k']} livre) | Coincidência global: {fmt_pct(p1['acc'], 2)}**")
+        st.dataframe(p1["cm_df"], width="stretch", column_config=config_matriz(p1["cm_df"]))
+        with st.expander(f"Ver precisão, recall e F1 por nota (Passada 1, k = {p1['k']})"):
+            st.dataframe(p1["df_met"], width="stretch", hide_index=True)
+        st.space("small")
+        st.markdown(f"**Passada 2 (k = {p2['k']} fixo) | Coincidência global: {fmt_pct(p2['acc'], 2)}**")
+        st.dataframe(p2["cm_df"], width="stretch", column_config=config_matriz(p2["cm_df"]))
+        with st.expander(f"Ver precisão, recall e F1 por nota (Passada 2, k = {p2['k']})"):
+            st.dataframe(p2["df_met"], width="stretch", hide_index=True)
 
 
 with aba_comum:
@@ -1771,3 +1877,9 @@ with aba_ref:
             mime="text/markdown",
             width="stretch",
         )
+
+
+st.html(
+    '<div class="rodape-app">Projeto Final de Análise e Visualização de Dados · CESAR School · 2026.2 · Grupo 6. '
+    "Fontes: DrivenData/Taarifa (Pump it Up) e UCI Machine Learning Repository (Wine Quality, id 186).</div>"
+)
