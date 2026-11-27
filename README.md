@@ -6,7 +6,7 @@ Título do enunciado: *Projeto Final: Agrupamento, EDA e Dashboard Interativo*.
 | Parte | Dataset | Conteúdo | Responsável |
 | --- | --- | --- | --- |
 | **Comum** | [Wine Quality combinado (UCI 186)](https://archive.ics.uci.edu/dataset/186) | EDA (4 pilares), padronização, K-Means em duas passadas (`k = 3` e `k = 7`), matriz de confusão, métricas e discussão crítica | Arthur Borges e João Vitor do Sacramento |
-| **Específica** | [Pump it Up: Data Mining the Water Table (DrivenData)](https://www.drivendata.org/competitions/7/pump-it-up-data-mining-the-water-table/) | Pergunta de pesquisa, EDA, classificador sem *data leakage*, storytelling, 7 visualizações, dashboard Streamlit com Bônus UX/UI, relatório, apresentação e guia de defesa | Gustavo Henrique Cruz de Oliveira |
+| **Específica** | [Pump it Up: Data Mining the Water Table (DrivenData)](https://www.drivendata.org/competitions/7/pump-it-up-data-mining-the-water-table/) | Pergunta de pesquisa, EDA, classificador sem *data leakage*, storytelling, 7 visualizações, dashboard Streamlit interativo, relatório, apresentação e guia de defesa | Gustavo Henrique Cruz de Oliveira |
 
 A matriz de contribuição está em [docs/MATRIZ_CONTRIBUICAO.md](docs/MATRIZ_CONTRIBUICAO.md).
 
@@ -49,13 +49,15 @@ jupyter notebook notebooks/parte_comum/kmeans_metricas.ipynb
 jupyter notebook src/parte_especifica/eda.ipynb
 jupyter notebook src/parte_especifica/classificador.ipynb
 streamlit run src/parte_especifica/dashboard.py
+python src/parte_especifica/gerar_figuras_finais.py
 python docs/gerar_relatorio.py
 python docs/gerar_apresentacao.py
+python docs/gerar_pdfs_apoio.py
 ```
 
 **No Google Colab** (sem instalar nada): abra [`eda.ipynb` no Colab](https://colab.research.google.com/github/Fyre-Flye/projeto-avd-2026-2-pump-it-up-classificatorio/blob/master/src/parte_especifica/eda.ipynb) e rode a primeira célula de código, que clona o repositório. O Colab sempre abre a versão mais recente da `master`.
 
-Execute os comandos **a partir da raiz do repositório**. As figuras geradas vão para `out/parte_comum/` e `out/parte_especifica/`.
+Execute os comandos **a partir da raiz do repositório**. As figuras geradas vão para `out/parte_comum/` e `out/parte_especifica/`. O dashboard e os PDFs usam a fonte Montserrat (licença OFL), guardada em `src/parte_especifica/static/fonts/`; `docs/gerar_pdfs_apoio.py` gera o roteiro e o guia de arguição em PDF a partir dos arquivos `.md`.
 
 ## Dados
 
@@ -98,6 +100,6 @@ A pasta `_CONTEXTO_IA/` reúne as regras do projeto num formato que um assistent
 - [x] Parte Específica: código e interpretações da EDA (4 pilares), tratamento dos dados (`59.333 × 31`) e pergunta de pesquisa
 - [x] Parte Específica: classificador (Árvore de Decisão baseline 75,33% + Random Forest 80,58%, sem *data leakage*, auditoria `decision_path`)
 - [x] Parte Específica: storytelling + 7 visualizações finais (4 exploratórias + 3 explanatórias) e notas analíticas (`docs/STORYTELLING_E_NOTAS.md`)
-- [x] Parte Específica: dashboard Streamlit com identidade visual RecifeView + Bônus Visual/UX (`src/parte_especifica/dashboard.py`, 5 abas incluindo K-Means Wine Quality animado)
+- [x] Parte Específica: dashboard Streamlit interativo com identidade visual RecifeView (`src/parte_especifica/dashboard.py`, 5 abas incluindo K-Means Wine Quality animado)
 - [x] Relatório técnico completo (`relatorio.pdf`), Apresentação 16:9 (`docs/APRESENTACAO_AVD_G6.pdf`), Roteiro em 3 (`docs/ROTEIRO_APRESENTACAO.md`), Guia de Arguição (`docs/GUIA_ARGUICAO_E_VARIAVEIS.md`) e Matriz de Contribuição (`docs/MATRIZ_CONTRIBUICAO.md`)
 - [x] Declaração de Uso de IA (`docs/DECLARACAO_IA.pdf`) preenchida e assinada por todos os 3 integrantes ativos (Gustavo, Arthur Borges e João Vitor do Sacramento)

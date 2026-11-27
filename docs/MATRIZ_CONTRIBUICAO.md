@@ -24,7 +24,7 @@
 | **Parte Específica**: EDA completa (4 pilares, MAR, tratamento) | R | — | — |
 | **Parte Específica**: classificador (Árvore + Random Forest sem data leakage) | R | — | — |
 | **Parte Específica**: storytelling, 7 visualizações finais e notas analíticas | R | — | — |
-| **Dashboard Streamlit + Bônus UX/UI** (5 abas, incluindo Aba 4 K-Means animada) | R | A | — |
+| **Dashboard Streamlit interativo** (5 abas, incluindo Aba 4 K-Means animada) | R | A | — |
 | Relatório Técnico em PDF (`relatorio.pdf`) | R | A | — |
 | Declaração de Uso de IA (`docs/DECLARACAO_IA.pdf`) | R | A | A |
 | Apresentação 16:9, Roteiro em 3 e Guia de Arguição (`docs/`) | R | A | A |
