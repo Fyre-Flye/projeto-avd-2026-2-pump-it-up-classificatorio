@@ -1,5 +1,7 @@
 """Gera as versoes em PDF do roteiro e do guia de arguicao a partir dos arquivos Markdown.
 
+# [IA] Claude Code – script auxiliar de diagramacao offline Markdown -> PDF (tipografia Montserrat) compilando o roteiro e o guia do grupo
+
 Usa o mesmo visual do relatorio.pdf (Montserrat, secoes em azul, caixas azul-claro), para os documentos
 do grupo ficarem com a mesma cara. O conteudo vem so dos .md: para mudar o texto, edite o .md e rode de novo.
 
@@ -13,6 +15,7 @@ import re
 import sys
 from pathlib import Path
 
+# Biblioteca auxiliar usada apenas para diagramacao offline HTML -> PDF (nao usada na analise nem no dashboard).
 import pymupdf
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))

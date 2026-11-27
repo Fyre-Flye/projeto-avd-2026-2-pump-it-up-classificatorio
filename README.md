@@ -45,19 +45,20 @@ Bibliotecas usadas (apenas as permitidas pelo enunciado): pandas, numpy, matplot
 jupyter notebook notebooks/parte_comum/eda.ipynb
 jupyter notebook notebooks/parte_comum/kmeans_metricas.ipynb
 
-# PARTE ESPECÍFICA (notebooks, figuras, dashboard e PDFs)
+# PARTE ESPECÍFICA (notebooks, figuras e dashboard)
 jupyter notebook src/parte_especifica/eda.ipynb
 jupyter notebook src/parte_especifica/classificador.ipynb
 streamlit run src/parte_especifica/dashboard.py
 python src/parte_especifica/gerar_figuras_finais.py
-python docs/gerar_relatorio.py
-python docs/gerar_apresentacao.py
-python docs/gerar_pdfs_apoio.py
 ```
 
 **No Google Colab** (sem instalar nada): abra [`eda.ipynb` no Colab](https://colab.research.google.com/github/Fyre-Flye/projeto-avd-2026-2-pump-it-up-classificatorio/blob/master/src/parte_especifica/eda.ipynb) e rode a primeira célula de código, que clona o repositório. O Colab sempre abre a versão mais recente da `master`.
 
-Execute os comandos **a partir da raiz do repositório**. As figuras geradas vão para `out/parte_comum/` e `out/parte_especifica/`. O dashboard e os PDFs usam a fonte Montserrat (licença OFL), guardada em `src/parte_especifica/static/fonts/`; `docs/gerar_pdfs_apoio.py` gera o roteiro e o guia de arguição em PDF a partir dos arquivos `.md`.
+Execute os comandos **a partir da raiz do repositório**. As figuras geradas vão para `out/parte_comum/` e `out/parte_especifica/`. O dashboard e os PDFs usam a fonte Montserrat (licença OFL), guardada em `src/parte_especifica/static/fonts/`.
+
+### Scripts auxiliares de diagramação PDF (opcionais)
+
+Todos os documentos finais (`relatorio.pdf`, `docs/APRESENTACAO_AVD_G6.pdf`, `docs/ROTEIRO_APRESENTACAO.pdf` e `docs/GUIA_ARGUICAO_E_VARIAVEIS.pdf`) já estão prontos no repositório e não precisam ser regerados para executar a análise nem o dashboard. Os scripts de diagramação offline (`docs/gerar_relatorio.py`, `docs/gerar_apresentacao.py` e `docs/gerar_pdfs_apoio.py`) são mantidos apenas como fonte reproduzível do layout HTML para PDF (requerem o utilitário externo `pymupdf`, fora do `requirements.txt` de análise).
 
 ## Dados
 

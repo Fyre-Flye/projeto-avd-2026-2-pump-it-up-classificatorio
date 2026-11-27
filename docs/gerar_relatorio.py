@@ -1,6 +1,6 @@
 """Gera o relatorio tecnico completo em PDF na raiz do repositorio (relatorio.pdf).
 
-# [IA] Gemini – diagramacao editorial reproduzivel em PDF com tipografia Lato e identidade visual Secao 2.1 (06_GUIDELINES)
+# [IA] Gemini / Claude Code – script auxiliar de diagramacao editorial offline HTML -> PDF (tipografia Montserrat e identidade visual Secao 2.1)
 # Compila integralmente os textos autorais da Parte Especifica (Gustavo) e da Parte Comum (Arthur Borges / Sacramento).
 
 Execucao, a partir da raiz do repositorio:
@@ -10,6 +10,7 @@ Execucao, a partir da raiz do repositorio:
 import io
 from html.parser import HTMLParser
 from pathlib import Path
+# Biblioteca auxiliar usada apenas para diagramacao offline HTML -> PDF (nao usada na analise nem no dashboard).
 import pymupdf
 
 

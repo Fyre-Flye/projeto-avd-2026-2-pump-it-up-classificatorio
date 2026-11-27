@@ -1,6 +1,6 @@
 """Gera a apresentacao em PDF widescreen 16:9 (docs/APRESENTACAO_AVD_G6.pdf).
 
-# [IA] Gemini – geracao de slides widescreen 16:9 em PDF com tipografia Lato e identidade visual Secao 2.1 (06_GUIDELINES)
+# [IA] Gemini / Claude Code – script auxiliar de diagramacao editorial offline em PDF 16:9 (tipografia Montserrat e identidade visual Secao 2.1)
 # Alinhada integralmente ao relatorio.pdf, a Parte Especifica (Pump it Up) e a Parte Comum (Wine Quality, UCI 186).
 
 Execucao, a partir da raiz do repositorio:
@@ -9,6 +9,7 @@ Execucao, a partir da raiz do repositorio:
 
 import io
 from pathlib import Path
+# Biblioteca auxiliar usada apenas para diagramacao offline HTML -> PDF (nao usada na analise nem no dashboard).
 import pymupdf
 
 
