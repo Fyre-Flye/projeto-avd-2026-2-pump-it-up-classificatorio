@@ -8,6 +8,7 @@ Execucao, a partir da raiz do repositorio:
 """
 
 import io
+from html.parser import HTMLParser
 from pathlib import Path
 import pymupdf
 
@@ -17,23 +18,27 @@ OUT_ESP = ROOT / "out" / "parte_especifica"
 OUT_COM = ROOT / "out" / "parte_comum" / "wine_quality"
 DESTINO_PDF = ROOT / "relatorio.pdf"
 WIN_FONTS = Path(r"C:\Windows\Fonts")
-TEM_LATO = (WIN_FONTS / "Lato-Regular.ttf").exists() and (WIN_FONTS / "Lato-Bold.ttf").exists()
+DIR_FONTES = ROOT / "src" / "parte_especifica" / "static" / "fonts"
+TEM_MONTSERRAT = all((DIR_FONTES / f"Montserrat-{p}.ttf").exists() for p in ("Regular", "Bold", "SemiBold", "Italic"))
 TEM_CONSOLAS = (WIN_FONTS / "consola.ttf").exists()
+MARGEM_X = 50
+CINZA_NOTA = (111 / 255, 111 / 255, 111 / 255)
 
 FONT_FACES = ""
-if TEM_LATO:
+if TEM_MONTSERRAT:
     FONT_FACES += """
-  @font-face { font-family: 'Lato'; src: url('Lato-Regular.ttf'); font-weight: normal; font-style: normal; }
-  @font-face { font-family: 'Lato'; src: url('Lato-Bold.ttf'); font-weight: bold; font-style: normal; }
-  @font-face { font-family: 'Lato'; src: url('Lato-Italic.ttf'); font-weight: normal; font-style: italic; }
-  @font-face { font-family: 'Lato'; src: url('Lato-BoldItalic.ttf'); font-weight: bold; font-style: italic; }
+  @font-face { font-family: 'Montserrat'; src: url('src/parte_especifica/static/fonts/Montserrat-Regular.ttf'); font-weight: normal; font-style: normal; }
+  @font-face { font-family: 'Montserrat'; src: url('src/parte_especifica/static/fonts/Montserrat-Bold.ttf'); font-weight: bold; font-style: normal; }
+  @font-face { font-family: 'Montserrat'; src: url('src/parte_especifica/static/fonts/Montserrat-Italic.ttf'); font-weight: normal; font-style: italic; }
+  @font-face { font-family: 'MontserratSB'; src: url('src/parte_especifica/static/fonts/Montserrat-SemiBold.ttf'); font-weight: normal; font-style: normal; }
 """
 if TEM_CONSOLAS:
     FONT_FACES += """
   @font-face { font-family: 'Consolas'; src: url('consola.ttf'); font-weight: normal; font-style: normal; }
 """
 
-FAMILIA_SANS = "'Lato', Helvetica, Arial, sans-serif" if TEM_LATO else "Helvetica, Arial, sans-serif"
+FAMILIA_SANS = "'Montserrat', Helvetica, Arial, sans-serif" if TEM_MONTSERRAT else "Helvetica, Arial, sans-serif"
+FAMILIA_SB = "'MontserratSB', Helvetica, Arial, sans-serif" if TEM_MONTSERRAT else "Helvetica, Arial, sans-serif"
 FAMILIA_MONO = "'Consolas', Courier, monospace" if TEM_CONSOLAS else "Courier, monospace"
 
 
@@ -42,206 +47,85 @@ CSS_BASE = f"""
   {FONT_FACES}
   body {{
     font-family: {FAMILIA_SANS};
-    font-size: 9.2pt;
-    color: #000000;
-    line-height: 1.44;
+    font-size: 9.8pt;
+    color: #111111;
+    line-height: 1.5;
     margin: 0;
   }}
-  /* Cabecalho da capa (azul-marinho Secao 2.1 + badge azul-principal) */
-  .capa {{
-    background-color: #062A5F;
-    color: #FFFFFF;
-    padding: 18pt 20pt 16pt 20pt;
-    border-radius: 6pt;
-    margin-bottom: 10pt;
-  }}
-  .capa-badge-tbl {{
-    width: auto;
-    border-collapse: collapse;
-    margin: 0 0 7pt 0;
-  }}
-  .capa-badge-tbl td {{
-    background-color: #0F62FE;
-    color: #FFFFFF;
-    font-size: 7.8pt;
-    font-weight: bold;
-    padding: 2.5pt 8.5pt;
-    border: none;
-    letter-spacing: 0.3pt;
-  }}
-  .capa h1 {{
-    font-size: 17.5pt;
-    color: #FFFFFF;
-    margin: 0 0 4pt 0;
-    padding: 0;
-    line-height: 1.2;
-  }}
-  .capa .sub {{
-    font-size: 9.6pt;
-    color: #EAF2FF;
-    margin: 0;
-    line-height: 1.35;
-  }}
-  /* Cartao de metadados estilo editorial P5G8 */
+  /* Abertura no estilo do resumo de AA: titulo azul, subtitulo cinza, sem faixa escura */
+  .capa {{ margin: 0 0 12pt 0; }}
+  .capa-kicker {{ font-family: {FAMILIA_SB}; font-size: 8.6pt; color: #0F62FE; margin: 0 0 6pt 0; }}
+  .capa h1 {{ font-size: 21pt; font-weight: bold; color: #0F62FE; margin: 0 0 6pt 0; line-height: 1.18; }}
+  .capa .sub {{ font-size: 9.6pt; color: #525252; margin: 0; line-height: 1.45; }}
   .meta-card {{
-    background-color: #EAF2FF;
-    border-left: 3.5pt solid #0F62FE;
-    padding: 9pt 12pt;
-    margin: 0 0 11pt 0;
-    font-size: 8.6pt;
-    line-height: 1.46;
+    background-color: #F4F7FB;
+    border: 0.8pt solid #E0E0E0;
+    padding: 10pt 12pt;
+    margin: 0 0 14pt 0;
+    font-size: 8.9pt;
+    line-height: 1.5;
   }}
-  .meta-card table {{
-    margin: 0;
-    font-size: 8.5pt;
-  }}
-  .meta-card td {{
-    border: none;
-    padding: 1pt 6pt 1pt 0;
-    vertical-align: top;
-  }}
-  .meta-lbl {{
-    color: #0043CE;
-    font-weight: bold;
-    font-size: 7.6pt;
-    letter-spacing: 0.4pt;
-    margin-bottom: 2pt;
-  }}
-  h1 {{
-    font-size: 13pt;
-    color: #0F62FE;
-    margin: 10pt 0 5pt 0;
-    line-height: 1.22;
-  }}
-  h1.topo {{
-    margin-top: 0;
-  }}
-  h2 {{
-    font-size: 10.4pt;
-    color: #062A5F;
-    margin: 8.5pt 0 3.5pt 0;
-    line-height: 1.25;
-  }}
-  h3 {{
-    font-size: 9.5pt;
-    color: #0043CE;
-    margin: 6pt 0 3pt 0;
-    line-height: 1.25;
-  }}
-  p {{
-    margin: 2pt 0 5.5pt 0;
-    text-align: left;
-  }}
-  ul {{
-    margin: 2pt 0 6pt 14pt;
-    padding: 0;
-  }}
-  li {{
-    margin-bottom: 3pt;
-  }}
-  /* Faixa solida de destaque (contraste 5,0:1 branco sobre #0F62FE) */
+  .meta-card table {{ margin: 0; font-size: 8.9pt; }}
+  .meta-card td {{ border: none; padding: 0 8pt 0 0; vertical-align: top; background-color: #F4F7FB; }}
+  .meta-lbl {{ font-family: {FAMILIA_SB}; color: #0F62FE; font-size: 8.2pt; margin-bottom: 3pt; }}
+  h1 {{ font-size: 14pt; font-weight: bold; color: #0F62FE; margin: 16pt 0 6pt 0; line-height: 1.25; }}
+  h1.topo {{ margin-top: 16pt; }}
+  h2 {{ font-size: 11pt; font-weight: bold; color: #111111; margin: 12pt 0 4pt 0; line-height: 1.3; }}
+  h3 {{ font-size: 10pt; font-weight: bold; color: #0043CE; margin: 8pt 0 3pt 0; line-height: 1.3; }}
+  p {{ margin: 3pt 0 7pt 0; text-align: left; }}
+  b {{ font-weight: bold; }}
+  ul {{ margin: 2pt 0 7pt 14pt; padding: 0; }}
+  li {{ margin-bottom: 4pt; }}
+  /* "Em uma frase" do resumo de AA: faixa azul solida, texto branco (contraste 5,0:1) */
   .banner-azul {{
     background-color: #0F62FE;
     color: #FFFFFF;
-    padding: 8pt 11pt;
-    border-radius: 5pt;
-    margin: 5pt 0 8pt 0;
-    font-size: 8.9pt;
-    line-height: 1.42;
+    padding: 10pt 13pt;
+    margin: 5pt 0 10pt 0;
+    font-size: 9.6pt;
+    line-height: 1.5;
   }}
-  .banner-azul b {{
-    color: #FFFFFF;
-  }}
+  .banner-azul b {{ color: #FFFFFF; }}
+  .banner-azul code {{ color: #FFFFFF; }}
   .box-azul {{
     background-color: #EAF2FF;
-    border-left: 3.5pt solid #0F62FE;
-    padding: 7pt 10pt;
-    margin: 5pt 0 7pt 0;
-    font-size: 8.9pt;
-    line-height: 1.42;
+    padding: 9pt 12pt;
+    margin: 5pt 0 9pt 0;
+    font-size: 9.4pt;
+    line-height: 1.5;
   }}
-  .box-azul .titulo-box {{
-    color: #0043CE;
-    font-weight: bold;
-    font-size: 8.8pt;
-    margin-bottom: 2pt;
-  }}
+  .box-azul .titulo-box {{ color: #0F62FE; font-weight: bold; font-size: 9.6pt; margin-bottom: 3pt; }}
   .nota-box {{
-    background-color: #F7F9FC;
-    border-left: 3pt solid #062A5F;
-    padding: 6pt 9pt;
-    margin: 2.5pt 0 8.5pt 0;
-    font-size: 8.6pt;
-    line-height: 1.4;
+    background-color: #F4F7FB;
+    border-left: 3pt solid #0F62FE;
+    padding: 8pt 11pt;
+    margin: 3pt 0 11pt 0;
+    font-size: 9.2pt;
+    line-height: 1.5;
   }}
-  .nota-box b {{
-    color: #062A5F;
-  }}
-  .legenda {{
-    font-size: 7.9pt;
-    color: #6F6F6F;
-    text-align: center;
-    margin: 2pt 0 4.5pt 0;
-    line-height: 1.32;
-  }}
-  .img-wrap {{
-    text-align: center;
-    margin: 4pt 0 2pt 0;
-  }}
-  /* Tabelas limpas estilo editorial (cabecalho #0F62FE, linhas sutis, sem grade pesada) */
-  table {{
-    width: 100%;
-    border-collapse: collapse;
-    margin: 6pt 0 8pt 0;
-    font-size: 8.3pt;
-  }}
+  .nota-box b {{ color: #0043CE; }}
+  .legenda {{ font-size: 8.4pt; color: #6F6F6F; text-align: center; margin: 3pt 0 10pt 0; line-height: 1.4; }}
+  .img-wrap {{ text-align: center; margin: 8pt 0 2pt 0; }}
+  /* Tabelas como no resumo de AA: cabecalho azul-claro, primeira coluna em negrito, linhas finas */
+  table {{ width: 100%; border-collapse: collapse; margin: 7pt 0 10pt 0; font-size: 8.8pt; }}
   th {{
-    background-color: #0F62FE;
-    color: #FFFFFF;
-    font-weight: bold;
-    padding: 5pt 6pt;
-    text-align: left;
-    border: none;
-  }}
-  td {{
-    border: none;
-    border-bottom: 0.6pt solid #E5ECF6;
-    padding: 4.5pt 6pt;
-    text-align: left;
-    vertical-align: top;
-  }}
-  tr.destaque td {{
     background-color: #EAF2FF;
-  }}
-  td.chave {{
-    color: #062A5F;
+    color: #111111;
     font-weight: bold;
-  }}
-  td.num, th.num {{
-    text-align: right;
-  }}
-  table.fig-grid {{
-    margin: 3pt 0 2pt 0;
-  }}
-  table.fig-grid td {{
+    padding: 6pt 7pt;
+    text-align: left;
     border: none;
-    padding: 2pt 3pt;
-    text-align: center;
-    vertical-align: middle;
+    border-bottom: 0.8pt solid #C6DAFF;
   }}
-  table.split-cards {{
-    margin: 4pt 0 7pt 0;
-  }}
-  table.split-cards td {{
-    border: none;
-    padding: 0;
-    vertical-align: top;
-  }}
-  code {{
-    font-family: {FAMILIA_MONO};
-    font-size: 8.3pt;
-    color: #0043CE;
-  }}
+  td {{ border: none; border-bottom: 0.7pt solid #E0E0E0; padding: 5pt 7pt; text-align: left; vertical-align: top; }}
+  tr.destaque td {{ background-color: #EAF2FF; }}
+  td.chave {{ color: #111111; font-weight: bold; }}
+  td.num, th.num {{ text-align: right; }}
+  table.fig-grid {{ margin: 6pt 0 2pt 0; }}
+  table.fig-grid td {{ border: none; padding: 0; text-align: center; vertical-align: middle; }}
+  table.split-cards {{ margin: 4pt 0 8pt 0; }}
+  table.split-cards td {{ border: none; padding: 0; vertical-align: top; }}
+  code {{ font-family: {FAMILIA_MONO}; font-size: 8.8pt; color: #0043CE; }}
 </style>
 """
 
@@ -249,7 +133,7 @@ CSS_BASE = f"""
 def criar_archive() -> pymupdf.Archive:
     arch = pymupdf.Archive()
     arch.add(str(ROOT))
-    if TEM_LATO or TEM_CONSOLAS:
+    if TEM_CONSOLAS:
         arch.add(str(WIN_FONTS))
     return arch
 
@@ -262,27 +146,32 @@ def img_tag(caminho: Path, style: str) -> str:
 
 
 def wrap_page(body_html: str) -> str:
-    return f'<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"/>{CSS_BASE}</head><body>{body_html}</body></html>'
+    """Cada bloco antigo de pagina vira um trecho do documento corrido; a paginacao e automatica."""
+    return body_html
+
+
+def documento(corpo: str) -> str:
+    return f'<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"/>{CSS_BASE}</head><body>{corpo}</body></html>'
 
 
 def montar_paginas() -> list[str]:
     """Monta 10 paginas A4 independentes com ritmo editorial limpo e zero vazamento entre paginas."""
-    fig_mar_reg = img_tag(OUT_ESP / "02_ausencia_por_regiao.png", "width:82%;")
-    fig_expl_1 = img_tag(OUT_ESP / "07_expl_01_distribuicao_status.png", "width:54%;")
-    fig_expl_2 = img_tag(OUT_ESP / "07_expl_02_status_por_categoria.png", "width:80%;")
-    fig_expl_3 = img_tag(OUT_ESP / "07_expl_03_contraste_regional_mapa.png", "width:95%;")
-    fig_expl_4 = img_tag(OUT_ESP / "07_expl_04_heatmap_quantity_extraction.png", "width:76%;")
-    fig_explan_1 = img_tag(OUT_ESP / "08_explan_01_tecnologia_com_agua.png", "width:72%;")
-    fig_explan_2a = img_tag(OUT_ESP / "08_explan_02a_idade_vs_falha.png", "width:70%;")
-    fig_explan_2b = img_tag(OUT_ESP / "08_explan_02b_classificador_metricas.png", "width:96%;")
-    fig_cm_clf = img_tag(OUT_ESP / "06_matriz_confusao_modelos.png", "width:92%;")
+    fig_mar_reg = img_tag(OUT_ESP / "02_ausencia_por_regiao.png", "width:380pt;")
+    fig_expl_1 = img_tag(OUT_ESP / "07_expl_01_distribuicao_status.png", "width:330pt;")
+    fig_expl_2 = img_tag(OUT_ESP / "07_expl_02_status_por_categoria.png", "width:470pt;")
+    fig_expl_3 = img_tag(OUT_ESP / "07_expl_03_contraste_regional_mapa.png", "width:495pt;")
+    fig_expl_4 = img_tag(OUT_ESP / "07_expl_04_heatmap_quantity_extraction.png", "width:430pt;")
+    fig_explan_1 = img_tag(OUT_ESP / "08_explan_01_tecnologia_com_agua.png", "width:470pt;")
+    fig_explan_2a = img_tag(OUT_ESP / "08_explan_02a_idade_vs_falha.png", "width:470pt;")
+    fig_explan_2b = img_tag(OUT_ESP / "08_explan_02b_classificador_metricas.png", "width:495pt;")
+    fig_cm_clf = img_tag(OUT_ESP / "06_matriz_confusao_modelos.png", "width:470pt;")
 
     # ------------------------------------------------------------------
     # PAGINA 1: CAPA EDITORIAL + SECAO 1 + SECAO 2
     # ------------------------------------------------------------------
     p1 = wrap_page("""
 <div class="capa">
-  <table class="capa-badge-tbl"><tr><td>AV2 · GRUPO 06 · CESAR SCHOOL 2026.2</td></tr></table>
+  <div class="capa-kicker">AV2 · Grupo 06 · CESAR School 2026.2</div>
   <h1>Relatório Técnico: Agrupamento, EDA e Dashboard Interativo</h1>
   <div class="sub">Análise e Visualização de Dados (AVD) · Parte Específica (Pump it Up) e Parte Comum (Wine Quality, UCI 186)</div>
 </div>
@@ -290,13 +179,13 @@ def montar_paginas() -> list[str]:
 <div class="meta-card">
   <table>
     <tr>
-      <td style="width:58%; padding-right:10pt;">
-        <div class="meta-lbl">EQUIPE E ESCOPO</div>
+      <td style="width:277pt; padding-right:10pt;">
+        <div class="meta-lbl">Equipe e escopo</div>
         <b>Parte Específica (Pump it Up):</b> Gustavo Henrique Cruz de Oliveira<br/>
         <b>Parte Comum (Wine Quality, UCI 186):</b> Arthur de Assis Borges; João Vitor do Sacramento Bezerra da Cunha
       </td>
-      <td style="width:42%;">
-        <div class="meta-lbl">INFORMAÇÕES DA ENTREGA</div>
+      <td style="width:208pt;">
+        <div class="meta-lbl">Informações da entrega</div>
         <b>Professora:</b> Maira Lira (CESAR School)<br/>
         <b>Entrega:</b> 26/11/2026 · <b>Defesa:</b> 03/12/2026
       </td>
@@ -330,14 +219,14 @@ def montar_paginas() -> list[str]:
 <h1>2. Parte Específica: Pergunta de Pesquisa, Público-Alvo e Dados</h1>
 <table class="split-cards">
   <tr>
-    <td style="width:45%; padding-right:8pt;">
+    <td style="width:215pt; padding-right:8pt;">
       <div class="box-azul" style="margin:0;">
         <div class="titulo-box">Público-alvo definido</div>
         Gestores públicos do Ministério de Águas da Tanzânia, interessados em priorizar manutenção preventiva, alocar equipes
         em campo e identificar bombas quebradas ou com necessidade de reparo.
       </div>
     </td>
-    <td style="width:55%;">
+    <td style="width:272pt;">
       <div class="box-azul" style="margin:0;">
         <div class="titulo-box">Pergunta de pesquisa</div>
         "Quais características de um ponto d'água se associam ao seu estado operacional (funcional, precisando de reparo ou não
@@ -634,7 +523,7 @@ def montar_paginas() -> list[str]:
   (<code>decision_path</code>) até a decisão final, recurso integrado à demonstração ao vivo no dashboard.
 </p>
 
-<h2>5.2 Dashboard Interativo em Streamlit e Recursos de Bônus Visual/UX</h2>
+<h2>5.2 Dashboard Interativo em Streamlit</h2>
 <p>
   O aplicativo em <code>src/parte_especifica/dashboard.py</code> (apoiado por <code>data_loader.py</code> com separação
   estrita entre <code>@st.cache_data</code> para dados e <code>@st.cache_resource</code> para modelos, e tema oficial em
@@ -701,8 +590,8 @@ def montar_paginas() -> list[str]:
 
 <table class="fig-grid">
   <tr>
-    <td style="width:50%;"><img src="out/parte_comum/wine_quality/distribuicao_quality.png" style="width:98%;"/></td>
-    <td style="width:50%;"><img src="out/parte_comum/wine_quality/metodo_cotovelo.png" style="width:98%;"/></td>
+    <td style="width:247pt;"><img src="out/parte_comum/wine_quality/distribuicao_quality.png" style="width:240pt;"/></td>
+    <td style="width:247pt;"><img src="out/parte_comum/wine_quality/metodo_cotovelo.png" style="width:240pt;"/></td>
   </tr>
 </table>
 <div class="legenda">Figura 10: Distribuição das 7 notas reais de quality (esq.) e curva de inércia do Método do Cotovelo para k = 2 a 10 (dir., n = 6.497).</div>
@@ -718,8 +607,8 @@ def montar_paginas() -> list[str]:
 
 <table class="fig-grid">
   <tr>
-    <td style="width:50%;"><img src="out/parte_comum/wine_quality/clusters_livre.png" style="width:98%;"/></td>
-    <td style="width:50%;"><img src="out/parte_comum/wine_quality/clusters_fixo.png" style="width:98%;"/></td>
+    <td style="width:247pt;"><img src="out/parte_comum/wine_quality/clusters_livre.png" style="width:240pt;"/></td>
+    <td style="width:247pt;"><img src="out/parte_comum/wine_quality/clusters_fixo.png" style="width:240pt;"/></td>
   </tr>
 </table>
 <div class="legenda">Figura 11: Projeção PCA 2D dos clusters e centroides do K-Means na Passada 1 (k = 3, esq.) e na Passada 2 (k = 7, dir.).</div>
@@ -740,8 +629,8 @@ def montar_paginas() -> list[str]:
 
 <table class="fig-grid">
   <tr>
-    <td style="width:50%;"><img src="out/parte_comum/wine_quality/matriz_confusao_livre.png" style="width:94%;"/></td>
-    <td style="width:50%;"><img src="out/parte_comum/wine_quality/matriz_confusao_fixo.png" style="width:94%;"/></td>
+    <td style="width:247pt;"><img src="out/parte_comum/wine_quality/matriz_confusao_livre.png" style="width:240pt;"/></td>
+    <td style="width:247pt;"><img src="out/parte_comum/wine_quality/matriz_confusao_fixo.png" style="width:240pt;"/></td>
   </tr>
 </table>
 <div class="legenda">Figura 12: Matrizes de confusão entre nota real e nota mapeada na Passada 1 (k = 3, esq.) e na Passada 2 (k = 7, dir., n = 6.497).</div>
@@ -816,79 +705,138 @@ def montar_paginas() -> list[str]:
     return [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10]
 
 
+class _BlocosDeTopo(HTMLParser):
+    """Separa o HTML do corpo nos elementos de primeiro nivel (h1, p, div, table...)."""
+
+    VAZIOS = {"br", "img", "hr", "meta"}
+
+    def __init__(self, html: str):
+        super().__init__(convert_charrefs=False)
+        self.html = html
+        self.nivel = 0
+        self.inicio = None
+        self.topo = ("", "")
+        self.blocos: list[tuple[tuple[str, str], str]] = []
+        self.inicio_linha = [0]
+        for linha in html.splitlines(keepends=True):
+            self.inicio_linha.append(self.inicio_linha[-1] + len(linha))
+        self.feed(html)
+
+    def _pos(self) -> int:
+        lin, col = self.getpos()
+        return self.inicio_linha[lin - 1] + col
+
+    def handle_starttag(self, tag, attrs):
+        if tag in self.VAZIOS:
+            return
+        if self.nivel == 0:
+            self.inicio = self._pos()
+            self.topo = (tag, dict(attrs).get("class") or "")
+        self.nivel += 1
+
+    def handle_endtag(self, tag):
+        if tag in self.VAZIOS:
+            return
+        self.nivel -= 1
+        if self.nivel == 0 and self.inicio is not None:
+            fim = self._pos() + len(f"</{tag}>")
+            self.blocos.append((self.topo, self.html[self.inicio:fim]))
+            self.inicio = None
+
+
+def unidades_de_layout(corpo: str) -> list[str]:
+    """Agrupa o que nao pode ficar separado: titulo + bloco seguinte e figura + legenda."""
+    blocos = _BlocosDeTopo(corpo).blocos
+    unidades: list[str] = []
+    pendente = ""
+    i = 0
+    while i < len(blocos):
+        (tag, classe), html = blocos[i]
+        if tag in ("h1", "h2", "h3"):
+            pendente += html
+            i += 1
+            continue
+        unidade = pendente + html
+        pendente = ""
+        eh_figura = (tag == "div" and "img-wrap" in classe) or (tag == "table" and "fig-grid" in classe)
+        if eh_figura and i + 1 < len(blocos):
+            (prox_tag, prox_classe), prox_html = blocos[i + 1]
+            if prox_tag == "div" and "legenda" in prox_classe:
+                unidade += prox_html
+                i += 1
+        unidades.append(unidade)
+        i += 1
+    if pendente:
+        unidades.append(pendente)
+    return unidades
+
+
+def cabe(corpo: str, arch, area) -> bool:
+    mais, _ = pymupdf.Story(html=documento(corpo), archive=arch).place(area)
+    return not mais
+
+
+def paginar(unidades: list[str], arch, area) -> list[str]:
+    """Enche cada pagina com unidades inteiras; a quebra so acontece entre unidades."""
+    paginas: list[str] = []
+    atual = ""
+    for unidade in unidades:
+        if atual and not cabe(atual + unidade, arch, area):
+            paginas.append(atual)
+            atual = unidade
+        else:
+            atual += unidade
+    if atual:
+        paginas.append(atual)
+    return paginas
+
+
 def gerar_pdf():
-    paginas = montar_paginas()
+    trechos = montar_paginas()
     arch = criar_archive()
     mediabox = pymupdf.paper_rect("a4")
-    where_p1 = mediabox + (42, 32, -42, -36)
-    where_int = mediabox + (42, 46, -42, -36)
+    area = mediabox + (MARGEM_X, 48, -MARGEM_X, -46)
+
+    paginas = paginar(unidades_de_layout("".join(trechos)), arch, area)
 
     bio = io.BytesIO()
     writer = pymupdf.DocumentWriter(bio)
-
-    for idx, html in enumerate(paginas, start=1):
-        story = pymupdf.Story(html=html, archive=arch)
+    for idx, corpo in enumerate(paginas, start=1):
+        story = pymupdf.Story(html=documento(corpo), archive=arch)
         dev = writer.begin_page(mediabox)
-        more, _ = story.place(where_p1 if idx == 1 else where_int)
-        if more:
-            print(f"[AVISO] Pagina {idx} do relatorio teve conteudo excedente; verifique o layout.")
+        mais, _ = story.place(area)
+        if mais:
+            print(f"[AVISO] Pagina {idx} do relatorio tem um bloco maior que a pagina; verifique o layout.")
         story.draw(dev)
         writer.end_page()
     writer.close()
 
-    # Cabecalho discreto (pags 2..N) e rodape editorial com numeracao azul estilo P5G8
+    # Rodape discreto, como no resumo de AA: identificacao a esquerda e numero a direita, em cinza
     doc = pymupdf.open("pdf", bio.getvalue())
     total = len(doc)
-    font_reg = str(WIN_FONTS / "Lato-Regular.ttf") if TEM_LATO else None
-    font_bold = str(WIN_FONTS / "Lato-Bold.ttf") if TEM_LATO else None
-
+    font_reg = str(DIR_FONTES / "Montserrat-Regular.ttf") if TEM_MONTSERRAT else None
     for idx, page in enumerate(doc):
-        if TEM_LATO:
-            page.insert_font(fontname="lato_r", fontfile=font_reg)
-            page.insert_font(fontname="lato_b", fontfile=font_bold)
-            fn_r, fn_b = "lato_r", "lato_b"
+        if TEM_MONTSERRAT:
+            page.insert_font(fontname="mont_r", fontfile=font_reg)
+            fn_r = "mont_r"
+            largura = pymupdf.Font(fontfile=font_reg).text_length
         else:
-            fn_r, fn_b = "helv", "hebo"
-
-        if idx > 0:
-            # Cabecalho discreto estilo N6 P5G8 com alinhamento exato na margem direita
-            page.insert_text(
-                (42, 26),
-                "AVD · Grupo 6",
-                fontsize=9.0,
-                fontname=fn_b,
-                color=(15 / 255, 98 / 255, 254 / 255),
-            )
-            hdr_dir = "Relatório Técnico · Pump it Up & Wine Quality"
-            w_hdr = pymupdf.get_text_length(hdr_dir, fontname="helv", fontsize=7.8) if not TEM_LATO else pymupdf.Font(fontfile=font_reg).text_length(hdr_dir, fontsize=7.8)
-            page.insert_text(
-                (mediabox.width - 42 - w_hdr, 26),
-                hdr_dir,
-                fontsize=7.8,
-                fontname=fn_r,
-                color=(111 / 255, 111 / 255, 111 / 255),
-            )
-            sh = page.new_shape()
-            sh.draw_line((42, 33), (mediabox.width - 42, 33))
-            sh.finish(color=(229 / 255, 236 / 255, 246 / 255), width=0.7)
-            sh.commit(overlay=True)
-
-        # Rodape limpo com numero de pagina azul em negrito alinhado a margem direita
+            fn_r = "helv"
+            largura = lambda txt, fontsize: pymupdf.get_text_length(txt, fontname="helv", fontsize=fontsize)
         page.insert_text(
-            (42, mediabox.height - 17),
-            "CESAR School · 2026.2 · Análise e Visualização de Dados (AVD)",
-            fontsize=7.6,
+            (MARGEM_X, mediabox.height - 22),
+            "Relatório Técnico · Projeto Final AVD 2026.2 · Grupo 6 · CESAR School",
+            fontsize=7.4,
             fontname=fn_r,
-            color=(111 / 255, 111 / 255, 111 / 255),
+            color=CINZA_NOTA,
         )
-        num_txt = f"{idx + 1}"
-        w_num = pymupdf.get_text_length(num_txt, fontname="hebo", fontsize=8.2) if not TEM_LATO else pymupdf.Font(fontfile=font_bold).text_length(num_txt, fontsize=8.2)
+        num_txt = f"{idx + 1} / {total}"
         page.insert_text(
-            (mediabox.width - 42 - w_num, mediabox.height - 17),
+            (mediabox.width - MARGEM_X - largura(num_txt, fontsize=7.4), mediabox.height - 22),
             num_txt,
-            fontsize=8.2,
-            fontname=fn_b,
-            color=(15 / 255, 98 / 255, 254 / 255),
+            fontsize=7.4,
+            fontname=fn_r,
+            color=CINZA_NOTA,
         )
 
     doc.save(str(DESTINO_PDF), garbage=4, deflate=True, deflate_images=True, clean=True)
