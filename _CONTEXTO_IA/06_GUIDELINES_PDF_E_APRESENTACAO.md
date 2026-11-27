@@ -1,6 +1,6 @@
 # 06 — Guidelines de PDF, figuras e apresentação
 
-Vale para tudo que vira **relatório em PDF, slides, figuras e textos de interface** do projeto. As regras vêm do que o Gustavo usa no RecifeView (projeto da disciplina Projeto 5) e foram adaptadas ao AVD. O relatório e a apresentação são feitos pelo Claude Code, mas as **figuras e os textos que saem do notebook e do dashboard precisam seguir o mesmo padrão**, para o PDF não ficar com visuais diferentes.
+Vale para tudo que vira **relatório em PDF, slides, figuras e textos de interface** do projeto. As regras vêm do que o Gustavo usa no RecifeView (projeto da disciplina Projeto 5) e foram adaptadas ao AVD. A diagramação em PDF do relatório e da apresentação usa scripts reproduzíveis em `docs/` compilando os textos autorais escritos pelo grupo nos notebooks, e as **figuras e os textos que saem do notebook e do dashboard seguem o mesmo padrão**, para o PDF não ficar com visuais diferentes.
 
 > **Quem decide o conteúdo é o aluno.** Estas regras dizem *como* apresentar, nunca *o que concluir*. Título afirmativo de gráfico explanatório, mensagem do slide, nota analítica e resposta à pergunta de pesquisa são autorais. A IA formata, revisa e checa números.
 
