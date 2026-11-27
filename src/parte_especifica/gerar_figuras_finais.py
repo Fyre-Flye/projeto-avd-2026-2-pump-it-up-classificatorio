@@ -1,6 +1,6 @@
 """Gera e salva em out/parte_especifica/ as figuras estaticas limpas para o relatorio PDF e slides.
 
-# [IA] Gemini – geracao reproduzivel das 4 visualizacoes exploratorias e 3 explanatorias (E1, E2A, E2B) no padrao 06_GUIDELINES
+# [IA] Gemini / Claude Code – codigo matplotlib/seaborn (tipografia Montserrat, Secao 2.1) para plotar as 4 exploratorias e 3 explanatorias definidas pelo aluno
 
 Execucao, a partir da raiz do repositorio:
     python src/parte_especifica/gerar_figuras_finais.py

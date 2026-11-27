@@ -1,8 +1,8 @@
 """Dashboard Interativo em Streamlit: Parte Especifica (Pump it Up) e Parte Comum (K-Means Wine Quality).
 
-# [IA] Gemini – dashboard Streamlit 1.67 aplicando identidade visual RecifeView (Secao 2.1 de 06_GUIDELINES),
-# skills de SKILL_DESIGN (fragments, segmented_control, pills, containers com borda), filtros dinamicos
-# interligados, comparador lado a lado, animacao K-Means da Parte Comum e classificador auditavel
+# [IA] Gemini / Claude Code – dashboard Streamlit 1.67 aplicando identidade visual RecifeView (Secao 2.1, Montserrat),
+# controles nativos (fragments, segmented_control, pills, containers com borda), filtros dinamicos interligados,
+# comparador lado a lado, regua de hover em Plotly, animacao K-Means da Parte Comum e classificador auditavel
 
 Execucao, a partir da raiz do repositorio:
     streamlit run src/parte_especifica/dashboard.py
@@ -145,7 +145,7 @@ FONTE_GRAFICOS = "Montserrat, Helvetica, Arial, sans-serif"
 
 
 def aplicar_layout_base(fig, altura=420, margem_topo=60, margem_baixo=48):
-    """Padroniza fundo branco, Montserrat, numeros pt-BR e grade horizontal discreta (#E0E0E0)."""
+    """Padroniza fundo branco, Montserrat, numeros pt-BR, grade discreta (#E0E0E0) e regua de hover em Plotly."""
     fig.update_layout(
         template="plotly_white",
         paper_bgcolor="#FFFFFF",
@@ -156,10 +156,33 @@ def aplicar_layout_base(fig, altura=420, margem_topo=60, margem_baixo=48):
         separators=",.",
         height=altura,
         margin=dict(l=20, r=28, t=margem_topo, b=margem_baixo),
+        spikedistance=-1,
         hoverlabel=dict(bgcolor="#FFFFFF", font_color=COR_TEXTO, bordercolor=COR_BORDA, font_family=FONTE_GRAFICOS),
     )
-    fig.update_xaxes(gridcolor="#E0E0E0", linecolor="#8D8D8D", title_font_size=12.5, tickfont_size=12)
-    fig.update_yaxes(gridcolor="#E0E0E0", linecolor="#8D8D8D", title_font_size=12.5, tickfont_size=12)
+    fig.update_xaxes(
+        gridcolor="#E0E0E0",
+        linecolor="#8D8D8D",
+        title_font_size=12.5,
+        tickfont_size=12,
+        showspikes=True,
+        spikemode="across",
+        spikesnap="cursor",
+        spikedash="dot",
+        spikethickness=1,
+        spikecolor="#8D8D8D",
+    )
+    fig.update_yaxes(
+        gridcolor="#E0E0E0",
+        linecolor="#8D8D8D",
+        title_font_size=12.5,
+        tickfont_size=12,
+        showspikes=True,
+        spikemode="across",
+        spikesnap="cursor",
+        spikedash="dot",
+        spikethickness=1,
+        spikecolor="#8D8D8D",
+    )
     fig.update_traces(cliponaxis=False, selector=dict(type="bar"))
     return fig
 
