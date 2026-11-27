@@ -59,13 +59,38 @@ def fmt_num(v, casas=1):
     return f"{v:,.{casas}f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
 
+# Fator aplicado ao tamanho do papel de todas as figuras. As fontes ficam com os mesmos pontos, entao,
+# com o papel menor, o texto fica proporcionalmente maior quando a figura entra no slide ou no relatorio.
+ESCALA_PAPEL = 0.8
+DIR_FONTES = ROOT / "src" / "parte_especifica" / "static" / "fonts"
+
+
+def registrar_montserrat():
+    """Usa a Montserrat do repositorio (mesma do dashboard e dos PDFs); sem ela, cai na DejaVu Sans."""
+    from matplotlib import font_manager
+
+    arquivos = sorted(DIR_FONTES.glob("Montserrat-*.ttf"))
+    for arq in arquivos:
+        font_manager.fontManager.addfont(str(arq))
+    return bool(arquivos)
+
+
 def configurar_estilo():
+    tem_montserrat = registrar_montserrat()
+    _subplots_original = plt.subplots
+
+    def subplots_escalado(*args, figsize=None, **kwargs):
+        if figsize is not None:
+            figsize = (figsize[0] * ESCALA_PAPEL, figsize[1] * ESCALA_PAPEL)
+        return _subplots_original(*args, figsize=figsize, **kwargs)
+
+    plt.subplots = subplots_escalado
     plt.rcParams.update({
         "figure.facecolor": "#FFFFFF",
         "axes.facecolor": "#FFFFFF",
         "savefig.facecolor": "#FFFFFF",
         "font.family": "sans-serif",
-        "font.sans-serif": ["DejaVu Sans", "Arial", "Helvetica"],
+        "font.sans-serif": (["Montserrat"] if tem_montserrat else []) + ["DejaVu Sans", "Arial", "Helvetica"],
         "text.color": COR_TEXTO,
         "axes.labelcolor": COR_TEXTO,
         "xtick.color": COR_TEXTO,
@@ -82,7 +107,7 @@ def salvar_fig(fig, nome):
     destino = OUT_DIR / f"{nome}.png"
     for tentativa in range(5):
         try:
-            fig.savefig(destino, dpi=150, bbox_inches="tight", facecolor="#FFFFFF")
+            fig.savefig(destino, dpi=200, bbox_inches="tight", facecolor="#FFFFFF")
             print(f"Salvo: {destino.relative_to(ROOT)}")
             plt.close(fig)
             return
